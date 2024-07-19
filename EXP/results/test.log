@@ -1,0 +1,56 @@
+Tue Jun 18 23:00:58 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 555.42.02              Driver Version: 555.42.02      CUDA Version: 12.5     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:B7:00.0 Off |                    0 |
+| N/A   28C    P0             55W /  400W |       1MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+With MNIST
+EXP test: Original VIT on MNIST with depth 12 and LEARNIGN_RATE 0.0003
+resudial on outer encoder block but not at inner block
+  0%|          | 0/10 [00:00<?, ?it/s]
+Epoch: 1
+Train Loss: 2.28967  Test Loss: 2.27110  ||  Train Accuray: 0.11849  Test Accuray: 0.14181
+ 10%|█         | 1/10 [09:06<1:21:55, 546.16s/it]
+Epoch: 2
+Train Loss: 2.25668  Test Loss: 2.23643  ||  Train Accuray: 0.17268  Test Accuray: 0.18569
+ 20%|██        | 2/10 [18:17<1:13:14, 549.37s/it]
+Epoch: 3
+Train Loss: 2.21326  Test Loss: 2.17221  ||  Train Accuray: 0.20840  Test Accuray: 0.20684
+ 30%|███       | 3/10 [27:09<1:03:08, 541.21s/it]
+Epoch: 4
+Train Loss: 2.13001  Test Loss: 2.08528  ||  Train Accuray: 0.22193  Test Accuray: 0.24204
+ 40%|████      | 4/10 [36:06<53:58, 539.73s/it]  
+Epoch: 5
+Train Loss: 2.06967  Test Loss: 1.98729  ||  Train Accuray: 0.23704  Test Accuray: 0.30505
+ 50%|█████     | 5/10 [45:05<44:56, 539.38s/it]
+Epoch: 6
+Train Loss: 1.98811  Test Loss: 1.86730  ||  Train Accuray: 0.27182  Test Accuray: 0.27255
+ 60%|██████    | 6/10 [53:56<35:46, 536.57s/it]
+Epoch: 7
+Train Loss: 1.78621  Test Loss: 1.50204  ||  Train Accuray: 0.37022  Test Accuray: 0.45398
+ 70%|███████   | 7/10 [1:03:01<26:57, 539.21s/it]
+Epoch: 8
+Train Loss: 1.31986  Test Loss: 0.96824  ||  Train Accuray: 0.54980  Test Accuray: 0.67288
+ 80%|████████  | 8/10 [1:12:09<18:03, 541.99s/it]
+Epoch: 9
+Train Loss: 0.96177  Test Loss: 0.80598  ||  Train Accuray: 0.67237  Test Accuray: 0.70197
+ 90%|█████████ | 9/10 [1:21:06<09:00, 540.51s/it]
+Epoch: 10
+Train Loss: 0.77987  Test Loss: 0.63168  ||  Train Accuray: 0.74293  Test Accuray: 0.79664
+100%|██████████| 10/10 [1:29:43<00:00, 533.27s/it]100%|██████████| 10/10 [1:29:43<00:00, 538.35s/it]
+
+Saving Model At: save_model/vit_model_test_0.0003.pth

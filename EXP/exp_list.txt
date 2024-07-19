@@ -1,0 +1,5 @@
+original vit
+single skip connection at per block with two norm layer
+single skip connection at per block with one norm layer
+single skip connection at per block with pretrain tokenizer
+can we try unet like architecture with single skip connection at per block ie 12 block 123456 654321 similar number blocks weights are connected(concatinate)

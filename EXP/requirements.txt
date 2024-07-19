@@ -1,0 +1,7 @@
+torch
+torchvision
+einops
+matplotlib
+torch-summary
+torchmetrics
+tqdm

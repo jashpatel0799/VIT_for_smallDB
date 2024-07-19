@@ -1,0 +1,5 @@
+save_model/
+data/
+__pycaches__/
+
+*.pyc
