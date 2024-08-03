@@ -17,23 +17,46 @@ mnist_transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-BATCH_SIZE = 64
+# BATCH_SIZE = 64
 
-print("With CIFAR10")
-cifar10_train_dataset = CIFAR10(root = "./data/cifar10", train = True, transform = transform, download = True)
-cifar10_test_dataset = CIFAR10(root = "./data/cifar10", train = False, transform = transform, download = True)
-
-# print("With MNIST")
-# mnist_train_dataset = MNIST(root = './data', train = True, transform = mnist_transform, download = True)
-# mnist_test_dataset = MNIST(root = './data', train = False, transform = mnist_transform, download = True)
-
-# print("with Fashion")
-# fashion_train_dataset = FashionMNIST(root = './data', train = True, transform = mnist_transform, download = True)
-# fashion_test_dataset = FashionMNIST(root = './data', train = False, transform = mnist_transform, download = True)
-
-# print("with STL10")
-# stl10_train_dataset = STL10(root = './data', split = "train", transform = transform, download = True)
-# stl10_test_dataset = STL10(root = './data', split = "test", transform = transform, download = True)
+def prepare_dataloader(args):
+    if args['dataset_name'] == "cifar10":
+        print("With CIFAR10")
+        cifar10_train_dataset = CIFAR10(root = "./data/cifar10", train = True, transform = transform, download = True)
+        cifar10_test_dataset = CIFAR10(root = "./data/cifar10", train = False, transform = transform, download = True)
+        
+        train_dataloader = DataLoader(cifar10_train_dataset, batch_size = args['batch_size'], shuffle = True, drop_last = True)
+        test_dataloader = DataLoader(cifar10_test_dataset, batch_size = args['batch_size'], shuffle = False, drop_last = True)
+        
+    elif args['dataset_name'] == "mnist":
+        print("With MNIST")
+        mnist_train_dataset = MNIST(root = './data', train = True, transform = mnist_transform, download = True)
+        mnist_test_dataset = MNIST(root = './data', train = False, transform = mnist_transform, download = True)
+        
+        train_dataloader = DataLoader(mnist_train_dataset, batch_size = args['batch_size'], shuffle = True, drop_last = True)
+        test_dataloader = DataLoader(mnist_test_dataset, batch_size = args['batch_size'], shuffle = False, drop_last = True)
+        
+    elif args['dataset_name'] == "fashionmnist":
+        print("with Fashion")
+        fashion_train_dataset = FashionMNIST(root = './data', train = True, transform = mnist_transform, download = True)
+        fashion_test_dataset = FashionMNIST(root = './data', train = False, transform = mnist_transform, download = True)
+        
+        train_dataloader = DataLoader(fashion_train_dataset, batch_size = args['batch_size'], shuffle = True, drop_last = True)
+        test_dataloader = DataLoader(fashion_test_dataset, batch_size = args['batch_size'], shuffle = False, drop_last = True)
+        
+    elif args['dataset_name'] == "stl10":
+        print("with STL10")
+        stl10_train_dataset = STL10(root = './data', split = "train", transform = transform, download = True)
+        stl10_test_dataset = STL10(root = './data', split = "test", transform = transform, download = True)
+        
+        train_dataloader = DataLoader(stl10_train_dataset, batch_size = args['batch_size'], shuffle = True, drop_last = True)
+        test_dataloader = DataLoader(stl10_test_dataset, batch_size = args['batch_size'], shuffle = False, drop_last = True)
+        
+    else:
+        print("check proper db name it must be from mnist, cifar10, stl10, fashionmnist")
+        return None, None
+        
+    return train_dataloader, test_dataloader
 
 # print("With Food101")
 # train_dataset = Food101(root = "/workspace/data/food101", split = "train", transform = transform, download = True)
@@ -54,5 +77,5 @@ cifar10_test_dataset = CIFAR10(root = "./data/cifar10", train = False, transform
 # train_dataloader = DataLoader(train_dataset, batch_size = 32, shuffle = True, drop_last = True)
 # test_dataloader = DataLoader(test_dataset, batch_size = 32, shuffle = False, drop_last = True)
 
-train_dataloader = DataLoader(cifar10_train_dataset, batch_size = BATCH_SIZE, shuffle = True, drop_last = True)
-test_dataloader = DataLoader(cifar10_test_dataset, batch_size = BATCH_SIZE, shuffle = False, drop_last = True)
+# train_dataloader = DataLoader(stl10_train_dataset, batch_size = BATCH_SIZE, shuffle = True, drop_last = True)
+# test_dataloader = DataLoader(stl10_test_dataset, batch_size = BATCH_SIZE, shuffle = False, drop_last = True)

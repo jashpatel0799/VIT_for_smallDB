@@ -17,6 +17,6 @@ nvidia-smi
 #echo "Training VIT"
 
 # python3.8 -u train_adv.py
-python3 -u main.py
+python3 -u main.py --config /scratch/data/m22cs061/VIT_for_smallDB/ORG/config.yml
 ##python3 -u main_q2.py
 ## python3 -u main_q2_modfied_arch.py

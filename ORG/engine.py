@@ -1,6 +1,7 @@
 import torch
 from timeit import default_timer as timer
 from tqdm.auto import tqdm
+import wandb
 # from torchmetrics.classification import MulticlassAccuracy
 
 # Device Agnostic code
@@ -116,7 +117,7 @@ def eval_func(model: torch.nn.Module, dataloader: torch.utils.data.DataLoader,
 
 def train(model: torch.nn.Module, train_dataloader: torch.utils.data.DataLoader,
           test_dataloader: torch.utils.data.DataLoader, optimizer: torch.optim.Optimizer,
-          loss_fn: torch.nn.Module, accuracy_fn, epochs: int, device: torch.device):
+          loss_fn: torch.nn.Module, accuracy_fn, epochs: int, device: torch.device, args):
   """
   Train and test the pytorch model.
   
@@ -138,6 +139,10 @@ def train(model: torch.nn.Module, train_dataloader: torch.utils.data.DataLoader,
           optimizer = optim, loss_fn, loss_fn = loss_fn, epochs = n, device = device) 
   """
 
+  # setup wandb
+  wandb.init( project=args['wandb_project'], name=args['wandb_runname'], config=args)
+  # wandb.require("core")
+  
   train_losses, test_losses = [], []
   train_accs, test_accs = [], []
   for epoch in tqdm(range(epochs)):
@@ -148,6 +153,16 @@ def train(model: torch.nn.Module, train_dataloader: torch.utils.data.DataLoader,
     
     test_loss, test_acc = test_loop(model = model, dataloader = test_dataloader, loss_fn = loss_fn,
                                     accuracy_fn = accuracy_fn, device = device)
+    
+    wandb.log({
+      "Training Loss": train_loss,
+      "Test Loss": test_loss
+               })
+    
+    wandb.log({
+      "Training Accuracy": train_acc,
+      "Test Accuracy": test_acc
+    })
 
     # if epoch % 10 == 0 and epoch != 0:
     #   print(f"Before Scheduler Learning Rate: {scheduler.optimizer.param_groups[0]['lr']}\n")
@@ -161,5 +176,7 @@ def train(model: torch.nn.Module, train_dataloader: torch.utils.data.DataLoader,
     test_losses.append(test_loss.item())
     train_accs.append(train_acc.item())
     test_accs.append(test_acc.item())
+    
+  wandb.finish()
 
   return train_model, train_losses, test_losses, train_accs, test_accs
