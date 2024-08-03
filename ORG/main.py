@@ -46,7 +46,7 @@ def main(args):
    print(f"Learning Rate: {args['learning_rate']}")
    print(f"Input Channel: {args['input_channel']}")
    print(f"Patch Size: {args['patch_size']}")
-   print(f"Embedding Size: {args['embedding_size']}")
+   print(f"Embedding Size: {(config['patch_size'] ** 2) * 3}")
    print(f"Input Image Size: {args['input_image_size']}")
    print(f"ViT Depth: {args['vit_depth']}")
    print(f"Number of Classes: {args['num_class']}")
@@ -65,7 +65,7 @@ def main(args):
    LEARNIGN_RATE = float(args['learning_rate'])#3e-4 # 3e-4, 4e-5, 7e-6, 5e-7, 3e-9
    INCHANNELS = args['input_channel']
    PATCH_SIZE = args['patch_size']
-   EMBEDDING_SIZE = args['embedding_size']
+   EMBEDDING_SIZE = (PATCH_SIZE ** 2) * INCHANNELS # args['embedding_size']
    IMG_SIZE = args['input_image_size']
    DEPTH = args['vit_depth']
    NUM_CLASS = args['num_class']
@@ -125,6 +125,6 @@ if __name__ == "__main__":
       config = yaml.safe_load(file)
 
    # Automatically generate wandb_runname
-   config['wandb_runname'] = f"{config['exp_name']}_{config['dataset_name']}_Lr_{config['learning_rate']}_EMB_{config['embedding_size']}_patch_{config['patch_size']}_depth_{config['vit_depth']}"
+   config['wandb_runname'] = f"{config['exp_name']}_{config['dataset_name']}_Lr_{config['learning_rate']}_EMB_{(config['patch_size'] ** 2) * 3}_patch_{config['patch_size']}_depth_{config['vit_depth']}"
    
    main(config)

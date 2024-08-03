@@ -156,10 +156,7 @@ def train(model: torch.nn.Module, train_dataloader: torch.utils.data.DataLoader,
     
     wandb.log({
       "Training Loss": train_loss,
-      "Test Loss": test_loss
-               })
-    
-    wandb.log({
+      "Test Loss": test_loss,
       "Training Accuracy": train_acc,
       "Test Accuracy": test_acc
     })
