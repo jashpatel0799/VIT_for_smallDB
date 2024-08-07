@@ -7,6 +7,7 @@ import torch.nn as nn
 import wandb
 # from torchvision.models import vit_b_16
 from torchmetrics.classification import MulticlassAccuracy
+from torchsummary import summary
 
 import data, engine, model, utils
 
@@ -73,6 +74,10 @@ def main(args):
 
    DEVICE = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
    # print(device)
+   # summary
+   print("\n",summary(model.VIT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = 'cpu'),"\n")
+   
+   
    train_dataloader, test_dataloader = data.prepare_dataloader(args)
    print("\n")
    print(f"EXP {EXP_NAME}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE}")
