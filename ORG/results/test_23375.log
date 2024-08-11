@@ -303,3 +303,78 @@ Train Loss: 2.30339  Test Loss: 2.30300  ||  Train Accuray: 0.09909  Test Accura
 Epoch: 82
 Train Loss: 2.30337  Test Loss: 2.30292  ||  Train Accuray: 0.10029  Test Accuray: 0.10007
  82%|████████▏ | 82/100 [9:58:01<2:09:44, 432.45s/it]
+Epoch: 83
+Train Loss: 2.30329  Test Loss: 2.30285  ||  Train Accuray: 0.10004  Test Accuray: 0.10007
+ 83%|████████▎ | 83/100 [10:05:16<2:02:43, 433.16s/it]
+Epoch: 84
+Train Loss: 2.30318  Test Loss: 2.30358  ||  Train Accuray: 0.09954  Test Accuray: 0.10007
+ 84%|████████▍ | 84/100 [10:12:32<1:55:43, 433.98s/it]
+Epoch: 85
+Train Loss: 2.30335  Test Loss: 2.30287  ||  Train Accuray: 0.10056  Test Accuray: 0.09936
+ 85%|████████▌ | 85/100 [10:19:48<1:48:40, 434.71s/it]
+Epoch: 86
+Train Loss: 2.30320  Test Loss: 2.30313  ||  Train Accuray: 0.10000  Test Accuray: 0.10007
+ 86%|████████▌ | 86/100 [10:27:04<1:41:31, 435.09s/it]
+Epoch: 87
+Train Loss: 2.30320  Test Loss: 2.30301  ||  Train Accuray: 0.10010  Test Accuray: 0.10007
+ 87%|████████▋ | 87/100 [10:34:20<1:34:16, 435.13s/it]
+Epoch: 88
+Train Loss: 2.30315  Test Loss: 2.30324  ||  Train Accuray: 0.09973  Test Accuray: 0.10007
+ 88%|████████▊ | 88/100 [10:41:36<1:27:05, 435.44s/it]
+Epoch: 89
+Train Loss: 2.30319  Test Loss: 2.30308  ||  Train Accuray: 0.10033  Test Accuray: 0.10007
+ 89%|████████▉ | 89/100 [10:48:51<1:19:50, 435.48s/it]
+Epoch: 90
+Train Loss: 2.30329  Test Loss: 2.30287  ||  Train Accuray: 0.09986  Test Accuray: 0.09936
+ 90%|█████████ | 90/100 [10:56:08<1:12:37, 435.75s/it]
+Epoch: 91
+Train Loss: 2.30310  Test Loss: 2.30297  ||  Train Accuray: 0.10021  Test Accuray: 0.10007
+ 91%|█████████ | 91/100 [11:03:24<1:05:24, 436.02s/it]
+Epoch: 92
+Train Loss: 2.30321  Test Loss: 2.30303  ||  Train Accuray: 0.10008  Test Accuray: 0.10007
+ 92%|█████████▏| 92/100 [11:10:41<58:10, 436.26s/it]  
+Epoch: 93
+Train Loss: 2.30322  Test Loss: 2.30293  ||  Train Accuray: 0.09926  Test Accuray: 0.10007
+ 93%|█████████▎| 93/100 [11:17:57<50:52, 436.10s/it]
+Epoch: 94
+Train Loss: 2.30322  Test Loss: 2.30289  ||  Train Accuray: 0.10004  Test Accuray: 0.10007
+ 94%|█████████▍| 94/100 [11:25:13<43:36, 436.07s/it]
+Epoch: 95
+Train Loss: 2.30312  Test Loss: 2.30287  ||  Train Accuray: 0.10075  Test Accuray: 0.10007
+ 95%|█████████▌| 95/100 [11:32:29<36:20, 436.16s/it]
+Epoch: 96
+Train Loss: 2.30320  Test Loss: 2.30280  ||  Train Accuray: 0.10025  Test Accuray: 0.10007
+ 96%|█████████▌| 96/100 [11:39:45<29:04, 436.16s/it]
+Epoch: 97
+Train Loss: 2.30305  Test Loss: 2.30280  ||  Train Accuray: 0.10057  Test Accuray: 0.10007
+ 97%|█████████▋| 97/100 [11:47:02<21:48, 436.18s/it]
+Epoch: 98
+Train Loss: 2.30314  Test Loss: 2.30281  ||  Train Accuray: 0.09961  Test Accuray: 0.09936
+ 98%|█████████▊| 98/100 [11:54:18<14:32, 436.18s/it]
+Epoch: 99
+Train Loss: 2.30318  Test Loss: 2.30285  ||  Train Accuray: 0.09925  Test Accuray: 0.10007
+ 99%|█████████▉| 99/100 [12:01:34<07:16, 436.18s/it]
+Epoch: 100
+Train Loss: 2.30293  Test Loss: 2.30294  ||  Train Accuray: 0.09977  Test Accuray: 0.10007
+100%|██████████| 100/100 [12:08:50<00:00, 436.27s/it]100%|██████████| 100/100 [12:08:50<00:00, 437.31s/it]
+wandb: - 0.027 MB of 0.027 MB uploadedwandb: \ 0.027 MB of 0.027 MB uploadedwandb: | 0.027 MB of 0.042 MB uploadedwandb: / 0.027 MB of 0.042 MB uploadedwandb: - 0.027 MB of 0.042 MB uploadedwandb: \ 0.027 MB of 0.042 MB uploadedwandb: | 0.042 MB of 0.042 MB uploadedwandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:     Test Accuracy ▁█▁█████▁█▁███████████▁█████████████████
+wandb:         Test Loss ▄▃█▆▄▂▇▂▃▃▅▄▂▂▂▃▁▂▃▁▂▂▂▂▂▁▂▁▂▁▁▁▁▂▁▁▁▁▁▁
+wandb: Training Accuracy ▇▆▁▂▃▆▄▅▁▃█▇▂▁▄▄▇▂▃▆▂▃▄▄▄▃▄▂▃▃▃▆▅▂▄▅▄▄▆▃
+wandb:     Training Loss █▇▆▆▅▅▄▄▄▄▃▃▃▃▃▃▂▃▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:     Test Accuracy 0.10007
+wandb:         Test Loss 2.30294
+wandb: Training Accuracy 0.09977
+wandb:     Training Loss 2.30293
+wandb: 
+wandb: 🚀 View run org_architecture_cifar10_Lr_3e-4_EMB_768_patch_16_depth_12 at: https://wandb.ai/maa_64/vit-small-data/runs/h1swydgi
+wandb: ⭐️ View project at: https://wandb.ai/maa_64/vit-small-data
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240806_220625-h1swydgi/logs
+wandb: WARNING The new W&B backend becomes opt-out in version 0.18.0; try it out with `wandb.require("core")`! See https://wandb.me/wandb-core for more information.
+
+Saving Model At: save_model/vit_model_org_architecture_cifar10_0.0003_64.pth

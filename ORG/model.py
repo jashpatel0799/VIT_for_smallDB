@@ -137,7 +137,7 @@ class TransformerEncoderBlock(nn.Sequential):
                  forward_expansion: int = 4, forward_drop_p: float = 0.0, **kwargs):
         super().__init__(
             Residual(nn.Sequential(
-                # nn.LayerNorm(emb_size),
+                nn.LayerNorm(emb_size),
                 MultiHeadAttention(emb_size, **kwargs),
                 nn.Dropout(drop_out)
             )),
