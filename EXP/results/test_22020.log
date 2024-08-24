@@ -1,0 +1,91 @@
+
+
+Experiment Name: custom_architecture
+Experiment Details: resudial on outer encoder block but not at inner block
+
+
+Dataset Name: stl10
+Seed: 64
+Batch Size: 64
+Number of Epochs: 10
+Learning Rate: 3e-4
+Input Channel: 3
+Patch Size: 16
+Input Image Size: 224
+ViT Depth: 12
+Number of Classes: 10
+WandB Project: vit-small-data
+WandB Run Name: custom_architecture_stl10_Lr_3e-4_EMB_768_patch_16_depth_12
+Output Directory: results
+
+
+with STL10
+Files already downloaded and verified
+Files already downloaded and verified
+
+
+EXP custom_architecture_stl10: Original VIT on stl10 with depth 12 and LEARNIGN_RATE 0.0003 and Batch size 64
+resudial on outer encoder block but not at inner block
+
+
+
+wandb: Currently logged in as: jashpatel8561 (maa_64). Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.17.5
+wandb: Run data is saved locally in /scratch/data/m22cs061/VIT_for_smallDB/EXP/wandb/run-20240803_215822-b4cxqhbk
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run custom_architecture_stl10_Lr_3e-4_EMB_768_patch_16_depth_12
+wandb: ⭐️ View project at https://wandb.ai/maa_64/vit-small-data
+wandb: 🚀 View run at https://wandb.ai/maa_64/vit-small-data/runs/b4cxqhbk
+  0%|          | 0/10 [00:00<?, ?it/s]
+Epoch: 1
+Train Loss: 2.31806  Test Loss: 2.30241  ||  Train Accuray: 0.10204  Test Accuray: 0.09360
+ 10%|█         | 1/10 [01:13<11:03, 73.67s/it]
+Epoch: 2
+Train Loss: 2.30299  Test Loss: 2.29530  ||  Train Accuray: 0.10384  Test Accuray: 0.10767
+ 20%|██        | 2/10 [02:24<09:37, 72.16s/it]
+Epoch: 3
+Train Loss: 2.29552  Test Loss: 2.28711  ||  Train Accuray: 0.11937  Test Accuray: 0.13941
+ 30%|███       | 3/10 [03:36<08:24, 72.02s/it]
+Epoch: 4
+Train Loss: 2.28801  Test Loss: 2.28156  ||  Train Accuray: 0.12782  Test Accuray: 0.12280
+ 40%|████      | 4/10 [04:47<07:09, 71.66s/it]
+Epoch: 5
+Train Loss: 2.27992  Test Loss: 2.27885  ||  Train Accuray: 0.13903  Test Accuray: 0.12356
+ 50%|█████     | 5/10 [05:57<05:54, 70.95s/it]
+Epoch: 6
+Train Loss: 2.27241  Test Loss: 2.26803  ||  Train Accuray: 0.14656  Test Accuray: 0.17354
+ 60%|██████    | 6/10 [07:08<04:43, 70.97s/it]
+Epoch: 7
+Train Loss: 2.26656  Test Loss: 2.26551  ||  Train Accuray: 0.15649  Test Accuray: 0.14199
+ 70%|███████   | 7/10 [08:19<03:33, 71.11s/it]
+Epoch: 8
+Train Loss: 2.26078  Test Loss: 2.25459  ||  Train Accuray: 0.16181  Test Accuray: 0.15062
+ 80%|████████  | 8/10 [09:31<02:22, 71.41s/it]
+Epoch: 9
+Train Loss: 2.25397  Test Loss: 2.24800  ||  Train Accuray: 0.16232  Test Accuray: 0.16774
+ 90%|█████████ | 9/10 [10:44<01:11, 71.75s/it]
+Epoch: 10
+Train Loss: 2.24728  Test Loss: 2.24626  ||  Train Accuray: 0.16950  Test Accuray: 0.19310
+100%|██████████| 10/10 [11:56<00:00, 71.83s/it]100%|██████████| 10/10 [11:56<00:00, 71.64s/it]
+wandb: - 0.027 MB of 0.027 MB uploadedwandb: \ 0.027 MB of 0.027 MB uploadedwandb: | 0.027 MB of 0.027 MB uploadedwandb: / 0.027 MB of 0.027 MB uploadedwandb: - 0.027 MB of 0.027 MB uploadedwandb: \ 0.027 MB of 0.027 MB uploadedwandb: | 0.031 MB of 0.039 MB uploaded (0.001 MB deduped)wandb: / 0.036 MB of 0.039 MB uploaded (0.001 MB deduped)wandb: - 0.037 MB of 0.039 MB uploaded (0.001 MB deduped)wandb: \ 0.039 MB of 0.039 MB uploaded (0.001 MB deduped)wandb: | 0.039 MB of 0.039 MB uploaded (0.001 MB deduped)wandb: / 0.039 MB of 0.039 MB uploaded (0.001 MB deduped)wandb:                                                                                
+wandb: W&B sync reduced upload amount by 2.6%
+wandb: 
+wandb: Run history:
+wandb:     Test Accuracy ▁▂▄▃▃▇▄▅▆█
+wandb:         Test Loss █▇▆▅▅▄▃▂▁▁
+wandb: Training Accuracy ▁▁▃▄▅▆▇▇▇█
+wandb:     Training Loss █▇▆▅▄▃▃▂▂▁
+wandb: 
+wandb: Run summary:
+wandb:     Test Accuracy 0.1931
+wandb:         Test Loss 2.24626
+wandb: Training Accuracy 0.1695
+wandb:     Training Loss 2.24728
+wandb: 
+wandb: 🚀 View run custom_architecture_stl10_Lr_3e-4_EMB_768_patch_16_depth_12 at: https://wandb.ai/maa_64/vit-small-data/runs/b4cxqhbk
+wandb: ⭐️ View project at: https://wandb.ai/maa_64/vit-small-data
+wandb: Synced 6 W&B file(s), 0 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240803_215822-b4cxqhbk/logs
+wandb: WARNING The new W&B backend becomes opt-out in version 0.18.0; try it out with `wandb.require("core")`! See https://wandb.me/wandb-core for more information.
+
+Saving Model At: save_model/vit_model_custom_architecture_stl10_0.0003_64.pth

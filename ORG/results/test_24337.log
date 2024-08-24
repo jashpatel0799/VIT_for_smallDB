@@ -1,0 +1,500 @@
+Sat Aug 10 02:30:34 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 555.42.02              Driver Version: 555.42.02      CUDA Version: 12.5     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:BD:00.0 Off |                    0 |
+| N/A   34C    P0             55W /  400W |       1MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+
+Experiment Name: org_architecture
+Experiment Details: base vit architecture but Residual at only Multi head attention
+
+
+Dataset Name: mnist
+Seed: 64
+Batch Size: 64
+Number of Epochs: 100
+Learning Rate: 3e-4
+Input Channel: 3
+Patch Size: 16
+Embedding Size: 768
+Input Image Size: 224
+ViT Depth: 12
+Number of Classes: 10
+WandB Project: vit-small-data
+WandB Run Name: org_architecture_mnist_Lr_3e-4_EMB_768_patch_16_depth_12
+Output Directory: results
+
+
+===============================================================================================
+Layer (type:depth-idx)                        Output Shape              Param #
+===============================================================================================
+├─PatchEmbedding: 1-1                         [-1, 197, 768]            --
+|    └─Sequential: 2-1                        [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                       [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2                    [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                     [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2           [-1, 197, 768]            --
+|    |    └─Residual: 3-3                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-4                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-3           [-1, 197, 768]            --
+|    |    └─Residual: 3-5                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-6                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-4           [-1, 197, 768]            --
+|    |    └─Residual: 3-7                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-8                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-5           [-1, 197, 768]            --
+|    |    └─Residual: 3-9                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-10                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-6           [-1, 197, 768]            --
+|    |    └─Residual: 3-11                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-12                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-7           [-1, 197, 768]            --
+|    |    └─Residual: 3-13                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-14                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-8           [-1, 197, 768]            --
+|    |    └─Residual: 3-15                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-16                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-9           [-1, 197, 768]            --
+|    |    └─Residual: 3-17                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-18                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-10          [-1, 197, 768]            --
+|    |    └─Residual: 3-19                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-20                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-11          [-1, 197, 768]            --
+|    |    └─Residual: 3-21                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-22                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-12          [-1, 197, 768]            --
+|    |    └─Residual: 3-23                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-24                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-13          [-1, 197, 768]            --
+|    |    └─Residual: 3-25                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-26                  [-1, 197, 768]            4,723,968
+├─ClassificationHead: 1-3                     [-1, 10]                  --
+|    └─Reduce: 2-14                           [-1, 768]                 --
+|    └─LayerNorm: 2-15                        [-1, 768]                 1,536
+|    └─Linear: 2-16                           [-1, 10]                  7,690
+===============================================================================================
+Total params: 85,654,282
+Trainable params: 85,654,282
+Non-trainable params: 0
+Total mult-adds (M): 456.61
+===============================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 15.01
+Params size (MB): 326.75
+Estimated Total Size (MB): 342.33
+===============================================================================================
+
+ ===============================================================================================
+Layer (type:depth-idx)                        Output Shape              Param #
+===============================================================================================
+├─PatchEmbedding: 1-1                         [-1, 197, 768]            --
+|    └─Sequential: 2-1                        [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                       [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2                    [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                     [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2           [-1, 197, 768]            --
+|    |    └─Residual: 3-3                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-4                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-3           [-1, 197, 768]            --
+|    |    └─Residual: 3-5                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-6                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-4           [-1, 197, 768]            --
+|    |    └─Residual: 3-7                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-8                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-5           [-1, 197, 768]            --
+|    |    └─Residual: 3-9                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-10                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-6           [-1, 197, 768]            --
+|    |    └─Residual: 3-11                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-12                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-7           [-1, 197, 768]            --
+|    |    └─Residual: 3-13                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-14                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-8           [-1, 197, 768]            --
+|    |    └─Residual: 3-15                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-16                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-9           [-1, 197, 768]            --
+|    |    └─Residual: 3-17                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-18                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-10          [-1, 197, 768]            --
+|    |    └─Residual: 3-19                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-20                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-11          [-1, 197, 768]            --
+|    |    └─Residual: 3-21                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-22                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-12          [-1, 197, 768]            --
+|    |    └─Residual: 3-23                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-24                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-13          [-1, 197, 768]            --
+|    |    └─Residual: 3-25                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-26                  [-1, 197, 768]            4,723,968
+├─ClassificationHead: 1-3                     [-1, 10]                  --
+|    └─Reduce: 2-14                           [-1, 768]                 --
+|    └─LayerNorm: 2-15                        [-1, 768]                 1,536
+|    └─Linear: 2-16                           [-1, 10]                  7,690
+===============================================================================================
+Total params: 85,654,282
+Trainable params: 85,654,282
+Non-trainable params: 0
+Total mult-adds (M): 456.61
+===============================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 15.01
+Params size (MB): 326.75
+Estimated Total Size (MB): 342.33
+=============================================================================================== 
+
+With MNIST
+
+
+EXP org_architecture: Original VIT on mnist with depth 12 and LEARNIGN_RATE 0.0003
+
+
+
+wandb: Currently logged in as: jashpatel8561 (maa_64). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.6 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.5
+wandb: Run data is saved locally in /scratch/data/m22cs061/VIT_for_smallDB/ORG/wandb/run-20240810_023056-90n9ar3m
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run org_architecture_mnist_Lr_3e-4_EMB_768_patch_16_depth_12
+wandb: ⭐️ View project at https://wandb.ai/maa_64/vit-small-data
+wandb: 🚀 View run at https://wandb.ai/maa_64/vit-small-data/runs/90n9ar3m
+  0%|          | 0/100 [00:00<?, ?it/s]
+Epoch: 1
+Train Loss: 2.28807  Test Loss: 2.16983  ||  Train Accuray: 0.12781  Test Accuray: 0.14534
+  1%|          | 1/100 [08:50<14:35:46, 530.77s/it]
+Epoch: 2
+Train Loss: 2.03148  Test Loss: 1.81388  ||  Train Accuray: 0.23676  Test Accuray: 0.38503
+  2%|▏         | 2/100 [17:36<14:21:42, 527.57s/it]
+Epoch: 3
+Train Loss: 1.75390  Test Loss: 1.77385  ||  Train Accuray: 0.33860  Test Accuray: 0.31485
+  3%|▎         | 3/100 [26:08<14:01:51, 520.74s/it]
+Epoch: 4
+Train Loss: 1.33772  Test Loss: 1.04528  ||  Train Accuray: 0.50841  Test Accuray: 0.63752
+  4%|▍         | 4/100 [34:43<13:49:38, 518.52s/it]
+Epoch: 5
+Train Loss: 0.85518  Test Loss: 1.10974  ||  Train Accuray: 0.69966  Test Accuray: 0.59305
+  5%|▌         | 5/100 [43:19<13:39:20, 517.48s/it]
+Epoch: 6
+Train Loss: 0.63592  Test Loss: 0.58581  ||  Train Accuray: 0.78888  Test Accuray: 0.79363
+  6%|▌         | 6/100 [51:54<13:29:15, 516.55s/it]
+Epoch: 7
+Train Loss: 0.52344  Test Loss: 0.48773  ||  Train Accuray: 0.83217  Test Accuray: 0.84865
+  7%|▋         | 7/100 [1:00:28<13:19:45, 515.97s/it]
+Epoch: 8
+Train Loss: 0.45668  Test Loss: 0.54004  ||  Train Accuray: 0.85576  Test Accuray: 0.82248
+  8%|▊         | 8/100 [1:09:04<13:10:56, 515.83s/it]
+Epoch: 9
+Train Loss: 0.40978  Test Loss: 0.46806  ||  Train Accuray: 0.87445  Test Accuray: 0.86397
+  9%|▉         | 9/100 [1:17:40<13:02:28, 515.92s/it]
+Epoch: 10
+Train Loss: 0.38015  Test Loss: 0.45331  ||  Train Accuray: 0.88267  Test Accuray: 0.86499
+ 10%|█         | 10/100 [1:26:13<12:52:25, 514.95s/it]
+Epoch: 11
+Train Loss: 0.35464  Test Loss: 0.36269  ||  Train Accuray: 0.89217  Test Accuray: 0.89441
+ 11%|█         | 11/100 [1:34:50<12:44:45, 515.56s/it]
+Epoch: 12
+Train Loss: 0.32962  Test Loss: 0.35259  ||  Train Accuray: 0.90033  Test Accuray: 0.89838
+ 12%|█▏        | 12/100 [1:43:30<12:38:01, 516.83s/it]
+Epoch: 13
+Train Loss: 0.30968  Test Loss: 0.32695  ||  Train Accuray: 0.90644  Test Accuray: 0.90305
+ 13%|█▎        | 13/100 [1:52:03<12:27:51, 515.76s/it]
+Epoch: 14
+Train Loss: 0.28761  Test Loss: 0.30053  ||  Train Accuray: 0.91363  Test Accuray: 0.91541
+ 14%|█▍        | 14/100 [2:00:40<12:20:00, 516.29s/it]
+Epoch: 15
+Train Loss: 0.27596  Test Loss: 0.32557  ||  Train Accuray: 0.91632  Test Accuray: 0.90672
+ 15%|█▌        | 15/100 [2:09:15<12:10:35, 515.72s/it]
+Epoch: 16
+Train Loss: 0.25468  Test Loss: 0.29277  ||  Train Accuray: 0.92351  Test Accuray: 0.91718
+ 16%|█▌        | 16/100 [2:17:48<12:00:58, 514.98s/it]
+Epoch: 17
+Train Loss: 0.23950  Test Loss: 0.24100  ||  Train Accuray: 0.92727  Test Accuray: 0.93103
+ 17%|█▋        | 17/100 [2:26:17<11:49:58, 513.23s/it]
+Epoch: 18
+Train Loss: 0.22425  Test Loss: 0.24162  ||  Train Accuray: 0.93258  Test Accuray: 0.93213
+ 18%|█▊        | 18/100 [2:34:50<11:41:09, 513.04s/it]
+Epoch: 19
+Train Loss: 0.20742  Test Loss: 0.21608  ||  Train Accuray: 0.93674  Test Accuray: 0.94076
+ 19%|█▉        | 19/100 [2:43:25<11:33:36, 513.78s/it]
+Epoch: 20
+Train Loss: 0.19803  Test Loss: 0.19013  ||  Train Accuray: 0.94127  Test Accuray: 0.94669
+ 20%|██        | 20/100 [2:51:58<11:24:42, 513.53s/it]
+Epoch: 21
+Train Loss: 0.18536  Test Loss: 0.19749  ||  Train Accuray: 0.94541  Test Accuray: 0.94532
+ 21%|██        | 21/100 [3:00:37<11:18:04, 514.99s/it]
+Epoch: 22
+Train Loss: 0.17656  Test Loss: 0.16652  ||  Train Accuray: 0.94698  Test Accuray: 0.95354
+ 22%|██▏       | 22/100 [3:09:18<11:11:56, 516.88s/it]
+Epoch: 23
+Train Loss: 0.16755  Test Loss: 0.22491  ||  Train Accuray: 0.94986  Test Accuray: 0.93467
+ 23%|██▎       | 23/100 [3:17:55<11:03:19, 516.87s/it]
+Epoch: 24
+Train Loss: 0.15892  Test Loss: 0.18085  ||  Train Accuray: 0.95347  Test Accuray: 0.94447
+ 24%|██▍       | 24/100 [3:26:32<10:54:55, 517.05s/it]
+Epoch: 25
+Train Loss: 0.15363  Test Loss: 0.18094  ||  Train Accuray: 0.95551  Test Accuray: 0.94859
+ 25%|██▌       | 25/100 [3:35:10<10:46:43, 517.38s/it]
+Epoch: 26
+Train Loss: 0.14979  Test Loss: 0.16149  ||  Train Accuray: 0.95673  Test Accuray: 0.95435
+ 26%|██▌       | 26/100 [3:43:49<10:38:37, 517.81s/it]
+Epoch: 27
+Train Loss: 0.14227  Test Loss: 0.18523  ||  Train Accuray: 0.95830  Test Accuray: 0.94626
+ 27%|██▋       | 27/100 [3:52:28<10:30:18, 518.06s/it]
+Epoch: 28
+Train Loss: 0.13884  Test Loss: 0.15385  ||  Train Accuray: 0.96002  Test Accuray: 0.95467
+ 28%|██▊       | 28/100 [4:01:04<10:20:51, 517.38s/it]
+Epoch: 29
+Train Loss: 0.13443  Test Loss: 0.14785  ||  Train Accuray: 0.96236  Test Accuray: 0.95774
+ 29%|██▉       | 29/100 [4:09:41<10:12:13, 517.37s/it]
+Epoch: 30
+Train Loss: 0.13220  Test Loss: 0.15248  ||  Train Accuray: 0.96184  Test Accuray: 0.95543
+ 30%|███       | 30/100 [4:18:23<10:05:09, 518.71s/it]
+Epoch: 31
+Train Loss: 0.12785  Test Loss: 0.13320  ||  Train Accuray: 0.96367  Test Accuray: 0.96191
+ 31%|███       | 31/100 [4:27:05<9:57:44, 519.78s/it] 
+Epoch: 32
+Train Loss: 0.12450  Test Loss: 0.12245  ||  Train Accuray: 0.96546  Test Accuray: 0.96341
+ 32%|███▏      | 32/100 [4:35:47<9:49:51, 520.46s/it]
+Epoch: 33
+Train Loss: 0.12336  Test Loss: 0.11881  ||  Train Accuray: 0.96588  Test Accuray: 0.96459
+ 33%|███▎      | 33/100 [4:44:27<9:40:49, 520.15s/it]
+Epoch: 34
+Train Loss: 0.12102  Test Loss: 0.12608  ||  Train Accuray: 0.96659  Test Accuray: 0.96258
+ 34%|███▍      | 34/100 [4:53:05<9:31:30, 519.55s/it]
+Epoch: 35
+Train Loss: 0.12001  Test Loss: 0.12019  ||  Train Accuray: 0.96695  Test Accuray: 0.96411
+ 35%|███▌      | 35/100 [5:01:45<9:23:06, 519.79s/it]
+Epoch: 36
+Train Loss: 0.11723  Test Loss: 0.15514  ||  Train Accuray: 0.96740  Test Accuray: 0.95269
+ 36%|███▌      | 36/100 [5:10:26<9:14:39, 519.99s/it]
+Epoch: 37
+Train Loss: 0.11388  Test Loss: 0.10737  ||  Train Accuray: 0.96910  Test Accuray: 0.97000
+ 37%|███▋      | 37/100 [5:19:10<9:07:14, 521.18s/it]
+Epoch: 38
+Train Loss: 0.11305  Test Loss: 0.10780  ||  Train Accuray: 0.96929  Test Accuray: 0.96821
+ 38%|███▊      | 38/100 [5:27:54<8:59:31, 522.12s/it]
+Epoch: 39
+Train Loss: 0.11327  Test Loss: 0.10202  ||  Train Accuray: 0.96897  Test Accuray: 0.97025
+ 39%|███▉      | 39/100 [5:36:38<8:51:27, 522.74s/it]
+Epoch: 40
+Train Loss: 0.11113  Test Loss: 0.10553  ||  Train Accuray: 0.97035  Test Accuray: 0.96939
+ 40%|████      | 40/100 [5:45:20<8:42:25, 522.43s/it]
+Epoch: 41
+Train Loss: 0.11117  Test Loss: 0.10277  ||  Train Accuray: 0.97049  Test Accuray: 0.97142
+ 41%|████      | 41/100 [5:54:01<8:33:23, 522.09s/it]
+Epoch: 42
+Train Loss: 0.10999  Test Loss: 0.12792  ||  Train Accuray: 0.96936  Test Accuray: 0.96234
+ 42%|████▏     | 42/100 [6:02:40<8:23:42, 521.08s/it]
+Epoch: 43
+Train Loss: 0.10909  Test Loss: 0.11152  ||  Train Accuray: 0.97129  Test Accuray: 0.96898
+ 43%|████▎     | 43/100 [6:11:19<8:14:34, 520.61s/it]
+Epoch: 44
+Train Loss: 0.10820  Test Loss: 0.10270  ||  Train Accuray: 0.97190  Test Accuray: 0.97046
+ 44%|████▍     | 44/100 [6:19:55<8:04:34, 519.19s/it]
+Epoch: 45
+Train Loss: 0.10859  Test Loss: 0.10442  ||  Train Accuray: 0.97047  Test Accuray: 0.97114
+ 45%|████▌     | 45/100 [6:28:28<7:54:09, 517.27s/it]
+Epoch: 46
+Train Loss: 0.10716  Test Loss: 0.11704  ||  Train Accuray: 0.97187  Test Accuray: 0.96412
+ 46%|████▌     | 46/100 [6:37:03<7:44:52, 516.53s/it]
+Epoch: 47
+Train Loss: 0.10554  Test Loss: 0.10560  ||  Train Accuray: 0.97294  Test Accuray: 0.97032
+ 47%|████▋     | 47/100 [6:45:38<7:35:52, 516.08s/it]
+Epoch: 48
+Train Loss: 0.10664  Test Loss: 0.10746  ||  Train Accuray: 0.97193  Test Accuray: 0.96789
+ 48%|████▊     | 48/100 [6:54:10<7:26:10, 514.82s/it]
+Epoch: 49
+Train Loss: 0.10692  Test Loss: 0.14307  ||  Train Accuray: 0.97128  Test Accuray: 0.96050
+ 49%|████▉     | 49/100 [7:02:44<7:17:21, 514.53s/it]
+Epoch: 50
+Train Loss: 0.10632  Test Loss: 0.10976  ||  Train Accuray: 0.97225  Test Accuray: 0.96859
+ 50%|█████     | 50/100 [7:11:17<7:08:33, 514.27s/it]
+Epoch: 51
+Train Loss: 0.10743  Test Loss: 0.09349  ||  Train Accuray: 0.97251  Test Accuray: 0.97512
+ 51%|█████     | 51/100 [7:19:51<6:59:47, 514.03s/it]
+Epoch: 52
+Train Loss: 0.10644  Test Loss: 0.09813  ||  Train Accuray: 0.97320  Test Accuray: 0.97394
+ 52%|█████▏    | 52/100 [7:28:23<6:50:56, 513.67s/it]
+Epoch: 53
+Train Loss: 0.10692  Test Loss: 0.10099  ||  Train Accuray: 0.97269  Test Accuray: 0.97261
+ 53%|█████▎    | 53/100 [7:36:58<6:42:38, 514.00s/it]
+Epoch: 54
+Train Loss: 0.10670  Test Loss: 0.09457  ||  Train Accuray: 0.97280  Test Accuray: 0.97368
+ 54%|█████▍    | 54/100 [7:45:38<6:35:21, 515.68s/it]
+Epoch: 55
+Train Loss: 0.10818  Test Loss: 0.11454  ||  Train Accuray: 0.97312  Test Accuray: 0.96875
+ 55%|█████▌    | 55/100 [7:54:11<6:26:13, 514.96s/it]
+Epoch: 56
+Train Loss: 0.10569  Test Loss: 0.10390  ||  Train Accuray: 0.97268  Test Accuray: 0.97120
+ 56%|█████▌    | 56/100 [8:02:47<6:17:45, 515.13s/it]
+Epoch: 57
+Train Loss: 0.10703  Test Loss: 0.09487  ||  Train Accuray: 0.97362  Test Accuray: 0.97455
+ 57%|█████▋    | 57/100 [8:11:22<6:09:09, 515.10s/it]
+Epoch: 58
+Train Loss: 0.10632  Test Loss: 0.10239  ||  Train Accuray: 0.97389  Test Accuray: 0.97295
+ 58%|█████▊    | 58/100 [8:19:56<6:00:22, 514.83s/it]
+Epoch: 59
+Train Loss: 0.10798  Test Loss: 0.11429  ||  Train Accuray: 0.97304  Test Accuray: 0.96795
+ 59%|█████▉    | 59/100 [8:28:28<5:51:18, 514.10s/it]
+Epoch: 60
+Train Loss: 0.10637  Test Loss: 0.09011  ||  Train Accuray: 0.97491  Test Accuray: 0.97566
+ 60%|██████    | 60/100 [8:37:00<5:42:21, 513.54s/it]
+Epoch: 61
+Train Loss: 0.10822  Test Loss: 0.09307  ||  Train Accuray: 0.97349  Test Accuray: 0.97583
+ 61%|██████    | 61/100 [8:45:32<5:33:25, 512.96s/it]
+Epoch: 62
+Train Loss: 0.10859  Test Loss: 0.10357  ||  Train Accuray: 0.97322  Test Accuray: 0.97252
+ 62%|██████▏   | 62/100 [8:54:03<5:24:25, 512.26s/it]
+Epoch: 63
+Train Loss: 0.10790  Test Loss: 0.09761  ||  Train Accuray: 0.97357  Test Accuray: 0.97418
+ 63%|██████▎   | 63/100 [9:02:31<5:15:05, 510.96s/it]
+Epoch: 64
+Train Loss: 0.10984  Test Loss: 0.12017  ||  Train Accuray: 0.97374  Test Accuray: 0.96662
+ 64%|██████▍   | 64/100 [9:11:00<5:06:11, 510.33s/it]
+Epoch: 65
+Train Loss: 0.10913  Test Loss: 0.09388  ||  Train Accuray: 0.97394  Test Accuray: 0.97433
+ 65%|██████▌   | 65/100 [9:19:30<4:57:43, 510.40s/it]
+Epoch: 66
+Train Loss: 0.11089  Test Loss: 0.09107  ||  Train Accuray: 0.97361  Test Accuray: 0.97626
+ 66%|██████▌   | 66/100 [9:28:03<4:49:41, 511.21s/it]
+Epoch: 67
+Train Loss: 0.11157  Test Loss: 0.09722  ||  Train Accuray: 0.97298  Test Accuray: 0.97505
+ 67%|██████▋   | 67/100 [9:36:36<4:41:25, 511.67s/it]
+Epoch: 68
+Train Loss: 0.11094  Test Loss: 0.10182  ||  Train Accuray: 0.97331  Test Accuray: 0.97330
+ 68%|██████▊   | 68/100 [9:45:13<4:33:42, 513.20s/it]
+Epoch: 69
+Train Loss: 0.11155  Test Loss: 0.11128  ||  Train Accuray: 0.97379  Test Accuray: 0.96968
+ 69%|██████▉   | 69/100 [9:53:46<4:25:09, 513.21s/it]
+Epoch: 70
+Train Loss: 0.11244  Test Loss: 0.09755  ||  Train Accuray: 0.97372  Test Accuray: 0.97372
+ 70%|███████   | 70/100 [10:02:16<4:16:12, 512.42s/it]
+Epoch: 71
+Train Loss: 0.11412  Test Loss: 0.11620  ||  Train Accuray: 0.97313  Test Accuray: 0.96817
+ 71%|███████   | 71/100 [10:10:48<4:07:29, 512.07s/it]
+Epoch: 72
+Train Loss: 0.11330  Test Loss: 0.10529  ||  Train Accuray: 0.97320  Test Accuray: 0.97333
+ 72%|███████▏  | 72/100 [10:19:18<3:58:39, 511.43s/it]
+Epoch: 73
+Train Loss: 0.11616  Test Loss: 0.10357  ||  Train Accuray: 0.97313  Test Accuray: 0.97217
+ 73%|███████▎  | 73/100 [10:27:50<3:50:12, 511.58s/it]
+Epoch: 74
+Train Loss: 0.11605  Test Loss: 0.09187  ||  Train Accuray: 0.97294  Test Accuray: 0.97605
+ 74%|███████▍  | 74/100 [10:36:21<3:41:40, 511.57s/it]
+Epoch: 75
+Train Loss: 0.11667  Test Loss: 0.11066  ||  Train Accuray: 0.97312  Test Accuray: 0.97194
+ 75%|███████▌  | 75/100 [10:44:51<3:32:55, 511.03s/it]
+Epoch: 76
+Train Loss: 0.11901  Test Loss: 0.10439  ||  Train Accuray: 0.97249  Test Accuray: 0.97372
+ 76%|███████▌  | 76/100 [10:53:19<3:24:05, 510.23s/it]
+Epoch: 77
+Train Loss: 0.11898  Test Loss: 0.10530  ||  Train Accuray: 0.97199  Test Accuray: 0.97203
+ 77%|███████▋  | 77/100 [11:01:46<3:15:12, 509.25s/it]
+Epoch: 78
+Train Loss: 0.11802  Test Loss: 0.08983  ||  Train Accuray: 0.97260  Test Accuray: 0.97700
+ 78%|███████▊  | 78/100 [11:10:16<3:06:45, 509.32s/it]
+Epoch: 79
+Train Loss: 0.12273  Test Loss: 0.09514  ||  Train Accuray: 0.97011  Test Accuray: 0.97685
+ 79%|███████▉  | 79/100 [11:18:43<2:58:03, 508.72s/it]
+Epoch: 80
+Train Loss: 0.12181  Test Loss: 0.10095  ||  Train Accuray: 0.97189  Test Accuray: 0.97512
+ 80%|████████  | 80/100 [11:27:18<2:50:11, 510.59s/it]
+Epoch: 81
+Train Loss: 0.12362  Test Loss: 0.10748  ||  Train Accuray: 0.97138  Test Accuray: 0.97395
+ 81%|████████  | 81/100 [11:35:49<2:41:46, 510.86s/it]
+Epoch: 82
+Train Loss: 0.12365  Test Loss: 0.09565  ||  Train Accuray: 0.97150  Test Accuray: 0.97598
+ 82%|████████▏ | 82/100 [11:44:25<2:33:41, 512.33s/it]
+Epoch: 83
+Train Loss: 0.12439  Test Loss: 0.11235  ||  Train Accuray: 0.97108  Test Accuray: 0.97087
+ 83%|████████▎ | 83/100 [11:52:57<2:25:05, 512.08s/it]
+Epoch: 84
+Train Loss: 0.12572  Test Loss: 0.10439  ||  Train Accuray: 0.97165  Test Accuray: 0.97443
+ 84%|████████▍ | 84/100 [12:01:25<2:16:13, 510.81s/it]
+Epoch: 85
+Train Loss: 0.12821  Test Loss: 0.11856  ||  Train Accuray: 0.97085  Test Accuray: 0.97304
+ 85%|████████▌ | 85/100 [12:09:49<2:07:13, 508.88s/it]
+Epoch: 86
+Train Loss: 0.13296  Test Loss: 0.09523  ||  Train Accuray: 0.96930  Test Accuray: 0.97625
+ 86%|████████▌ | 86/100 [12:18:14<1:58:29, 507.85s/it]
+Epoch: 87
+Train Loss: 0.12769  Test Loss: 0.09766  ||  Train Accuray: 0.97087  Test Accuray: 0.97695
+ 87%|████████▋ | 87/100 [12:26:49<1:50:27, 509.82s/it]
+Epoch: 88
+Train Loss: 0.12978  Test Loss: 0.11667  ||  Train Accuray: 0.97040  Test Accuray: 0.97068
+ 88%|████████▊ | 88/100 [12:35:20<1:42:01, 510.14s/it]
+Epoch: 89
+Train Loss: 0.13867  Test Loss: 0.11011  ||  Train Accuray: 0.96895  Test Accuray: 0.97338
+ 89%|████████▉ | 89/100 [12:43:54<1:33:45, 511.45s/it]
+Epoch: 90
+Train Loss: 0.13449  Test Loss: 0.11410  ||  Train Accuray: 0.96865  Test Accuray: 0.97108
+ 90%|█████████ | 90/100 [12:52:28<1:25:22, 512.24s/it]
+Epoch: 91
+Train Loss: 0.13977  Test Loss: 0.17955  ||  Train Accuray: 0.96851  Test Accuray: 0.95120
+ 91%|█████████ | 91/100 [13:01:05<1:17:03, 513.70s/it]
+Epoch: 92
+Train Loss: 0.13479  Test Loss: 0.10594  ||  Train Accuray: 0.97020  Test Accuray: 0.97485
+ 92%|█████████▏| 92/100 [13:09:29<1:08:06, 510.79s/it]
+Epoch: 93
+Train Loss: 0.13787  Test Loss: 0.13049  ||  Train Accuray: 0.96921  Test Accuray: 0.96968
+ 93%|█████████▎| 93/100 [13:17:57<59:29, 509.92s/it]  
+Epoch: 94
+Train Loss: 0.14356  Test Loss: 0.11749  ||  Train Accuray: 0.96642  Test Accuray: 0.97242
+ 94%|█████████▍| 94/100 [13:26:25<50:54, 509.15s/it]
+Epoch: 95
+Train Loss: 0.14245  Test Loss: 0.12215  ||  Train Accuray: 0.96834  Test Accuray: 0.96922
+ 95%|█████████▌| 95/100 [13:34:55<42:26, 509.39s/it]
+Epoch: 96
+Train Loss: 0.13925  Test Loss: 0.11391  ||  Train Accuray: 0.96843  Test Accuray: 0.97379
+ 96%|█████████▌| 96/100 [13:43:29<34:03, 510.89s/it]
+Epoch: 97
+Train Loss: 0.14491  Test Loss: 0.10862  ||  Train Accuray: 0.96724  Test Accuray: 0.97506
+ 97%|█████████▋| 97/100 [13:52:03<25:35, 511.70s/it]
+Epoch: 98
+Train Loss: 0.14522  Test Loss: 0.15762  ||  Train Accuray: 0.96768  Test Accuray: 0.96070
+ 98%|█████████▊| 98/100 [14:00:33<17:02, 511.25s/it]
+Epoch: 99
+Train Loss: 0.14770  Test Loss: 0.13636  ||  Train Accuray: 0.96524  Test Accuray: 0.96938
+ 99%|█████████▉| 99/100 [14:08:59<08:29, 509.74s/it]
+Epoch: 100
+Train Loss: 0.15340  Test Loss: 0.10347  ||  Train Accuray: 0.96571  Test Accuray: 0.97718
+100%|██████████| 100/100 [14:17:25<00:00, 508.52s/it]100%|██████████| 100/100 [14:17:25<00:00, 514.45s/it]
+wandb: - 0.027 MB of 0.027 MB uploadedwandb: \ 0.027 MB of 0.027 MB uploadedwandb: | 0.027 MB of 0.027 MB uploadedwandb: / 0.027 MB of 0.027 MB uploadedwandb: - 0.027 MB of 0.034 MB uploadedwandb: \ 0.027 MB of 0.042 MB uploadedwandb: | 0.041 MB of 0.042 MB uploadedwandb: / 0.041 MB of 0.042 MB uploadedwandb: - 0.042 MB of 0.042 MB uploadedwandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:     Test Accuracy ▁▂▆▇▇▇▇█████████████████████████████████
+wandb:         Test Loss █▇▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: Training Accuracy ▁▃▆▇▇▇██████████████████████████████████
+wandb:     Training Loss █▆▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:     Test Accuracy 0.97718
+wandb:         Test Loss 0.10347
+wandb: Training Accuracy 0.96571
+wandb:     Training Loss 0.1534
+wandb: 
+wandb: 🚀 View run org_architecture_mnist_Lr_3e-4_EMB_768_patch_16_depth_12 at: https://wandb.ai/maa_64/vit-small-data/runs/90n9ar3m
+wandb: ⭐️ View project at: https://wandb.ai/maa_64/vit-small-data
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240810_023056-90n9ar3m/logs
+wandb: WARNING The new W&B backend becomes opt-out in version 0.18.0; try it out with `wandb.require("core")`! See https://wandb.me/wandb-core for more information.
+
+Saving Model At: save_model/vit_model_org_architecture_mnist_0.0003_64.pth
