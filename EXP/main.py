@@ -54,7 +54,6 @@ def main(args):
    # summary
    print("\n",summary(model_2.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
    
-   train_dataloader, test_dataloader = data.prepare_dataloader(args)
    print("\n")
    print(f"EXP {EXP}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE} and Batch size {BATCH_SIZE}")
    print("resudial on outer encoder block but not at inner block")
@@ -63,6 +62,10 @@ def main(args):
    np.random.seed(SEED)
    torch.manual_seed(SEED)
    torch.cuda.manual_seed(SEED)
+   # get dataloader
+   train_dataloader, test_dataloader = data.prepare_dataloader(args)
+   
+   # prepare model 
    vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
                         embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
                         depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)

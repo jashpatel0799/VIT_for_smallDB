@@ -1,5 +1,5 @@
 exp_name: "org_architecture"
-details:  "base vit architecture" # "base vit architecture but Residual at only Multi head attention"
+details: "base vit architecture but Residual at only Multi head attention" # "base vit architecture" # "base vit architecture but Residual at only Multi head attention"
 dataset_name: "imagenet100"
 seed: 64
 batch_size: 64
