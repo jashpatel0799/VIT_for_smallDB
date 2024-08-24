@@ -72,10 +72,11 @@ def main(args):
    NUM_CLASS = args['num_class']
    # CUDA_LAUNCH_BLOCKING=1
 
-   DEVICE = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
+   DEVICE = 'cpu' # torch.device("cuda" if torch.cuda.is_available() else 'cpu')
    # print(device)
    # summary
-   print("\n",summary(model.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
+   if DEVICE != 'cpu':
+      print("\n",summary(model.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
    
    
    train_dataloader, test_dataloader = data.prepare_dataloader(args)

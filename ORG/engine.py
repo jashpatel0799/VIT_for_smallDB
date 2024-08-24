@@ -21,10 +21,19 @@ def train_loop(model: torch.nn.Module, dataloader: torch.utils.data.DataLoader,
     # if device == 'cuda':
     x_train, y_train = x_train.to(device), y_train.to(device)
     
-
+    # print()
+    # print(x_train.dtype)
+    # print("----------------------------------------------------------------------------------------")
+    # print(y_train, y_train.dtype)
+    # print("----------------------------------------------------------------------------------------")
+    # # print(model.dtype)
+    # print("----------------------------------------------------------------------------------------")
     # 1. Forward step
     pred = model(x_train)
     
+    # print("\n", pred, pred.dtype)
+    # print("\n", torch.argmax(pred, dim=1), torch.argmax(pred, dim=1).dtype)
+    # print("\n", pred.shape, y_train.shape, torch.argmax(pred, dim=1).shape)
 
     # 2. Loss
     # print(pred.shape)

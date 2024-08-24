@@ -1,0 +1,3202 @@
+Mon Aug 12 15:10:41 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 555.42.02              Driver Version: 555.42.02      CUDA Version: 12.5     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:90:00.0 Off |                    0 |
+| N/A   32C    P0             56W /  400W |       1MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+
+Experiment Name: org_architecture
+Experiment Details: base vit architecture but Residual at only Multi head attention
+
+
+Dataset Name: stl10
+Seed: 64
+Batch Size: 64
+Number of Epochs: 1000
+Learning Rate: 3e-4
+Input Channel: 3
+Patch Size: 16
+Embedding Size: 768
+Input Image Size: 224
+ViT Depth: 12
+Number of Classes: 10
+WandB Project: vit-small-data
+WandB Run Name: org_architecture_stl10_Lr_3e-4_EMB_768_patch_16_depth_12
+Output Directory: results
+
+
+===============================================================================================
+Layer (type:depth-idx)                        Output Shape              Param #
+===============================================================================================
+├─PatchEmbedding: 1-1                         [-1, 197, 768]            --
+|    └─Sequential: 2-1                        [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                       [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2                    [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                     [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2           [-1, 197, 768]            --
+|    |    └─Residual: 3-3                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-4                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-3           [-1, 197, 768]            --
+|    |    └─Residual: 3-5                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-6                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-4           [-1, 197, 768]            --
+|    |    └─Residual: 3-7                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-8                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-5           [-1, 197, 768]            --
+|    |    └─Residual: 3-9                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-10                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-6           [-1, 197, 768]            --
+|    |    └─Residual: 3-11                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-12                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-7           [-1, 197, 768]            --
+|    |    └─Residual: 3-13                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-14                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-8           [-1, 197, 768]            --
+|    |    └─Residual: 3-15                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-16                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-9           [-1, 197, 768]            --
+|    |    └─Residual: 3-17                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-18                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-10          [-1, 197, 768]            --
+|    |    └─Residual: 3-19                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-20                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-11          [-1, 197, 768]            --
+|    |    └─Residual: 3-21                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-22                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-12          [-1, 197, 768]            --
+|    |    └─Residual: 3-23                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-24                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-13          [-1, 197, 768]            --
+|    |    └─Residual: 3-25                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-26                  [-1, 197, 768]            4,723,968
+├─ClassificationHead: 1-3                     [-1, 10]                  --
+|    └─Reduce: 2-14                           [-1, 768]                 --
+|    └─LayerNorm: 2-15                        [-1, 768]                 1,536
+|    └─Linear: 2-16                           [-1, 10]                  7,690
+===============================================================================================
+Total params: 85,654,282
+Trainable params: 85,654,282
+Non-trainable params: 0
+Total mult-adds (M): 456.61
+===============================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 15.01
+Params size (MB): 326.75
+Estimated Total Size (MB): 342.33
+===============================================================================================
+
+ ===============================================================================================
+Layer (type:depth-idx)                        Output Shape              Param #
+===============================================================================================
+├─PatchEmbedding: 1-1                         [-1, 197, 768]            --
+|    └─Sequential: 2-1                        [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                       [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2                    [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                     [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2           [-1, 197, 768]            --
+|    |    └─Residual: 3-3                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-4                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-3           [-1, 197, 768]            --
+|    |    └─Residual: 3-5                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-6                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-4           [-1, 197, 768]            --
+|    |    └─Residual: 3-7                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-8                   [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-5           [-1, 197, 768]            --
+|    |    └─Residual: 3-9                     [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-10                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-6           [-1, 197, 768]            --
+|    |    └─Residual: 3-11                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-12                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-7           [-1, 197, 768]            --
+|    |    └─Residual: 3-13                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-14                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-8           [-1, 197, 768]            --
+|    |    └─Residual: 3-15                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-16                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-9           [-1, 197, 768]            --
+|    |    └─Residual: 3-17                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-18                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-10          [-1, 197, 768]            --
+|    |    └─Residual: 3-19                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-20                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-11          [-1, 197, 768]            --
+|    |    └─Residual: 3-21                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-22                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-12          [-1, 197, 768]            --
+|    |    └─Residual: 3-23                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-24                  [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-13          [-1, 197, 768]            --
+|    |    └─Residual: 3-25                    [-1, 197, 768]            2,363,904
+|    |    └─Sequential: 3-26                  [-1, 197, 768]            4,723,968
+├─ClassificationHead: 1-3                     [-1, 10]                  --
+|    └─Reduce: 2-14                           [-1, 768]                 --
+|    └─LayerNorm: 2-15                        [-1, 768]                 1,536
+|    └─Linear: 2-16                           [-1, 10]                  7,690
+===============================================================================================
+Total params: 85,654,282
+Trainable params: 85,654,282
+Non-trainable params: 0
+Total mult-adds (M): 456.61
+===============================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 15.01
+Params size (MB): 326.75
+Estimated Total Size (MB): 342.33
+=============================================================================================== 
+
+with STL10
+Files already downloaded and verified
+Files already downloaded and verified
+
+
+EXP org_architecture: Original VIT on stl10 with depth 12 and LEARNIGN_RATE 0.0003
+
+
+
+wandb: Currently logged in as: jashpatel8561 (maa_64). Use `wandb login --relogin` to force relogin
+wandb: - Waiting for wandb.init()...wandb: \ Waiting for wandb.init()...wandb: wandb version 0.17.6 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.5
+wandb: Run data is saved locally in /scratch/data/m22cs061/VIT_for_smallDB/ORG/wandb/run-20240812_151107-03awdz4b
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run org_architecture_stl10_Lr_3e-4_EMB_768_patch_16_depth_12
+wandb: ⭐️ View project at https://wandb.ai/maa_64/vit-small-data
+wandb: 🚀 View run at https://wandb.ai/maa_64/vit-small-data/runs/03awdz4b
+  0%|          | 0/1000 [00:00<?, ?it/s]
+Epoch: 1
+Train Loss: 2.31971  Test Loss: 2.30677  ||  Train Accuray: 0.10063  Test Accuray: 0.10000
+  0%|          | 1/1000 [01:23<23:03:51, 83.11s/it]
+Epoch: 2
+Train Loss: 2.31086  Test Loss: 2.30288  ||  Train Accuray: 0.10299  Test Accuray: 0.10000
+  0%|          | 2/1000 [02:54<24:25:01, 88.08s/it]
+Epoch: 3
+Train Loss: 2.30625  Test Loss: 2.29195  ||  Train Accuray: 0.10891  Test Accuray: 0.13214
+  0%|          | 3/1000 [04:27<24:57:12, 90.10s/it]
+Epoch: 4
+Train Loss: 2.30357  Test Loss: 2.27025  ||  Train Accuray: 0.12094  Test Accuray: 0.10632
+  0%|          | 4/1000 [05:45<23:35:46, 85.29s/it]
+Epoch: 5
+Train Loss: 2.29083  Test Loss: 2.26111  ||  Train Accuray: 0.12857  Test Accuray: 0.14607
+  0%|          | 5/1000 [07:07<23:19:12, 84.37s/it]
+Epoch: 6
+Train Loss: 2.27419  Test Loss: 2.29358  ||  Train Accuray: 0.14264  Test Accuray: 0.12013
+  1%|          | 6/1000 [08:28<22:55:35, 83.03s/it]
+Epoch: 7
+Train Loss: 2.25565  Test Loss: 2.19015  ||  Train Accuray: 0.15684  Test Accuray: 0.18572
+  1%|          | 7/1000 [09:51<22:56:37, 83.18s/it]
+Epoch: 8
+Train Loss: 2.23489  Test Loss: 2.28627  ||  Train Accuray: 0.16543  Test Accuray: 0.14987
+  1%|          | 8/1000 [11:10<22:31:56, 81.77s/it]
+Epoch: 9
+Train Loss: 2.21036  Test Loss: 2.26935  ||  Train Accuray: 0.17573  Test Accuray: 0.16851
+  1%|          | 9/1000 [12:34<22:44:35, 82.62s/it]
+Epoch: 10
+Train Loss: 2.19495  Test Loss: 2.34776  ||  Train Accuray: 0.17843  Test Accuray: 0.15464
+  1%|          | 10/1000 [13:55<22:33:29, 82.03s/it]
+Epoch: 11
+Train Loss: 2.18167  Test Loss: 2.20317  ||  Train Accuray: 0.18484  Test Accuray: 0.19341
+  1%|          | 11/1000 [15:18<22:35:36, 82.24s/it]
+Epoch: 12
+Train Loss: 2.16220  Test Loss: 2.14680  ||  Train Accuray: 0.19851  Test Accuray: 0.18640
+  1%|          | 12/1000 [16:38<22:24:54, 81.68s/it]
+Epoch: 13
+Train Loss: 2.14155  Test Loss: 2.24747  ||  Train Accuray: 0.19970  Test Accuray: 0.18873
+  1%|▏         | 13/1000 [17:59<22:18:10, 81.35s/it]
+Epoch: 14
+Train Loss: 2.12838  Test Loss: 2.13429  ||  Train Accuray: 0.20209  Test Accuray: 0.19840
+  1%|▏         | 14/1000 [19:22<22:24:49, 81.83s/it]
+Epoch: 15
+Train Loss: 2.11069  Test Loss: 2.06139  ||  Train Accuray: 0.20902  Test Accuray: 0.23349
+  2%|▏         | 15/1000 [20:50<22:55:05, 83.76s/it]
+Epoch: 16
+Train Loss: 2.07638  Test Loss: 2.02341  ||  Train Accuray: 0.22410  Test Accuray: 0.24952
+  2%|▏         | 16/1000 [22:14<22:56:36, 83.94s/it]
+Epoch: 17
+Train Loss: 2.06958  Test Loss: 2.05524  ||  Train Accuray: 0.22948  Test Accuray: 0.23857
+  2%|▏         | 17/1000 [23:38<22:54:51, 83.92s/it]
+Epoch: 18
+Train Loss: 2.04332  Test Loss: 1.96853  ||  Train Accuray: 0.24298  Test Accuray: 0.25797
+  2%|▏         | 18/1000 [24:58<22:34:25, 82.75s/it]
+Epoch: 19
+Train Loss: 2.01822  Test Loss: 2.03755  ||  Train Accuray: 0.25145  Test Accuray: 0.25139
+  2%|▏         | 19/1000 [26:19<22:23:03, 82.14s/it]
+Epoch: 20
+Train Loss: 2.00287  Test Loss: 2.01468  ||  Train Accuray: 0.25215  Test Accuray: 0.26001
+  2%|▏         | 20/1000 [27:43<22:31:01, 82.72s/it]
+Epoch: 21
+Train Loss: 1.99045  Test Loss: 1.94095  ||  Train Accuray: 0.25666  Test Accuray: 0.27123
+  2%|▏         | 21/1000 [29:03<22:14:43, 81.80s/it]
+Epoch: 22
+Train Loss: 1.96775  Test Loss: 1.91498  ||  Train Accuray: 0.25923  Test Accuray: 0.25783
+  2%|▏         | 22/1000 [30:23<22:03:32, 81.20s/it]
+Epoch: 23
+Train Loss: 1.95510  Test Loss: 1.97043  ||  Train Accuray: 0.25760  Test Accuray: 0.25527
+  2%|▏         | 23/1000 [31:45<22:06:32, 81.47s/it]
+Epoch: 24
+Train Loss: 1.93577  Test Loss: 1.92625  ||  Train Accuray: 0.26769  Test Accuray: 0.24627
+  2%|▏         | 24/1000 [33:04<21:54:43, 80.82s/it]
+Epoch: 25
+Train Loss: 1.92729  Test Loss: 1.96384  ||  Train Accuray: 0.27078  Test Accuray: 0.24013
+  2%|▎         | 25/1000 [34:23<21:44:08, 80.25s/it]
+Epoch: 26
+Train Loss: 1.92231  Test Loss: 1.89804  ||  Train Accuray: 0.26737  Test Accuray: 0.25592
+  3%|▎         | 26/1000 [35:42<21:36:24, 79.86s/it]
+Epoch: 27
+Train Loss: 1.89483  Test Loss: 1.90942  ||  Train Accuray: 0.27644  Test Accuray: 0.24810
+  3%|▎         | 27/1000 [37:02<21:37:05, 79.98s/it]
+Epoch: 28
+Train Loss: 1.91010  Test Loss: 1.93151  ||  Train Accuray: 0.26421  Test Accuray: 0.25476
+  3%|▎         | 28/1000 [38:22<21:36:44, 80.05s/it]
+Epoch: 29
+Train Loss: 1.88327  Test Loss: 1.90538  ||  Train Accuray: 0.27500  Test Accuray: 0.25931
+  3%|▎         | 29/1000 [39:42<21:33:03, 79.90s/it]
+Epoch: 30
+Train Loss: 1.88550  Test Loss: 1.90200  ||  Train Accuray: 0.27564  Test Accuray: 0.24850
+  3%|▎         | 30/1000 [41:05<21:44:59, 80.72s/it]
+Epoch: 31
+Train Loss: 1.87543  Test Loss: 1.96735  ||  Train Accuray: 0.28622  Test Accuray: 0.25237
+  3%|▎         | 31/1000 [42:26<21:49:06, 81.06s/it]
+Epoch: 32
+Train Loss: 1.87410  Test Loss: 1.92398  ||  Train Accuray: 0.27817  Test Accuray: 0.25654
+  3%|▎         | 32/1000 [43:48<21:51:25, 81.29s/it]
+Epoch: 33
+Train Loss: 1.86403  Test Loss: 1.91752  ||  Train Accuray: 0.29253  Test Accuray: 0.25103
+  3%|▎         | 33/1000 [45:11<21:57:25, 81.74s/it]
+Epoch: 34
+Train Loss: 1.86021  Test Loss: 2.01657  ||  Train Accuray: 0.28423  Test Accuray: 0.25819
+  3%|▎         | 34/1000 [46:33<21:57:53, 81.86s/it]
+Epoch: 35
+Train Loss: 1.84986  Test Loss: 1.92454  ||  Train Accuray: 0.29666  Test Accuray: 0.25688
+  4%|▎         | 35/1000 [47:53<21:48:48, 81.38s/it]
+Epoch: 36
+Train Loss: 1.85557  Test Loss: 1.92312  ||  Train Accuray: 0.29061  Test Accuray: 0.27323
+  4%|▎         | 36/1000 [49:11<21:31:18, 80.37s/it]
+Epoch: 37
+Train Loss: 1.83859  Test Loss: 1.95274  ||  Train Accuray: 0.29787  Test Accuray: 0.23494
+  4%|▎         | 37/1000 [50:31<21:27:22, 80.21s/it]
+Epoch: 38
+Train Loss: 1.84130  Test Loss: 2.03042  ||  Train Accuray: 0.29644  Test Accuray: 0.22952
+  4%|▍         | 38/1000 [51:51<21:22:41, 80.00s/it]
+Epoch: 39
+Train Loss: 1.85018  Test Loss: 2.08057  ||  Train Accuray: 0.28774  Test Accuray: 0.23133
+  4%|▍         | 39/1000 [53:12<21:25:08, 80.24s/it]
+Epoch: 40
+Train Loss: 1.82999  Test Loss: 1.98334  ||  Train Accuray: 0.29615  Test Accuray: 0.26259
+  4%|▍         | 40/1000 [54:34<21:35:41, 80.98s/it]
+Epoch: 41
+Train Loss: 1.83992  Test Loss: 2.08499  ||  Train Accuray: 0.30104  Test Accuray: 0.22032
+  4%|▍         | 41/1000 [55:59<21:53:56, 82.21s/it]
+Epoch: 42
+Train Loss: 1.82856  Test Loss: 1.97592  ||  Train Accuray: 0.30069  Test Accuray: 0.24797
+  4%|▍         | 42/1000 [57:20<21:44:40, 81.71s/it]
+Epoch: 43
+Train Loss: 1.82533  Test Loss: 1.94884  ||  Train Accuray: 0.30946  Test Accuray: 0.23716
+  4%|▍         | 43/1000 [58:49<22:18:28, 83.92s/it]
+Epoch: 44
+Train Loss: 1.81376  Test Loss: 2.09279  ||  Train Accuray: 0.30466  Test Accuray: 0.21981
+  4%|▍         | 44/1000 [1:00:22<23:02:20, 86.76s/it]
+Epoch: 45
+Train Loss: 1.81495  Test Loss: 2.09999  ||  Train Accuray: 0.30400  Test Accuray: 0.20877
+  4%|▍         | 45/1000 [1:01:43<22:29:53, 84.81s/it]
+Epoch: 46
+Train Loss: 1.81517  Test Loss: 1.89165  ||  Train Accuray: 0.30958  Test Accuray: 0.25016
+  5%|▍         | 46/1000 [1:03:05<22:16:42, 84.07s/it]
+Epoch: 47
+Train Loss: 1.80683  Test Loss: 2.02680  ||  Train Accuray: 0.31154  Test Accuray: 0.23857
+  5%|▍         | 47/1000 [1:04:20<21:31:02, 81.28s/it]
+Epoch: 48
+Train Loss: 1.80678  Test Loss: 1.91739  ||  Train Accuray: 0.31313  Test Accuray: 0.25719
+  5%|▍         | 48/1000 [1:05:38<21:16:46, 80.47s/it]
+Epoch: 49
+Train Loss: 1.79968  Test Loss: 2.16301  ||  Train Accuray: 0.29786  Test Accuray: 0.21882
+  5%|▍         | 49/1000 [1:06:59<21:18:01, 80.63s/it]
+Epoch: 50
+Train Loss: 1.80078  Test Loss: 2.08638  ||  Train Accuray: 0.31049  Test Accuray: 0.21985
+  5%|▌         | 50/1000 [1:08:18<21:09:49, 80.20s/it]
+Epoch: 51
+Train Loss: 1.79753  Test Loss: 2.00734  ||  Train Accuray: 0.31752  Test Accuray: 0.25424
+  5%|▌         | 51/1000 [1:09:38<21:06:09, 80.05s/it]
+Epoch: 52
+Train Loss: 1.79580  Test Loss: 2.32996  ||  Train Accuray: 0.31208  Test Accuray: 0.19577
+  5%|▌         | 52/1000 [1:10:55<20:51:18, 79.20s/it]
+Epoch: 53
+Train Loss: 1.79415  Test Loss: 1.99980  ||  Train Accuray: 0.32088  Test Accuray: 0.25761
+  5%|▌         | 53/1000 [1:12:11<20:31:49, 78.05s/it]
+Epoch: 54
+Train Loss: 1.79612  Test Loss: 2.13759  ||  Train Accuray: 0.31925  Test Accuray: 0.21755
+  5%|▌         | 54/1000 [1:13:30<20:33:54, 78.26s/it]
+Epoch: 55
+Train Loss: 1.79253  Test Loss: 2.13873  ||  Train Accuray: 0.31497  Test Accuray: 0.23127
+  6%|▌         | 55/1000 [1:15:01<21:37:02, 82.35s/it]
+Epoch: 56
+Train Loss: 1.78468  Test Loss: 2.29214  ||  Train Accuray: 0.32253  Test Accuray: 0.22536
+  6%|▌         | 56/1000 [1:16:23<21:33:35, 82.22s/it]
+Epoch: 57
+Train Loss: 1.77989  Test Loss: 2.01156  ||  Train Accuray: 0.32463  Test Accuray: 0.23574
+  6%|▌         | 57/1000 [1:17:45<21:29:15, 82.03s/it]
+Epoch: 58
+Train Loss: 1.78142  Test Loss: 2.04048  ||  Train Accuray: 0.31544  Test Accuray: 0.25909
+  6%|▌         | 58/1000 [1:19:20<22:30:16, 86.00s/it]
+Epoch: 59
+Train Loss: 1.77095  Test Loss: 1.95001  ||  Train Accuray: 0.31723  Test Accuray: 0.26132
+  6%|▌         | 59/1000 [1:20:50<22:46:25, 87.13s/it]
+Epoch: 60
+Train Loss: 1.77583  Test Loss: 2.12997  ||  Train Accuray: 0.32230  Test Accuray: 0.22107
+  6%|▌         | 60/1000 [1:22:12<22:19:56, 85.53s/it]
+Epoch: 61
+Train Loss: 1.76994  Test Loss: 2.27789  ||  Train Accuray: 0.33299  Test Accuray: 0.20682
+  6%|▌         | 61/1000 [1:23:33<21:57:53, 84.21s/it]
+Epoch: 62
+Train Loss: 1.76759  Test Loss: 2.17944  ||  Train Accuray: 0.32459  Test Accuray: 0.21829
+  6%|▌         | 62/1000 [1:24:55<21:45:27, 83.50s/it]
+Epoch: 63
+Train Loss: 1.77191  Test Loss: 2.40624  ||  Train Accuray: 0.32952  Test Accuray: 0.19378
+  6%|▋         | 63/1000 [1:26:14<21:25:01, 82.29s/it]
+Epoch: 64
+Train Loss: 1.76496  Test Loss: 2.00557  ||  Train Accuray: 0.32635  Test Accuray: 0.26637
+  6%|▋         | 64/1000 [1:27:31<20:59:13, 80.72s/it]
+Epoch: 65
+Train Loss: 1.76072  Test Loss: 2.07126  ||  Train Accuray: 0.32108  Test Accuray: 0.24106
+  6%|▋         | 65/1000 [1:28:48<20:38:02, 79.45s/it]
+Epoch: 66
+Train Loss: 1.75073  Test Loss: 2.03921  ||  Train Accuray: 0.32727  Test Accuray: 0.26140
+  7%|▋         | 66/1000 [1:30:11<20:52:30, 80.46s/it]
+Epoch: 67
+Train Loss: 1.75476  Test Loss: 2.07206  ||  Train Accuray: 0.32485  Test Accuray: 0.24643
+  7%|▋         | 67/1000 [1:31:38<21:24:28, 82.60s/it]
+Epoch: 68
+Train Loss: 1.75469  Test Loss: 2.15763  ||  Train Accuray: 0.34436  Test Accuray: 0.22706
+  7%|▋         | 68/1000 [1:33:08<21:55:11, 84.67s/it]
+Epoch: 69
+Train Loss: 1.75273  Test Loss: 1.99362  ||  Train Accuray: 0.32574  Test Accuray: 0.26539
+  7%|▋         | 69/1000 [1:34:38<22:22:07, 86.50s/it]
+Epoch: 70
+Train Loss: 1.74658  Test Loss: 1.98214  ||  Train Accuray: 0.33882  Test Accuray: 0.25729
+  7%|▋         | 70/1000 [1:36:10<22:44:04, 88.00s/it]
+Epoch: 71
+Train Loss: 1.74596  Test Loss: 2.02600  ||  Train Accuray: 0.33471  Test Accuray: 0.25260
+  7%|▋         | 71/1000 [1:37:50<23:36:26, 91.48s/it]
+Epoch: 72
+Train Loss: 1.74461  Test Loss: 2.28242  ||  Train Accuray: 0.33516  Test Accuray: 0.22232
+  7%|▋         | 72/1000 [1:39:17<23:16:54, 90.32s/it]
+Epoch: 73
+Train Loss: 1.73767  Test Loss: 2.08610  ||  Train Accuray: 0.34058  Test Accuray: 0.26067
+  7%|▋         | 73/1000 [1:40:42<22:51:35, 88.78s/it]
+Epoch: 74
+Train Loss: 1.73765  Test Loss: 2.02015  ||  Train Accuray: 0.33883  Test Accuray: 0.26564
+  7%|▋         | 74/1000 [1:42:01<22:05:33, 85.89s/it]
+Epoch: 75
+Train Loss: 1.73936  Test Loss: 2.01413  ||  Train Accuray: 0.35280  Test Accuray: 0.27389
+  8%|▊         | 75/1000 [1:43:33<22:31:14, 87.65s/it]
+Epoch: 76
+Train Loss: 1.73186  Test Loss: 2.11642  ||  Train Accuray: 0.35000  Test Accuray: 0.25248
+  8%|▊         | 76/1000 [1:45:05<22:47:16, 88.78s/it]
+Epoch: 77
+Train Loss: 1.72431  Test Loss: 2.29388  ||  Train Accuray: 0.35046  Test Accuray: 0.21991
+  8%|▊         | 77/1000 [1:46:21<21:49:29, 85.12s/it]
+Epoch: 78
+Train Loss: 1.72388  Test Loss: 1.92275  ||  Train Accuray: 0.34540  Test Accuray: 0.27864
+  8%|▊         | 78/1000 [1:47:40<21:19:20, 83.25s/it]
+Epoch: 79
+Train Loss: 1.72918  Test Loss: 2.02025  ||  Train Accuray: 0.34277  Test Accuray: 0.26978
+  8%|▊         | 79/1000 [1:49:02<21:10:31, 82.77s/it]
+Epoch: 80
+Train Loss: 1.71753  Test Loss: 1.90367  ||  Train Accuray: 0.34873  Test Accuray: 0.30377
+  8%|▊         | 80/1000 [1:50:18<20:38:35, 80.78s/it]
+Epoch: 81
+Train Loss: 1.72147  Test Loss: 2.01509  ||  Train Accuray: 0.34652  Test Accuray: 0.27569
+  8%|▊         | 81/1000 [1:51:41<20:49:41, 81.59s/it]
+Epoch: 82
+Train Loss: 1.71940  Test Loss: 1.92483  ||  Train Accuray: 0.35119  Test Accuray: 0.28198
+  8%|▊         | 82/1000 [1:52:57<20:23:07, 79.94s/it]
+Epoch: 83
+Train Loss: 1.70928  Test Loss: 2.13384  ||  Train Accuray: 0.35218  Test Accuray: 0.25029
+  8%|▊         | 83/1000 [1:54:21<20:36:39, 80.91s/it]
+Epoch: 84
+Train Loss: 1.70446  Test Loss: 1.94452  ||  Train Accuray: 0.35568  Test Accuray: 0.28085
+  8%|▊         | 84/1000 [1:55:40<20:30:08, 80.58s/it]
+Epoch: 85
+Train Loss: 1.71102  Test Loss: 2.22341  ||  Train Accuray: 0.35417  Test Accuray: 0.26453
+  8%|▊         | 85/1000 [1:57:05<20:45:27, 81.67s/it]
+Epoch: 86
+Train Loss: 1.71058  Test Loss: 1.98513  ||  Train Accuray: 0.35565  Test Accuray: 0.27270
+  9%|▊         | 86/1000 [1:58:36<21:28:05, 84.56s/it]
+Epoch: 87
+Train Loss: 1.69746  Test Loss: 2.09373  ||  Train Accuray: 0.35888  Test Accuray: 0.27606
+  9%|▊         | 87/1000 [2:00:00<21:24:13, 84.40s/it]
+Epoch: 88
+Train Loss: 1.69467  Test Loss: 1.93390  ||  Train Accuray: 0.36879  Test Accuray: 0.29914
+  9%|▉         | 88/1000 [2:01:23<21:15:23, 83.91s/it]
+Epoch: 89
+Train Loss: 1.68995  Test Loss: 1.92613  ||  Train Accuray: 0.35896  Test Accuray: 0.30087
+  9%|▉         | 89/1000 [2:02:44<21:01:14, 83.07s/it]
+Epoch: 90
+Train Loss: 1.69122  Test Loss: 1.92933  ||  Train Accuray: 0.35516  Test Accuray: 0.30599
+  9%|▉         | 90/1000 [2:04:06<20:57:55, 82.94s/it]
+Epoch: 91
+Train Loss: 1.68932  Test Loss: 1.98073  ||  Train Accuray: 0.35289  Test Accuray: 0.28576
+  9%|▉         | 91/1000 [2:05:27<20:45:23, 82.20s/it]
+Epoch: 92
+Train Loss: 1.69413  Test Loss: 2.03945  ||  Train Accuray: 0.36476  Test Accuray: 0.26579
+  9%|▉         | 92/1000 [2:06:41<20:07:50, 79.81s/it]
+Epoch: 93
+Train Loss: 1.67270  Test Loss: 2.06859  ||  Train Accuray: 0.37319  Test Accuray: 0.27194
+  9%|▉         | 93/1000 [2:08:10<20:46:02, 82.43s/it]
+Epoch: 94
+Train Loss: 1.68162  Test Loss: 2.10340  ||  Train Accuray: 0.36772  Test Accuray: 0.26934
+  9%|▉         | 94/1000 [2:09:47<21:51:53, 86.88s/it]
+Epoch: 95
+Train Loss: 1.68262  Test Loss: 1.91486  ||  Train Accuray: 0.36993  Test Accuray: 0.30583
+ 10%|▉         | 95/1000 [2:11:16<21:58:49, 87.44s/it]
+Epoch: 96
+Train Loss: 1.67215  Test Loss: 1.92293  ||  Train Accuray: 0.37886  Test Accuray: 0.30466
+ 10%|▉         | 96/1000 [2:12:49<22:25:10, 89.28s/it]
+Epoch: 97
+Train Loss: 1.67704  Test Loss: 1.82850  ||  Train Accuray: 0.37889  Test Accuray: 0.32647
+ 10%|▉         | 97/1000 [2:14:21<22:34:52, 90.02s/it]
+Epoch: 98
+Train Loss: 1.67498  Test Loss: 2.07546  ||  Train Accuray: 0.37886  Test Accuray: 0.27748
+ 10%|▉         | 98/1000 [2:15:49<22:24:52, 89.46s/it]
+Epoch: 99
+Train Loss: 1.65451  Test Loss: 1.89994  ||  Train Accuray: 0.38146  Test Accuray: 0.30698
+ 10%|▉         | 99/1000 [2:17:12<21:51:20, 87.33s/it]
+Epoch: 100
+Train Loss: 1.66028  Test Loss: 1.84955  ||  Train Accuray: 0.38040  Test Accuray: 0.32219
+ 10%|█         | 100/1000 [2:18:33<21:22:07, 85.47s/it]
+Epoch: 101
+Train Loss: 1.65957  Test Loss: 1.96707  ||  Train Accuray: 0.38118  Test Accuray: 0.30839
+ 10%|█         | 101/1000 [2:20:08<22:04:06, 88.37s/it]
+Epoch: 102
+Train Loss: 1.65437  Test Loss: 2.11547  ||  Train Accuray: 0.38197  Test Accuray: 0.27955
+ 10%|█         | 102/1000 [2:21:36<22:02:38, 88.37s/it]
+Epoch: 103
+Train Loss: 1.65731  Test Loss: 1.97729  ||  Train Accuray: 0.37655  Test Accuray: 0.28490
+ 10%|█         | 103/1000 [2:22:52<21:05:58, 84.68s/it]
+Epoch: 104
+Train Loss: 1.64006  Test Loss: 2.04017  ||  Train Accuray: 0.37778  Test Accuray: 0.28871
+ 10%|█         | 104/1000 [2:24:23<21:33:32, 86.62s/it]
+Epoch: 105
+Train Loss: 1.63936  Test Loss: 1.93127  ||  Train Accuray: 0.39130  Test Accuray: 0.30897
+ 10%|█         | 105/1000 [2:25:56<21:57:16, 88.31s/it]
+Epoch: 106
+Train Loss: 1.64728  Test Loss: 1.87298  ||  Train Accuray: 0.38332  Test Accuray: 0.32954
+ 11%|█         | 106/1000 [2:27:14<21:10:50, 85.29s/it]
+Epoch: 107
+Train Loss: 1.64233  Test Loss: 1.77154  ||  Train Accuray: 0.39339  Test Accuray: 0.35111
+ 11%|█         | 107/1000 [2:28:33<20:42:31, 83.48s/it]
+Epoch: 108
+Train Loss: 1.63521  Test Loss: 2.15182  ||  Train Accuray: 0.39583  Test Accuray: 0.26791
+ 11%|█         | 108/1000 [2:29:54<20:31:16, 82.82s/it]
+Epoch: 109
+Train Loss: 1.63820  Test Loss: 1.89291  ||  Train Accuray: 0.39231  Test Accuray: 0.31092
+ 11%|█         | 109/1000 [2:31:16<20:25:02, 82.49s/it]
+Epoch: 110
+Train Loss: 1.62522  Test Loss: 1.86919  ||  Train Accuray: 0.39853  Test Accuray: 0.32852
+ 11%|█         | 110/1000 [2:32:37<20:14:27, 81.87s/it]
+Epoch: 111
+Train Loss: 1.62159  Test Loss: 2.08351  ||  Train Accuray: 0.40342  Test Accuray: 0.27806
+ 11%|█         | 111/1000 [2:34:10<21:03:52, 85.30s/it]
+Epoch: 112
+Train Loss: 1.63045  Test Loss: 1.81292  ||  Train Accuray: 0.39727  Test Accuray: 0.33220
+ 11%|█         | 112/1000 [2:35:29<20:33:08, 83.32s/it]
+Epoch: 113
+Train Loss: 1.61569  Test Loss: 2.39915  ||  Train Accuray: 0.40202  Test Accuray: 0.25838
+ 11%|█▏        | 113/1000 [2:36:43<19:52:44, 80.68s/it]
+Epoch: 114
+Train Loss: 1.62028  Test Loss: 1.89742  ||  Train Accuray: 0.40311  Test Accuray: 0.32671
+ 11%|█▏        | 114/1000 [2:37:57<19:21:07, 78.63s/it]
+Epoch: 115
+Train Loss: 1.61933  Test Loss: 1.95593  ||  Train Accuray: 0.40112  Test Accuray: 0.31765
+ 12%|█▏        | 115/1000 [2:39:18<19:31:30, 79.42s/it]
+Epoch: 116
+Train Loss: 1.61974  Test Loss: 2.04310  ||  Train Accuray: 0.40120  Test Accuray: 0.29145
+ 12%|█▏        | 116/1000 [2:40:43<19:53:22, 81.00s/it]
+Epoch: 117
+Train Loss: 1.61528  Test Loss: 1.93384  ||  Train Accuray: 0.40199  Test Accuray: 0.31196
+ 12%|█▏        | 117/1000 [2:42:02<19:44:49, 80.51s/it]
+Epoch: 118
+Train Loss: 1.61119  Test Loss: 1.82521  ||  Train Accuray: 0.40804  Test Accuray: 0.34217
+ 12%|█▏        | 118/1000 [2:43:27<20:00:07, 81.64s/it]
+Epoch: 119
+Train Loss: 1.61547  Test Loss: 1.83383  ||  Train Accuray: 0.39595  Test Accuray: 0.33598
+ 12%|█▏        | 119/1000 [2:44:43<19:36:02, 80.09s/it]
+Epoch: 120
+Train Loss: 1.59839  Test Loss: 1.91948  ||  Train Accuray: 0.40693  Test Accuray: 0.32620
+ 12%|█▏        | 120/1000 [2:46:03<19:34:13, 80.06s/it]
+Epoch: 121
+Train Loss: 1.58885  Test Loss: 1.84045  ||  Train Accuray: 0.41365  Test Accuray: 0.34154
+ 12%|█▏        | 121/1000 [2:47:28<19:55:59, 81.64s/it]
+Epoch: 122
+Train Loss: 1.60025  Test Loss: 1.75379  ||  Train Accuray: 0.39682  Test Accuray: 0.36416
+ 12%|█▏        | 122/1000 [2:48:47<19:42:37, 80.82s/it]
+Epoch: 123
+Train Loss: 1.60471  Test Loss: 1.87333  ||  Train Accuray: 0.41662  Test Accuray: 0.30767
+ 12%|█▏        | 123/1000 [2:50:12<19:56:29, 81.86s/it]
+Epoch: 124
+Train Loss: 1.60163  Test Loss: 1.97717  ||  Train Accuray: 0.40587  Test Accuray: 0.30321
+ 12%|█▏        | 124/1000 [2:51:32<19:46:41, 81.28s/it]
+Epoch: 125
+Train Loss: 1.59471  Test Loss: 1.97210  ||  Train Accuray: 0.41178  Test Accuray: 0.31013
+ 12%|█▎        | 125/1000 [2:52:50<19:34:53, 80.56s/it]
+Epoch: 126
+Train Loss: 1.58608  Test Loss: 1.94251  ||  Train Accuray: 0.40939  Test Accuray: 0.31059
+ 13%|█▎        | 126/1000 [2:54:08<19:20:04, 79.64s/it]
+Epoch: 127
+Train Loss: 1.58368  Test Loss: 1.89667  ||  Train Accuray: 0.41987  Test Accuray: 0.33560
+ 13%|█▎        | 127/1000 [2:55:30<19:31:18, 80.50s/it]
+Epoch: 128
+Train Loss: 1.57895  Test Loss: 1.97588  ||  Train Accuray: 0.41980  Test Accuray: 0.30326
+ 13%|█▎        | 128/1000 [2:56:50<19:25:04, 80.17s/it]
+Epoch: 129
+Train Loss: 1.57320  Test Loss: 1.91457  ||  Train Accuray: 0.41685  Test Accuray: 0.31568
+ 13%|█▎        | 129/1000 [2:58:16<19:50:12, 81.99s/it]
+Epoch: 130
+Train Loss: 1.58703  Test Loss: 1.86073  ||  Train Accuray: 0.41500  Test Accuray: 0.32871
+ 13%|█▎        | 130/1000 [2:59:37<19:45:22, 81.75s/it]
+Epoch: 131
+Train Loss: 1.57191  Test Loss: 2.03399  ||  Train Accuray: 0.41983  Test Accuray: 0.29579
+ 13%|█▎        | 131/1000 [3:00:58<19:40:35, 81.51s/it]
+Epoch: 132
+Train Loss: 1.57343  Test Loss: 1.83449  ||  Train Accuray: 0.41102  Test Accuray: 0.34146
+ 13%|█▎        | 132/1000 [3:02:18<19:31:40, 80.99s/it]
+Epoch: 133
+Train Loss: 1.56193  Test Loss: 1.74018  ||  Train Accuray: 0.42266  Test Accuray: 0.36396
+ 13%|█▎        | 133/1000 [3:03:37<19:21:36, 80.39s/it]
+Epoch: 134
+Train Loss: 1.56713  Test Loss: 1.86813  ||  Train Accuray: 0.41723  Test Accuray: 0.33955
+ 13%|█▎        | 134/1000 [3:04:49<18:44:29, 77.91s/it]
+Epoch: 135
+Train Loss: 1.55782  Test Loss: 1.95962  ||  Train Accuray: 0.41827  Test Accuray: 0.31495
+ 14%|█▎        | 135/1000 [3:06:10<18:54:22, 78.69s/it]
+Epoch: 136
+Train Loss: 1.56570  Test Loss: 2.02459  ||  Train Accuray: 0.42560  Test Accuray: 0.31525
+ 14%|█▎        | 136/1000 [3:07:30<18:59:04, 79.10s/it]
+Epoch: 137
+Train Loss: 1.55659  Test Loss: 1.77612  ||  Train Accuray: 0.42327  Test Accuray: 0.36306
+ 14%|█▎        | 137/1000 [3:08:52<19:12:36, 80.13s/it]
+Epoch: 138
+Train Loss: 1.55795  Test Loss: 1.81701  ||  Train Accuray: 0.42660  Test Accuray: 0.34531
+ 14%|█▍        | 138/1000 [3:10:15<19:24:25, 81.05s/it]
+Epoch: 139
+Train Loss: 1.56118  Test Loss: 1.85812  ||  Train Accuray: 0.42539  Test Accuray: 0.35301
+ 14%|█▍        | 139/1000 [3:11:35<19:16:48, 80.61s/it]
+Epoch: 140
+Train Loss: 1.55580  Test Loss: 1.94549  ||  Train Accuray: 0.42754  Test Accuray: 0.32939
+ 14%|█▍        | 140/1000 [3:12:50<18:51:17, 78.93s/it]
+Epoch: 141
+Train Loss: 1.56695  Test Loss: 1.80911  ||  Train Accuray: 0.42874  Test Accuray: 0.34877
+ 14%|█▍        | 141/1000 [3:14:09<18:50:27, 78.96s/it]
+Epoch: 142
+Train Loss: 1.55485  Test Loss: 1.88405  ||  Train Accuray: 0.41808  Test Accuray: 0.32643
+ 14%|█▍        | 142/1000 [3:15:27<18:46:34, 78.78s/it]
+Epoch: 143
+Train Loss: 1.55900  Test Loss: 1.88604  ||  Train Accuray: 0.42521  Test Accuray: 0.33211
+ 14%|█▍        | 143/1000 [3:16:46<18:44:04, 78.70s/it]
+Epoch: 144
+Train Loss: 1.54504  Test Loss: 1.83349  ||  Train Accuray: 0.42775  Test Accuray: 0.35486
+ 14%|█▍        | 144/1000 [3:18:08<18:55:42, 79.61s/it]
+Epoch: 145
+Train Loss: 1.53716  Test Loss: 1.90429  ||  Train Accuray: 0.42874  Test Accuray: 0.32417
+ 14%|█▍        | 145/1000 [3:19:32<19:16:27, 81.15s/it]
+Epoch: 146
+Train Loss: 1.56071  Test Loss: 1.72763  ||  Train Accuray: 0.42812  Test Accuray: 0.37817
+ 15%|█▍        | 146/1000 [3:20:59<19:36:30, 82.66s/it]
+Epoch: 147
+Train Loss: 1.54314  Test Loss: 1.75284  ||  Train Accuray: 0.42722  Test Accuray: 0.36766
+ 15%|█▍        | 147/1000 [3:22:15<19:07:04, 80.68s/it]
+Epoch: 148
+Train Loss: 1.53367  Test Loss: 1.92204  ||  Train Accuray: 0.43054  Test Accuray: 0.33801
+ 15%|█▍        | 148/1000 [3:23:45<19:46:51, 83.58s/it]
+Epoch: 149
+Train Loss: 1.54618  Test Loss: 1.75838  ||  Train Accuray: 0.42428  Test Accuray: 0.35912
+ 15%|█▍        | 149/1000 [3:25:18<20:27:47, 86.57s/it]
+Epoch: 150
+Train Loss: 1.53066  Test Loss: 1.88495  ||  Train Accuray: 0.45165  Test Accuray: 0.32937
+ 15%|█▌        | 150/1000 [3:26:41<20:08:18, 85.29s/it]
+Epoch: 151
+Train Loss: 1.53598  Test Loss: 1.98425  ||  Train Accuray: 0.44169  Test Accuray: 0.31095
+ 15%|█▌        | 151/1000 [3:28:02<19:49:22, 84.06s/it]
+Epoch: 152
+Train Loss: 1.53905  Test Loss: 1.88910  ||  Train Accuray: 0.43380  Test Accuray: 0.34349
+ 15%|█▌        | 152/1000 [3:29:25<19:43:57, 83.77s/it]
+Epoch: 153
+Train Loss: 1.53342  Test Loss: 1.73223  ||  Train Accuray: 0.44176  Test Accuray: 0.35540
+ 15%|█▌        | 153/1000 [3:30:47<19:36:20, 83.33s/it]
+Epoch: 154
+Train Loss: 1.54087  Test Loss: 1.81732  ||  Train Accuray: 0.42811  Test Accuray: 0.34281
+ 15%|█▌        | 154/1000 [3:32:09<19:28:55, 82.90s/it]
+Epoch: 155
+Train Loss: 1.52930  Test Loss: 1.93901  ||  Train Accuray: 0.43849  Test Accuray: 0.31770
+ 16%|█▌        | 155/1000 [3:33:26<19:01:57, 81.09s/it]
+Epoch: 156
+Train Loss: 1.52863  Test Loss: 1.94353  ||  Train Accuray: 0.44407  Test Accuray: 0.32746
+ 16%|█▌        | 156/1000 [3:34:47<19:00:21, 81.07s/it]
+Epoch: 157
+Train Loss: 1.52179  Test Loss: 1.84039  ||  Train Accuray: 0.43358  Test Accuray: 0.32208
+ 16%|█▌        | 157/1000 [3:36:04<18:41:12, 79.80s/it]
+Epoch: 158
+Train Loss: 1.50801  Test Loss: 1.76494  ||  Train Accuray: 0.44020  Test Accuray: 0.36041
+ 16%|█▌        | 158/1000 [3:37:24<18:39:51, 79.80s/it]
+Epoch: 159
+Train Loss: 1.52063  Test Loss: 1.86394  ||  Train Accuray: 0.43931  Test Accuray: 0.34113
+ 16%|█▌        | 159/1000 [3:38:47<18:53:13, 80.85s/it]
+Epoch: 160
+Train Loss: 1.51040  Test Loss: 1.64489  ||  Train Accuray: 0.43219  Test Accuray: 0.40121
+ 16%|█▌        | 160/1000 [3:40:08<18:53:58, 81.00s/it]
+Epoch: 161
+Train Loss: 1.52180  Test Loss: 1.74633  ||  Train Accuray: 0.45025  Test Accuray: 0.35951
+ 16%|█▌        | 161/1000 [3:41:27<18:42:08, 80.25s/it]
+Epoch: 162
+Train Loss: 1.51177  Test Loss: 1.84828  ||  Train Accuray: 0.43822  Test Accuray: 0.36255
+ 16%|█▌        | 162/1000 [3:42:55<19:12:04, 82.49s/it]
+Epoch: 163
+Train Loss: 1.50878  Test Loss: 1.76791  ||  Train Accuray: 0.44444  Test Accuray: 0.36208
+ 16%|█▋        | 163/1000 [3:44:27<19:50:09, 85.32s/it]
+Epoch: 164
+Train Loss: 1.51357  Test Loss: 1.76353  ||  Train Accuray: 0.44434  Test Accuray: 0.36191
+ 16%|█▋        | 164/1000 [3:45:44<19:14:24, 82.85s/it]
+Epoch: 165
+Train Loss: 1.49342  Test Loss: 1.88217  ||  Train Accuray: 0.44459  Test Accuray: 0.33368
+ 16%|█▋        | 165/1000 [3:47:01<18:48:06, 81.06s/it]
+Epoch: 166
+Train Loss: 1.50493  Test Loss: 1.86652  ||  Train Accuray: 0.44539  Test Accuray: 0.33642
+ 17%|█▋        | 166/1000 [3:48:18<18:31:06, 79.94s/it]
+Epoch: 167
+Train Loss: 1.50834  Test Loss: 1.88841  ||  Train Accuray: 0.45166  Test Accuray: 0.34746
+ 17%|█▋        | 167/1000 [3:49:36<18:21:05, 79.31s/it]
+Epoch: 168
+Train Loss: 1.49316  Test Loss: 1.96630  ||  Train Accuray: 0.44599  Test Accuray: 0.33329
+ 17%|█▋        | 168/1000 [3:50:54<18:13:40, 78.87s/it]
+Epoch: 169
+Train Loss: 1.49614  Test Loss: 1.78720  ||  Train Accuray: 0.43844  Test Accuray: 0.36836
+ 17%|█▋        | 169/1000 [3:52:14<18:17:08, 79.22s/it]
+Epoch: 170
+Train Loss: 1.50314  Test Loss: 1.96101  ||  Train Accuray: 0.43886  Test Accuray: 0.30751
+ 17%|█▋        | 170/1000 [3:53:30<18:03:38, 78.34s/it]
+Epoch: 171
+Train Loss: 1.49512  Test Loss: 1.71378  ||  Train Accuray: 0.44937  Test Accuray: 0.38400
+ 17%|█▋        | 171/1000 [3:54:48<18:01:54, 78.30s/it]
+Epoch: 172
+Train Loss: 1.50179  Test Loss: 1.74550  ||  Train Accuray: 0.44080  Test Accuray: 0.35865
+ 17%|█▋        | 172/1000 [3:56:06<17:57:36, 78.09s/it]
+Epoch: 173
+Train Loss: 1.49712  Test Loss: 1.66605  ||  Train Accuray: 0.43537  Test Accuray: 0.38968
+ 17%|█▋        | 173/1000 [3:57:20<17:39:46, 76.89s/it]
+Epoch: 174
+Train Loss: 1.49296  Test Loss: 1.78167  ||  Train Accuray: 0.45124  Test Accuray: 0.34674
+ 17%|█▋        | 174/1000 [3:58:57<19:01:01, 82.88s/it]
+Epoch: 175
+Train Loss: 1.49027  Test Loss: 1.68116  ||  Train Accuray: 0.45218  Test Accuray: 0.38504
+ 18%|█▊        | 175/1000 [4:00:24<19:17:19, 84.17s/it]
+Epoch: 176
+Train Loss: 1.48610  Test Loss: 1.74674  ||  Train Accuray: 0.45342  Test Accuray: 0.37386
+ 18%|█▊        | 176/1000 [4:01:53<19:37:26, 85.74s/it]
+Epoch: 177
+Train Loss: 1.46505  Test Loss: 1.75658  ||  Train Accuray: 0.46317  Test Accuray: 0.36150
+ 18%|█▊        | 177/1000 [4:03:21<19:46:04, 86.47s/it]
+Epoch: 178
+Train Loss: 1.48717  Test Loss: 1.86662  ||  Train Accuray: 0.45923  Test Accuray: 0.34276
+ 18%|█▊        | 178/1000 [4:04:54<20:08:19, 88.20s/it]
+Epoch: 179
+Train Loss: 1.46557  Test Loss: 1.93619  ||  Train Accuray: 0.45314  Test Accuray: 0.33835
+ 18%|█▊        | 179/1000 [4:06:27<20:26:59, 89.67s/it]
+Epoch: 180
+Train Loss: 1.48292  Test Loss: 1.76364  ||  Train Accuray: 0.44998  Test Accuray: 0.37910
+ 18%|█▊        | 180/1000 [4:08:00<20:40:11, 90.75s/it]
+Epoch: 181
+Train Loss: 1.47128  Test Loss: 1.74552  ||  Train Accuray: 0.46113  Test Accuray: 0.36259
+ 18%|█▊        | 181/1000 [4:09:35<20:58:09, 92.17s/it]
+Epoch: 182
+Train Loss: 1.47806  Test Loss: 1.90702  ||  Train Accuray: 0.45133  Test Accuray: 0.32399
+ 18%|█▊        | 182/1000 [4:11:12<21:15:37, 93.57s/it]
+Epoch: 183
+Train Loss: 1.47455  Test Loss: 1.97903  ||  Train Accuray: 0.45449  Test Accuray: 0.31042
+ 18%|█▊        | 183/1000 [4:12:42<20:57:24, 92.34s/it]
+Epoch: 184
+Train Loss: 1.46867  Test Loss: 1.62572  ||  Train Accuray: 0.46952  Test Accuray: 0.40319
+ 18%|█▊        | 184/1000 [4:14:25<21:41:48, 95.72s/it]
+Epoch: 185
+Train Loss: 1.46677  Test Loss: 1.68178  ||  Train Accuray: 0.45590  Test Accuray: 0.39166
+ 18%|█▊        | 185/1000 [4:15:54<21:12:03, 93.65s/it]
+Epoch: 186
+Train Loss: 1.45848  Test Loss: 1.69061  ||  Train Accuray: 0.45327  Test Accuray: 0.39071
+ 19%|█▊        | 186/1000 [4:17:22<20:48:17, 92.01s/it]
+Epoch: 187
+Train Loss: 1.46416  Test Loss: 1.78257  ||  Train Accuray: 0.46286  Test Accuray: 0.32871
+ 19%|█▊        | 187/1000 [4:18:52<20:35:55, 91.21s/it]
+Epoch: 188
+Train Loss: 1.46301  Test Loss: 1.65003  ||  Train Accuray: 0.45782  Test Accuray: 0.40471
+ 19%|█▉        | 188/1000 [4:20:21<20:26:11, 90.61s/it]
+Epoch: 189
+Train Loss: 1.46114  Test Loss: 1.64997  ||  Train Accuray: 0.45970  Test Accuray: 0.40053
+ 19%|█▉        | 189/1000 [4:21:50<20:19:43, 90.24s/it]
+Epoch: 190
+Train Loss: 1.46373  Test Loss: 1.71532  ||  Train Accuray: 0.46233  Test Accuray: 0.37930
+ 19%|█▉        | 190/1000 [4:23:21<20:18:35, 90.27s/it]
+Epoch: 191
+Train Loss: 1.43530  Test Loss: 1.78793  ||  Train Accuray: 0.47491  Test Accuray: 0.36127
+ 19%|█▉        | 191/1000 [4:24:48<20:03:34, 89.26s/it]
+Epoch: 192
+Train Loss: 1.45773  Test Loss: 1.89424  ||  Train Accuray: 0.45925  Test Accuray: 0.34781
+ 19%|█▉        | 192/1000 [4:26:02<19:01:03, 84.73s/it]
+Epoch: 193
+Train Loss: 1.45183  Test Loss: 1.83055  ||  Train Accuray: 0.46126  Test Accuray: 0.35335
+ 19%|█▉        | 193/1000 [4:27:18<18:26:13, 82.25s/it]
+Epoch: 194
+Train Loss: 1.44318  Test Loss: 1.75223  ||  Train Accuray: 0.47502  Test Accuray: 0.37533
+ 19%|█▉        | 194/1000 [4:28:36<18:05:36, 80.82s/it]
+Epoch: 195
+Train Loss: 1.45449  Test Loss: 1.70504  ||  Train Accuray: 0.46458  Test Accuray: 0.37142
+ 20%|█▉        | 195/1000 [4:29:54<17:53:36, 80.02s/it]
+Epoch: 196
+Train Loss: 1.45289  Test Loss: 1.78620  ||  Train Accuray: 0.46556  Test Accuray: 0.36617
+ 20%|█▉        | 196/1000 [4:31:14<17:52:13, 80.02s/it]
+Epoch: 197
+Train Loss: 1.45628  Test Loss: 1.84663  ||  Train Accuray: 0.46101  Test Accuray: 0.35310
+ 20%|█▉        | 197/1000 [4:32:36<17:59:26, 80.66s/it]
+Epoch: 198
+Train Loss: 1.45216  Test Loss: 1.78095  ||  Train Accuray: 0.46190  Test Accuray: 0.37096
+ 20%|█▉        | 198/1000 [4:33:56<17:54:07, 80.36s/it]
+Epoch: 199
+Train Loss: 1.44319  Test Loss: 1.72336  ||  Train Accuray: 0.47112  Test Accuray: 0.37112
+ 20%|█▉        | 199/1000 [4:35:18<17:59:57, 80.90s/it]
+Epoch: 200
+Train Loss: 1.44196  Test Loss: 1.69090  ||  Train Accuray: 0.46675  Test Accuray: 0.38460
+ 20%|██        | 200/1000 [4:36:39<17:59:01, 80.93s/it]
+Epoch: 201
+Train Loss: 1.43708  Test Loss: 1.68465  ||  Train Accuray: 0.46610  Test Accuray: 0.38684
+ 20%|██        | 201/1000 [4:38:00<17:59:39, 81.08s/it]
+Epoch: 202
+Train Loss: 1.42863  Test Loss: 1.72712  ||  Train Accuray: 0.47373  Test Accuray: 0.37288
+ 20%|██        | 202/1000 [4:39:19<17:51:03, 80.53s/it]
+Epoch: 203
+Train Loss: 1.44091  Test Loss: 1.78777  ||  Train Accuray: 0.45782  Test Accuray: 0.34830
+ 20%|██        | 203/1000 [4:40:38<17:42:50, 80.01s/it]
+Epoch: 204
+Train Loss: 1.42734  Test Loss: 2.15988  ||  Train Accuray: 0.47260  Test Accuray: 0.28728
+ 20%|██        | 204/1000 [4:41:59<17:42:47, 80.11s/it]
+Epoch: 205
+Train Loss: 1.43005  Test Loss: 1.69788  ||  Train Accuray: 0.47646  Test Accuray: 0.40268
+ 20%|██        | 205/1000 [4:43:30<18:26:01, 83.47s/it]
+Epoch: 206
+Train Loss: 1.43826  Test Loss: 1.94397  ||  Train Accuray: 0.47312  Test Accuray: 0.32592
+ 21%|██        | 206/1000 [4:44:59<18:46:42, 85.14s/it]
+Epoch: 207
+Train Loss: 1.42109  Test Loss: 1.73163  ||  Train Accuray: 0.48072  Test Accuray: 0.38315
+ 21%|██        | 207/1000 [4:46:29<19:05:11, 86.65s/it]
+Epoch: 208
+Train Loss: 1.42613  Test Loss: 1.87030  ||  Train Accuray: 0.47602  Test Accuray: 0.35834
+ 21%|██        | 208/1000 [4:47:47<18:27:14, 83.88s/it]
+Epoch: 209
+Train Loss: 1.42393  Test Loss: 1.75852  ||  Train Accuray: 0.48128  Test Accuray: 0.36551
+ 21%|██        | 209/1000 [4:49:05<18:03:14, 82.17s/it]
+Epoch: 210
+Train Loss: 1.42141  Test Loss: 1.79043  ||  Train Accuray: 0.47812  Test Accuray: 0.37764
+ 21%|██        | 210/1000 [4:50:32<18:20:33, 83.59s/it]
+Epoch: 211
+Train Loss: 1.41075  Test Loss: 1.83822  ||  Train Accuray: 0.47999  Test Accuray: 0.36017
+ 21%|██        | 211/1000 [4:52:05<18:56:31, 86.43s/it]
+Epoch: 212
+Train Loss: 1.42354  Test Loss: 1.83314  ||  Train Accuray: 0.48196  Test Accuray: 0.36061
+ 21%|██        | 212/1000 [4:53:27<18:37:40, 85.10s/it]
+Epoch: 213
+Train Loss: 1.40635  Test Loss: 1.71501  ||  Train Accuray: 0.49042  Test Accuray: 0.39941
+ 21%|██▏       | 213/1000 [4:54:41<17:54:07, 81.89s/it]
+Epoch: 214
+Train Loss: 1.41672  Test Loss: 1.67932  ||  Train Accuray: 0.48051  Test Accuray: 0.40052
+ 21%|██▏       | 214/1000 [4:56:03<17:54:29, 82.02s/it]
+Epoch: 215
+Train Loss: 1.41994  Test Loss: 1.80082  ||  Train Accuray: 0.48089  Test Accuray: 0.35131
+ 22%|██▏       | 215/1000 [4:57:28<18:02:16, 82.72s/it]
+Epoch: 216
+Train Loss: 1.41758  Test Loss: 1.64683  ||  Train Accuray: 0.47448  Test Accuray: 0.39871
+ 22%|██▏       | 216/1000 [4:58:47<17:48:08, 81.75s/it]
+Epoch: 217
+Train Loss: 1.39659  Test Loss: 1.71029  ||  Train Accuray: 0.48714  Test Accuray: 0.39535
+ 22%|██▏       | 217/1000 [5:00:10<17:50:30, 82.03s/it]
+Epoch: 218
+Train Loss: 1.40888  Test Loss: 1.63879  ||  Train Accuray: 0.48580  Test Accuray: 0.40689
+ 22%|██▏       | 218/1000 [5:01:30<17:40:48, 81.39s/it]
+Epoch: 219
+Train Loss: 1.40424  Test Loss: 1.69116  ||  Train Accuray: 0.49712  Test Accuray: 0.39852
+ 22%|██▏       | 219/1000 [5:02:49<17:31:51, 80.81s/it]
+Epoch: 220
+Train Loss: 1.41244  Test Loss: 1.97250  ||  Train Accuray: 0.48509  Test Accuray: 0.32835
+ 22%|██▏       | 220/1000 [5:04:10<17:29:25, 80.72s/it]
+Epoch: 221
+Train Loss: 1.39598  Test Loss: 1.68886  ||  Train Accuray: 0.48827  Test Accuray: 0.40425
+ 22%|██▏       | 221/1000 [5:05:27<17:16:11, 79.81s/it]
+Epoch: 222
+Train Loss: 1.40479  Test Loss: 1.61902  ||  Train Accuray: 0.47859  Test Accuray: 0.40079
+ 22%|██▏       | 222/1000 [5:06:42<16:54:38, 78.25s/it]
+Epoch: 223
+Train Loss: 1.39423  Test Loss: 1.59669  ||  Train Accuray: 0.48896  Test Accuray: 0.42429
+ 22%|██▏       | 223/1000 [5:07:57<16:42:15, 77.39s/it]
+Epoch: 224
+Train Loss: 1.39424  Test Loss: 1.69037  ||  Train Accuray: 0.47195  Test Accuray: 0.40783
+ 22%|██▏       | 224/1000 [5:09:17<16:48:34, 77.98s/it]
+Epoch: 225
+Train Loss: 1.39235  Test Loss: 1.68992  ||  Train Accuray: 0.48816  Test Accuray: 0.38992
+ 22%|██▎       | 225/1000 [5:10:40<17:08:13, 79.60s/it]
+Epoch: 226
+Train Loss: 1.39176  Test Loss: 1.90007  ||  Train Accuray: 0.48622  Test Accuray: 0.33548
+ 23%|██▎       | 226/1000 [5:11:58<16:59:59, 79.07s/it]
+Epoch: 227
+Train Loss: 1.39074  Test Loss: 1.62493  ||  Train Accuray: 0.48482  Test Accuray: 0.41441
+ 23%|██▎       | 227/1000 [5:13:11<16:33:58, 77.15s/it]
+Epoch: 228
+Train Loss: 1.38702  Test Loss: 1.78684  ||  Train Accuray: 0.48429  Test Accuray: 0.38588
+ 23%|██▎       | 228/1000 [5:14:38<17:12:14, 80.23s/it]
+Epoch: 229
+Train Loss: 1.39318  Test Loss: 1.68312  ||  Train Accuray: 0.49016  Test Accuray: 0.40242
+ 23%|██▎       | 229/1000 [5:16:08<17:49:20, 83.22s/it]
+Epoch: 230
+Train Loss: 1.37873  Test Loss: 1.66076  ||  Train Accuray: 0.49238  Test Accuray: 0.40700
+ 23%|██▎       | 230/1000 [5:17:46<18:44:43, 87.64s/it]
+Epoch: 231
+Train Loss: 1.38064  Test Loss: 1.80050  ||  Train Accuray: 0.49127  Test Accuray: 0.38368
+ 23%|██▎       | 231/1000 [5:19:21<19:11:12, 89.82s/it]
+Epoch: 232
+Train Loss: 1.38780  Test Loss: 1.80291  ||  Train Accuray: 0.48477  Test Accuray: 0.38576
+ 23%|██▎       | 232/1000 [5:20:50<19:04:43, 89.43s/it]
+Epoch: 233
+Train Loss: 1.38370  Test Loss: 1.81163  ||  Train Accuray: 0.49410  Test Accuray: 0.37302
+ 23%|██▎       | 233/1000 [5:22:18<19:00:27, 89.21s/it]
+Epoch: 234
+Train Loss: 1.37519  Test Loss: 1.73186  ||  Train Accuray: 0.50196  Test Accuray: 0.39417
+ 23%|██▎       | 234/1000 [5:23:48<18:59:47, 89.28s/it]
+Epoch: 235
+Train Loss: 1.37623  Test Loss: 1.68525  ||  Train Accuray: 0.49473  Test Accuray: 0.40468
+ 24%|██▎       | 235/1000 [5:25:15<18:50:18, 88.65s/it]
+Epoch: 236
+Train Loss: 1.36618  Test Loss: 1.87432  ||  Train Accuray: 0.49550  Test Accuray: 0.36549
+ 24%|██▎       | 236/1000 [5:26:43<18:44:49, 88.34s/it]
+Epoch: 237
+Train Loss: 1.36728  Test Loss: 1.86871  ||  Train Accuray: 0.49535  Test Accuray: 0.34702
+ 24%|██▎       | 237/1000 [5:28:11<18:43:02, 88.31s/it]
+Epoch: 238
+Train Loss: 1.38673  Test Loss: 1.65817  ||  Train Accuray: 0.48560  Test Accuray: 0.40507
+ 24%|██▍       | 238/1000 [5:29:43<18:54:33, 89.34s/it]
+Epoch: 239
+Train Loss: 1.36110  Test Loss: 1.71024  ||  Train Accuray: 0.49484  Test Accuray: 0.40058
+ 24%|██▍       | 239/1000 [5:31:18<19:17:14, 91.24s/it]
+Epoch: 240
+Train Loss: 1.35436  Test Loss: 1.72740  ||  Train Accuray: 0.49354  Test Accuray: 0.40537
+ 24%|██▍       | 240/1000 [5:32:50<19:16:33, 91.31s/it]
+Epoch: 241
+Train Loss: 1.36963  Test Loss: 1.68474  ||  Train Accuray: 0.49494  Test Accuray: 0.40522
+ 24%|██▍       | 241/1000 [5:34:17<19:00:08, 90.13s/it]
+Epoch: 242
+Train Loss: 1.36402  Test Loss: 1.74809  ||  Train Accuray: 0.49236  Test Accuray: 0.40260
+ 24%|██▍       | 242/1000 [5:35:54<19:23:17, 92.08s/it]
+Epoch: 243
+Train Loss: 1.36395  Test Loss: 1.57823  ||  Train Accuray: 0.50239  Test Accuray: 0.43402
+ 24%|██▍       | 243/1000 [5:37:24<19:13:34, 91.43s/it]
+Epoch: 244
+Train Loss: 1.35584  Test Loss: 1.85037  ||  Train Accuray: 0.49844  Test Accuray: 0.37263
+ 24%|██▍       | 244/1000 [5:38:51<18:57:51, 90.31s/it]
+Epoch: 245
+Train Loss: 1.36140  Test Loss: 1.53074  ||  Train Accuray: 0.49878  Test Accuray: 0.45004
+ 24%|██▍       | 245/1000 [5:40:12<18:21:14, 87.52s/it]
+Epoch: 246
+Train Loss: 1.35815  Test Loss: 1.61512  ||  Train Accuray: 0.49814  Test Accuray: 0.43164
+ 25%|██▍       | 246/1000 [5:41:28<17:36:19, 84.06s/it]
+Epoch: 247
+Train Loss: 1.35297  Test Loss: 1.57984  ||  Train Accuray: 0.51241  Test Accuray: 0.42759
+ 25%|██▍       | 247/1000 [5:42:55<17:45:22, 84.89s/it]
+Epoch: 248
+Train Loss: 1.35071  Test Loss: 1.60025  ||  Train Accuray: 0.49700  Test Accuray: 0.42354
+ 25%|██▍       | 248/1000 [5:44:13<17:18:38, 82.87s/it]
+Epoch: 249
+Train Loss: 1.36908  Test Loss: 1.63998  ||  Train Accuray: 0.49257  Test Accuray: 0.41594
+ 25%|██▍       | 249/1000 [5:45:29<16:50:28, 80.73s/it]
+Epoch: 250
+Train Loss: 1.34819  Test Loss: 1.57111  ||  Train Accuray: 0.49289  Test Accuray: 0.43481
+ 25%|██▌       | 250/1000 [5:46:47<16:40:12, 80.02s/it]
+Epoch: 251
+Train Loss: 1.36003  Test Loss: 1.72218  ||  Train Accuray: 0.49616  Test Accuray: 0.40330
+ 25%|██▌       | 251/1000 [5:48:06<16:35:06, 79.72s/it]
+Epoch: 252
+Train Loss: 1.34474  Test Loss: 1.63577  ||  Train Accuray: 0.50448  Test Accuray: 0.40380
+ 25%|██▌       | 252/1000 [5:49:25<16:29:30, 79.37s/it]
+Epoch: 253
+Train Loss: 1.34120  Test Loss: 1.59266  ||  Train Accuray: 0.49992  Test Accuray: 0.43569
+ 25%|██▌       | 253/1000 [5:50:40<16:11:21, 78.02s/it]
+Epoch: 254
+Train Loss: 1.33312  Test Loss: 1.57250  ||  Train Accuray: 0.49363  Test Accuray: 0.43222
+ 25%|██▌       | 254/1000 [5:52:01<16:22:20, 79.01s/it]
+Epoch: 255
+Train Loss: 1.34253  Test Loss: 1.63444  ||  Train Accuray: 0.50721  Test Accuray: 0.42329
+ 26%|██▌       | 255/1000 [5:53:20<16:20:38, 78.98s/it]
+Epoch: 256
+Train Loss: 1.34120  Test Loss: 1.74101  ||  Train Accuray: 0.51023  Test Accuray: 0.39719
+ 26%|██▌       | 256/1000 [5:54:39<16:20:05, 79.04s/it]
+Epoch: 257
+Train Loss: 1.34611  Test Loss: 1.59119  ||  Train Accuray: 0.49834  Test Accuray: 0.42803
+ 26%|██▌       | 257/1000 [5:55:56<16:08:18, 78.19s/it]
+Epoch: 258
+Train Loss: 1.33992  Test Loss: 1.60280  ||  Train Accuray: 0.49628  Test Accuray: 0.42191
+ 26%|██▌       | 258/1000 [5:57:14<16:09:33, 78.40s/it]
+Epoch: 259
+Train Loss: 1.33426  Test Loss: 1.57776  ||  Train Accuray: 0.50157  Test Accuray: 0.44406
+ 26%|██▌       | 259/1000 [5:58:39<16:30:20, 80.19s/it]
+Epoch: 260
+Train Loss: 1.33070  Test Loss: 1.74554  ||  Train Accuray: 0.51092  Test Accuray: 0.36801
+ 26%|██▌       | 260/1000 [6:00:00<16:31:56, 80.43s/it]
+Epoch: 261
+Train Loss: 1.34114  Test Loss: 1.75956  ||  Train Accuray: 0.50639  Test Accuray: 0.40290
+ 26%|██▌       | 261/1000 [6:01:19<16:24:49, 79.96s/it]
+Epoch: 262
+Train Loss: 1.33132  Test Loss: 1.65726  ||  Train Accuray: 0.51321  Test Accuray: 0.42166
+ 26%|██▌       | 262/1000 [6:02:37<16:17:31, 79.47s/it]
+Epoch: 263
+Train Loss: 1.33048  Test Loss: 1.77815  ||  Train Accuray: 0.50670  Test Accuray: 0.40590
+ 26%|██▋       | 263/1000 [6:04:01<16:31:49, 80.75s/it]
+Epoch: 264
+Train Loss: 1.32645  Test Loss: 1.71720  ||  Train Accuray: 0.50734  Test Accuray: 0.40602
+ 26%|██▋       | 264/1000 [6:05:24<16:38:22, 81.39s/it]
+Epoch: 265
+Train Loss: 1.32647  Test Loss: 1.68981  ||  Train Accuray: 0.50570  Test Accuray: 0.38157
+ 26%|██▋       | 265/1000 [6:06:43<16:28:22, 80.68s/it]
+Epoch: 266
+Train Loss: 1.31245  Test Loss: 1.76991  ||  Train Accuray: 0.51516  Test Accuray: 0.38467
+ 27%|██▋       | 266/1000 [6:08:00<16:14:47, 79.68s/it]
+Epoch: 267
+Train Loss: 1.33392  Test Loss: 1.60450  ||  Train Accuray: 0.50670  Test Accuray: 0.42420
+ 27%|██▋       | 267/1000 [6:09:16<16:01:12, 78.68s/it]
+Epoch: 268
+Train Loss: 1.31255  Test Loss: 1.70066  ||  Train Accuray: 0.51423  Test Accuray: 0.40691
+ 27%|██▋       | 268/1000 [6:10:45<16:34:53, 81.55s/it]
+Epoch: 269
+Train Loss: 1.32554  Test Loss: 1.75253  ||  Train Accuray: 0.50703  Test Accuray: 0.38883
+ 27%|██▋       | 269/1000 [6:12:16<17:09:31, 84.50s/it]
+Epoch: 270
+Train Loss: 1.32116  Test Loss: 1.59322  ||  Train Accuray: 0.51252  Test Accuray: 0.43934
+ 27%|██▋       | 270/1000 [6:13:48<17:35:48, 86.78s/it]
+Epoch: 271
+Train Loss: 1.33619  Test Loss: 1.60290  ||  Train Accuray: 0.49961  Test Accuray: 0.43040
+ 27%|██▋       | 271/1000 [6:15:18<17:45:12, 87.67s/it]
+Epoch: 272
+Train Loss: 1.31006  Test Loss: 1.69573  ||  Train Accuray: 0.51209  Test Accuray: 0.39364
+ 27%|██▋       | 272/1000 [6:16:51<18:05:34, 89.47s/it]
+Epoch: 273
+Train Loss: 1.31688  Test Loss: 1.67161  ||  Train Accuray: 0.51204  Test Accuray: 0.41483
+ 27%|██▋       | 273/1000 [6:18:13<17:33:43, 86.97s/it]
+Epoch: 274
+Train Loss: 1.30866  Test Loss: 1.51503  ||  Train Accuray: 0.51908  Test Accuray: 0.45853
+ 27%|██▋       | 274/1000 [6:19:31<17:02:45, 84.52s/it]
+Epoch: 275
+Train Loss: 1.30306  Test Loss: 1.97667  ||  Train Accuray: 0.50387  Test Accuray: 0.34955
+ 28%|██▊       | 275/1000 [6:20:50<16:39:34, 82.72s/it]
+Epoch: 276
+Train Loss: 1.31380  Test Loss: 1.57618  ||  Train Accuray: 0.51334  Test Accuray: 0.42105
+ 28%|██▊       | 276/1000 [6:22:07<16:18:14, 81.07s/it]
+Epoch: 277
+Train Loss: 1.32072  Test Loss: 1.59186  ||  Train Accuray: 0.50769  Test Accuray: 0.42996
+ 28%|██▊       | 277/1000 [6:23:26<16:07:36, 80.30s/it]
+Epoch: 278
+Train Loss: 1.29104  Test Loss: 1.58407  ||  Train Accuray: 0.51721  Test Accuray: 0.44371
+ 28%|██▊       | 278/1000 [6:24:52<16:27:13, 82.04s/it]
+Epoch: 279
+Train Loss: 1.31034  Test Loss: 1.58229  ||  Train Accuray: 0.52095  Test Accuray: 0.43245
+ 28%|██▊       | 279/1000 [6:26:16<16:34:28, 82.76s/it]
+Epoch: 280
+Train Loss: 1.28931  Test Loss: 1.58137  ||  Train Accuray: 0.52132  Test Accuray: 0.44165
+ 28%|██▊       | 280/1000 [6:27:47<17:03:43, 85.31s/it]
+Epoch: 281
+Train Loss: 1.30463  Test Loss: 1.67911  ||  Train Accuray: 0.52756  Test Accuray: 0.42006
+ 28%|██▊       | 281/1000 [6:29:25<17:46:24, 88.99s/it]
+Epoch: 282
+Train Loss: 1.30621  Test Loss: 1.79347  ||  Train Accuray: 0.51002  Test Accuray: 0.38220
+ 28%|██▊       | 282/1000 [6:30:45<17:11:34, 86.20s/it]
+Epoch: 283
+Train Loss: 1.30829  Test Loss: 1.67815  ||  Train Accuray: 0.51269  Test Accuray: 0.42439
+ 28%|██▊       | 283/1000 [6:32:07<16:55:51, 85.01s/it]
+Epoch: 284
+Train Loss: 1.29503  Test Loss: 1.53862  ||  Train Accuray: 0.51582  Test Accuray: 0.44242
+ 28%|██▊       | 284/1000 [6:33:23<16:23:36, 82.42s/it]
+Epoch: 285
+Train Loss: 1.29594  Test Loss: 1.66665  ||  Train Accuray: 0.52690  Test Accuray: 0.40018
+ 28%|██▊       | 285/1000 [6:34:40<16:01:24, 80.68s/it]
+Epoch: 286
+Train Loss: 1.29196  Test Loss: 1.67286  ||  Train Accuray: 0.52218  Test Accuray: 0.42514
+ 29%|██▊       | 286/1000 [6:35:55<15:38:50, 78.89s/it]
+Epoch: 287
+Train Loss: 1.29027  Test Loss: 1.60084  ||  Train Accuray: 0.52113  Test Accuray: 0.43622
+ 29%|██▊       | 287/1000 [6:37:09<15:19:45, 77.40s/it]
+Epoch: 288
+Train Loss: 1.28692  Test Loss: 1.86764  ||  Train Accuray: 0.52594  Test Accuray: 0.37985
+ 29%|██▉       | 288/1000 [6:38:37<15:56:45, 80.63s/it]
+Epoch: 289
+Train Loss: 1.28412  Test Loss: 1.68870  ||  Train Accuray: 0.53063  Test Accuray: 0.41020
+ 29%|██▉       | 289/1000 [6:39:59<16:00:08, 81.02s/it]
+Epoch: 290
+Train Loss: 1.29194  Test Loss: 1.61544  ||  Train Accuray: 0.52030  Test Accuray: 0.42671
+ 29%|██▉       | 290/1000 [6:41:16<15:46:13, 79.96s/it]
+Epoch: 291
+Train Loss: 1.29093  Test Loss: 1.83054  ||  Train Accuray: 0.51649  Test Accuray: 0.37243
+ 29%|██▉       | 291/1000 [6:42:28<15:16:51, 77.59s/it]
+Epoch: 292
+Train Loss: 1.28448  Test Loss: 1.82651  ||  Train Accuray: 0.52401  Test Accuray: 0.38147
+ 29%|██▉       | 292/1000 [6:43:52<15:38:41, 79.55s/it]
+Epoch: 293
+Train Loss: 1.28227  Test Loss: 1.75990  ||  Train Accuray: 0.52332  Test Accuray: 0.39135
+ 29%|██▉       | 293/1000 [6:45:21<16:08:38, 82.20s/it]
+Epoch: 294
+Train Loss: 1.27783  Test Loss: 1.78075  ||  Train Accuray: 0.52913  Test Accuray: 0.40269
+ 29%|██▉       | 294/1000 [6:46:49<16:29:34, 84.10s/it]
+Epoch: 295
+Train Loss: 1.27972  Test Loss: 1.73863  ||  Train Accuray: 0.52422  Test Accuray: 0.36528
+ 30%|██▉       | 295/1000 [6:48:23<17:00:38, 86.86s/it]
+Epoch: 296
+Train Loss: 1.27230  Test Loss: 1.76068  ||  Train Accuray: 0.51876  Test Accuray: 0.39131
+ 30%|██▉       | 296/1000 [6:49:52<17:09:33, 87.75s/it]
+Epoch: 297
+Train Loss: 1.28454  Test Loss: 1.79386  ||  Train Accuray: 0.52363  Test Accuray: 0.39779
+ 30%|██▉       | 297/1000 [6:51:19<17:03:50, 87.38s/it]
+Epoch: 298
+Train Loss: 1.26420  Test Loss: 1.65445  ||  Train Accuray: 0.52332  Test Accuray: 0.42352
+ 30%|██▉       | 298/1000 [6:52:45<16:57:49, 86.99s/it]
+Epoch: 299
+Train Loss: 1.28255  Test Loss: 1.79370  ||  Train Accuray: 0.51714  Test Accuray: 0.39968
+ 30%|██▉       | 299/1000 [6:54:08<16:43:35, 85.90s/it]
+Epoch: 300
+Train Loss: 1.28385  Test Loss: 1.59977  ||  Train Accuray: 0.52964  Test Accuray: 0.42411
+ 30%|███       | 300/1000 [6:55:31<16:32:22, 85.06s/it]
+Epoch: 301
+Train Loss: 1.27098  Test Loss: 1.65707  ||  Train Accuray: 0.52516  Test Accuray: 0.42274
+ 30%|███       | 301/1000 [6:56:52<16:14:08, 83.62s/it]
+Epoch: 302
+Train Loss: 1.26177  Test Loss: 1.90645  ||  Train Accuray: 0.52578  Test Accuray: 0.36434
+ 30%|███       | 302/1000 [6:58:18<16:22:59, 84.50s/it]
+Epoch: 303
+Train Loss: 1.27144  Test Loss: 1.62905  ||  Train Accuray: 0.53312  Test Accuray: 0.42118
+ 30%|███       | 303/1000 [6:59:45<16:29:28, 85.18s/it]
+Epoch: 304
+Train Loss: 1.27111  Test Loss: 1.68914  ||  Train Accuray: 0.53007  Test Accuray: 0.41167
+ 30%|███       | 304/1000 [7:01:02<15:59:33, 82.72s/it]
+Epoch: 305
+Train Loss: 1.27733  Test Loss: 1.50930  ||  Train Accuray: 0.52748  Test Accuray: 0.46107
+ 30%|███       | 305/1000 [7:02:36<16:37:56, 86.15s/it]
+Epoch: 306
+Train Loss: 1.26796  Test Loss: 1.59292  ||  Train Accuray: 0.52889  Test Accuray: 0.42762
+ 31%|███       | 306/1000 [7:04:03<16:37:43, 86.26s/it]
+Epoch: 307
+Train Loss: 1.26809  Test Loss: 1.75970  ||  Train Accuray: 0.53522  Test Accuray: 0.39454
+ 31%|███       | 307/1000 [7:05:17<15:54:08, 82.61s/it]
+Epoch: 308
+Train Loss: 1.25275  Test Loss: 1.52304  ||  Train Accuray: 0.54450  Test Accuray: 0.45345
+ 31%|███       | 308/1000 [7:06:48<16:21:19, 85.09s/it]
+Epoch: 309
+Train Loss: 1.26438  Test Loss: 1.60454  ||  Train Accuray: 0.52408  Test Accuray: 0.43064
+ 31%|███       | 309/1000 [7:08:12<16:15:47, 84.73s/it]
+Epoch: 310
+Train Loss: 1.25948  Test Loss: 1.50101  ||  Train Accuray: 0.53307  Test Accuray: 0.47042
+ 31%|███       | 310/1000 [7:09:40<16:26:55, 85.82s/it]
+Epoch: 311
+Train Loss: 1.26700  Test Loss: 1.58916  ||  Train Accuray: 0.53320  Test Accuray: 0.42689
+ 31%|███       | 311/1000 [7:11:14<16:55:14, 88.41s/it]
+Epoch: 312
+Train Loss: 1.24978  Test Loss: 1.58586  ||  Train Accuray: 0.54142  Test Accuray: 0.44327
+ 31%|███       | 312/1000 [7:12:30<16:10:01, 84.60s/it]
+Epoch: 313
+Train Loss: 1.24618  Test Loss: 1.91746  ||  Train Accuray: 0.53312  Test Accuray: 0.36742
+ 31%|███▏      | 313/1000 [7:14:00<16:27:29, 86.24s/it]
+Epoch: 314
+Train Loss: 1.25056  Test Loss: 1.54923  ||  Train Accuray: 0.53582  Test Accuray: 0.45152
+ 31%|███▏      | 314/1000 [7:15:31<16:40:19, 87.49s/it]
+Epoch: 315
+Train Loss: 1.24772  Test Loss: 1.69262  ||  Train Accuray: 0.54012  Test Accuray: 0.41054
+ 32%|███▏      | 315/1000 [7:17:03<16:54:38, 88.87s/it]
+Epoch: 316
+Train Loss: 1.24870  Test Loss: 1.71982  ||  Train Accuray: 0.54244  Test Accuray: 0.39580
+ 32%|███▏      | 316/1000 [7:18:31<16:51:02, 88.69s/it]
+Epoch: 317
+Train Loss: 1.25808  Test Loss: 1.67057  ||  Train Accuray: 0.53387  Test Accuray: 0.42431
+ 32%|███▏      | 317/1000 [7:20:03<17:00:15, 89.63s/it]
+Epoch: 318
+Train Loss: 1.24062  Test Loss: 1.64731  ||  Train Accuray: 0.54201  Test Accuray: 0.40814
+ 32%|███▏      | 318/1000 [7:21:26<16:37:21, 87.74s/it]
+Epoch: 319
+Train Loss: 1.26359  Test Loss: 1.48719  ||  Train Accuray: 0.52346  Test Accuray: 0.46609
+ 32%|███▏      | 319/1000 [7:22:49<16:20:36, 86.40s/it]
+Epoch: 320
+Train Loss: 1.23602  Test Loss: 1.81955  ||  Train Accuray: 0.54052  Test Accuray: 0.37228
+ 32%|███▏      | 320/1000 [7:24:09<15:55:14, 84.29s/it]
+Epoch: 321
+Train Loss: 1.25543  Test Loss: 1.72956  ||  Train Accuray: 0.53672  Test Accuray: 0.40593
+ 32%|███▏      | 321/1000 [7:25:31<15:47:57, 83.77s/it]
+Epoch: 322
+Train Loss: 1.22356  Test Loss: 1.62247  ||  Train Accuray: 0.55005  Test Accuray: 0.42937
+ 32%|███▏      | 322/1000 [7:26:55<15:45:57, 83.71s/it]
+Epoch: 323
+Train Loss: 1.24632  Test Loss: 1.55627  ||  Train Accuray: 0.53906  Test Accuray: 0.44466
+ 32%|███▏      | 323/1000 [7:28:27<16:14:29, 86.37s/it]
+Epoch: 324
+Train Loss: 1.24499  Test Loss: 1.53022  ||  Train Accuray: 0.53995  Test Accuray: 0.45325
+ 32%|███▏      | 324/1000 [7:29:51<16:05:01, 85.65s/it]
+Epoch: 325
+Train Loss: 1.23297  Test Loss: 1.56973  ||  Train Accuray: 0.53679  Test Accuray: 0.45168
+ 32%|███▎      | 325/1000 [7:31:21<16:17:57, 86.93s/it]
+Epoch: 326
+Train Loss: 1.24343  Test Loss: 1.69134  ||  Train Accuray: 0.54148  Test Accuray: 0.42146
+ 33%|███▎      | 326/1000 [7:32:56<16:42:30, 89.24s/it]
+Epoch: 327
+Train Loss: 1.23425  Test Loss: 1.57801  ||  Train Accuray: 0.53547  Test Accuray: 0.45041
+ 33%|███▎      | 327/1000 [7:34:27<16:47:12, 89.80s/it]
+Epoch: 328
+Train Loss: 1.23818  Test Loss: 1.73964  ||  Train Accuray: 0.54300  Test Accuray: 0.41148
+ 33%|███▎      | 328/1000 [7:36:00<16:55:00, 90.63s/it]
+Epoch: 329
+Train Loss: 1.23514  Test Loss: 1.52926  ||  Train Accuray: 0.54605  Test Accuray: 0.45815
+ 33%|███▎      | 329/1000 [7:37:24<16:34:04, 88.89s/it]
+Epoch: 330
+Train Loss: 1.22113  Test Loss: 1.53594  ||  Train Accuray: 0.54359  Test Accuray: 0.45346
+ 33%|███▎      | 330/1000 [7:38:42<15:53:34, 85.39s/it]
+Epoch: 331
+Train Loss: 1.23367  Test Loss: 1.71366  ||  Train Accuray: 0.54366  Test Accuray: 0.39648
+ 33%|███▎      | 331/1000 [7:40:05<15:45:55, 84.84s/it]
+Epoch: 332
+Train Loss: 1.22328  Test Loss: 1.79737  ||  Train Accuray: 0.54270  Test Accuray: 0.40180
+ 33%|███▎      | 332/1000 [7:41:32<15:52:07, 85.52s/it]
+Epoch: 333
+Train Loss: 1.22927  Test Loss: 1.59650  ||  Train Accuray: 0.54546  Test Accuray: 0.45044
+ 33%|███▎      | 333/1000 [7:42:59<15:54:27, 85.86s/it]
+Epoch: 334
+Train Loss: 1.22126  Test Loss: 1.49031  ||  Train Accuray: 0.54582  Test Accuray: 0.46616
+ 33%|███▎      | 334/1000 [7:44:26<15:58:06, 86.32s/it]
+Epoch: 335
+Train Loss: 1.22679  Test Loss: 1.64017  ||  Train Accuray: 0.54306  Test Accuray: 0.41253
+ 34%|███▎      | 335/1000 [7:46:01<16:23:13, 88.71s/it]
+Epoch: 336
+Train Loss: 1.22352  Test Loss: 1.77442  ||  Train Accuray: 0.54332  Test Accuray: 0.39178
+ 34%|███▎      | 336/1000 [7:47:40<16:58:27, 92.03s/it]
+Epoch: 337
+Train Loss: 1.21268  Test Loss: 1.65903  ||  Train Accuray: 0.54955  Test Accuray: 0.43210
+ 34%|███▎      | 337/1000 [7:49:10<16:49:56, 91.40s/it]
+Epoch: 338
+Train Loss: 1.20458  Test Loss: 1.67489  ||  Train Accuray: 0.55088  Test Accuray: 0.41156
+ 34%|███▍      | 338/1000 [7:50:41<16:46:30, 91.22s/it]
+Epoch: 339
+Train Loss: 1.21550  Test Loss: 1.71971  ||  Train Accuray: 0.53841  Test Accuray: 0.41776
+ 34%|███▍      | 339/1000 [7:52:10<16:36:15, 90.43s/it]
+Epoch: 340
+Train Loss: 1.21649  Test Loss: 1.52132  ||  Train Accuray: 0.55214  Test Accuray: 0.45927
+ 34%|███▍      | 340/1000 [7:53:38<16:28:32, 89.87s/it]
+Epoch: 341
+Train Loss: 1.23481  Test Loss: 1.61636  ||  Train Accuray: 0.54206  Test Accuray: 0.42699
+ 34%|███▍      | 341/1000 [7:54:52<15:34:55, 85.12s/it]
+Epoch: 342
+Train Loss: 1.21786  Test Loss: 1.56656  ||  Train Accuray: 0.55271  Test Accuray: 0.45726
+ 34%|███▍      | 342/1000 [7:56:13<15:17:34, 83.67s/it]
+Epoch: 343
+Train Loss: 1.20740  Test Loss: 1.62750  ||  Train Accuray: 0.55068  Test Accuray: 0.44029
+ 34%|███▍      | 343/1000 [7:57:32<15:00:58, 82.28s/it]
+Epoch: 344
+Train Loss: 1.21661  Test Loss: 1.52020  ||  Train Accuray: 0.54683  Test Accuray: 0.46094
+ 34%|███▍      | 344/1000 [7:58:49<14:43:40, 80.82s/it]
+Epoch: 345
+Train Loss: 1.19500  Test Loss: 1.51585  ||  Train Accuray: 0.56080  Test Accuray: 0.44987
+ 34%|███▍      | 345/1000 [8:00:05<14:27:40, 79.48s/it]
+Epoch: 346
+Train Loss: 1.21279  Test Loss: 1.56303  ||  Train Accuray: 0.55233  Test Accuray: 0.44549
+ 35%|███▍      | 346/1000 [8:01:17<14:02:02, 77.25s/it]
+Epoch: 347
+Train Loss: 1.20297  Test Loss: 1.66491  ||  Train Accuray: 0.55832  Test Accuray: 0.42009
+ 35%|███▍      | 347/1000 [8:02:44<14:31:54, 80.11s/it]
+Epoch: 348
+Train Loss: 1.21861  Test Loss: 1.57589  ||  Train Accuray: 0.55492  Test Accuray: 0.45173
+ 35%|███▍      | 348/1000 [8:04:09<14:44:00, 81.35s/it]
+Epoch: 349
+Train Loss: 1.20893  Test Loss: 1.74011  ||  Train Accuray: 0.55318  Test Accuray: 0.41660
+ 35%|███▍      | 349/1000 [8:05:27<14:32:53, 80.45s/it]
+Epoch: 350
+Train Loss: 1.19819  Test Loss: 1.49837  ||  Train Accuray: 0.55930  Test Accuray: 0.48124
+ 35%|███▌      | 350/1000 [8:06:58<15:07:11, 83.74s/it]
+Epoch: 351
+Train Loss: 1.20186  Test Loss: 1.62391  ||  Train Accuray: 0.55783  Test Accuray: 0.43113
+ 35%|███▌      | 351/1000 [8:08:25<15:16:05, 84.69s/it]
+Epoch: 352
+Train Loss: 1.19537  Test Loss: 1.93074  ||  Train Accuray: 0.55802  Test Accuray: 0.35748
+ 35%|███▌      | 352/1000 [8:09:57<15:38:01, 86.85s/it]
+Epoch: 353
+Train Loss: 1.19678  Test Loss: 1.67462  ||  Train Accuray: 0.55305  Test Accuray: 0.42294
+ 35%|███▌      | 353/1000 [8:11:32<16:01:28, 89.16s/it]
+Epoch: 354
+Train Loss: 1.19156  Test Loss: 1.59420  ||  Train Accuray: 0.55668  Test Accuray: 0.45540
+ 35%|███▌      | 354/1000 [8:13:06<16:17:31, 90.79s/it]
+Epoch: 355
+Train Loss: 1.20210  Test Loss: 1.63764  ||  Train Accuray: 0.55231  Test Accuray: 0.43601
+ 36%|███▌      | 355/1000 [8:14:28<15:46:17, 88.03s/it]
+Epoch: 356
+Train Loss: 1.19750  Test Loss: 1.62077  ||  Train Accuray: 0.54758  Test Accuray: 0.42483
+ 36%|███▌      | 356/1000 [8:15:49<15:21:25, 85.85s/it]
+Epoch: 357
+Train Loss: 1.19354  Test Loss: 1.71200  ||  Train Accuray: 0.55904  Test Accuray: 0.41960
+ 36%|███▌      | 357/1000 [8:17:08<14:58:40, 83.86s/it]
+Epoch: 358
+Train Loss: 1.19400  Test Loss: 1.58189  ||  Train Accuray: 0.56227  Test Accuray: 0.43894
+ 36%|███▌      | 358/1000 [8:18:24<14:31:32, 81.45s/it]
+Epoch: 359
+Train Loss: 1.19042  Test Loss: 1.60567  ||  Train Accuray: 0.56058  Test Accuray: 0.42267
+ 36%|███▌      | 359/1000 [8:19:43<14:22:01, 80.69s/it]
+Epoch: 360
+Train Loss: 1.18254  Test Loss: 1.67949  ||  Train Accuray: 0.55960  Test Accuray: 0.43387
+ 36%|███▌      | 360/1000 [8:21:01<14:14:06, 80.07s/it]
+Epoch: 361
+Train Loss: 1.18374  Test Loss: 1.59546  ||  Train Accuray: 0.55727  Test Accuray: 0.43437
+ 36%|███▌      | 361/1000 [8:22:17<13:58:26, 78.73s/it]
+Epoch: 362
+Train Loss: 1.18780  Test Loss: 1.51303  ||  Train Accuray: 0.56707  Test Accuray: 0.46140
+ 36%|███▌      | 362/1000 [8:23:42<14:19:27, 80.83s/it]
+Epoch: 363
+Train Loss: 1.19275  Test Loss: 1.71089  ||  Train Accuray: 0.55893  Test Accuray: 0.42526
+ 36%|███▋      | 363/1000 [8:25:16<14:57:10, 84.51s/it]
+Epoch: 364
+Train Loss: 1.18375  Test Loss: 1.72721  ||  Train Accuray: 0.55879  Test Accuray: 0.41282
+ 36%|███▋      | 364/1000 [8:26:35<14:40:54, 83.10s/it]
+Epoch: 365
+Train Loss: 1.19227  Test Loss: 1.69123  ||  Train Accuray: 0.56638  Test Accuray: 0.39300
+ 36%|███▋      | 365/1000 [8:27:50<14:13:49, 80.68s/it]
+Epoch: 366
+Train Loss: 1.18699  Test Loss: 1.73109  ||  Train Accuray: 0.55626  Test Accuray: 0.41724
+ 37%|███▋      | 366/1000 [8:29:11<14:11:00, 80.54s/it]
+Epoch: 367
+Train Loss: 1.17166  Test Loss: 1.70075  ||  Train Accuray: 0.57697  Test Accuray: 0.42716
+ 37%|███▋      | 367/1000 [8:30:26<13:53:37, 79.02s/it]
+Epoch: 368
+Train Loss: 1.18940  Test Loss: 1.64708  ||  Train Accuray: 0.55640  Test Accuray: 0.42521
+ 37%|███▋      | 368/1000 [8:31:47<13:57:15, 79.49s/it]
+Epoch: 369
+Train Loss: 1.16696  Test Loss: 1.53751  ||  Train Accuray: 0.56318  Test Accuray: 0.45578
+ 37%|███▋      | 369/1000 [8:33:06<13:55:45, 79.47s/it]
+Epoch: 370
+Train Loss: 1.17776  Test Loss: 1.63481  ||  Train Accuray: 0.55772  Test Accuray: 0.43680
+ 37%|███▋      | 370/1000 [8:34:27<13:59:19, 79.94s/it]
+Epoch: 371
+Train Loss: 1.16931  Test Loss: 1.67692  ||  Train Accuray: 0.56917  Test Accuray: 0.42116
+ 37%|███▋      | 371/1000 [8:35:46<13:55:59, 79.74s/it]
+Epoch: 372
+Train Loss: 1.16940  Test Loss: 1.52092  ||  Train Accuray: 0.56353  Test Accuray: 0.45932
+ 37%|███▋      | 372/1000 [8:37:02<13:41:04, 78.45s/it]
+Epoch: 373
+Train Loss: 1.17356  Test Loss: 1.56026  ||  Train Accuray: 0.55883  Test Accuray: 0.45473
+ 37%|███▋      | 373/1000 [8:38:22<13:43:35, 78.81s/it]
+Epoch: 374
+Train Loss: 1.16606  Test Loss: 1.78351  ||  Train Accuray: 0.57201  Test Accuray: 0.38136
+ 37%|███▋      | 374/1000 [8:39:49<14:07:54, 81.27s/it]
+Epoch: 375
+Train Loss: 1.15485  Test Loss: 1.74682  ||  Train Accuray: 0.57614  Test Accuray: 0.40142
+ 38%|███▊      | 375/1000 [8:41:22<14:46:10, 85.07s/it]
+Epoch: 376
+Train Loss: 1.17618  Test Loss: 1.58754  ||  Train Accuray: 0.57262  Test Accuray: 0.45305
+ 38%|███▊      | 376/1000 [8:42:57<15:15:07, 87.99s/it]
+Epoch: 377
+Train Loss: 1.15455  Test Loss: 1.71237  ||  Train Accuray: 0.58546  Test Accuray: 0.42312
+ 38%|███▊      | 377/1000 [8:44:30<15:29:34, 89.53s/it]
+Epoch: 378
+Train Loss: 1.15036  Test Loss: 1.70262  ||  Train Accuray: 0.57312  Test Accuray: 0.40908
+ 38%|███▊      | 378/1000 [8:46:00<15:28:19, 89.55s/it]
+Epoch: 379
+Train Loss: 1.16800  Test Loss: 1.59391  ||  Train Accuray: 0.56685  Test Accuray: 0.44949
+ 38%|███▊      | 379/1000 [8:47:28<15:23:37, 89.24s/it]
+Epoch: 380
+Train Loss: 1.16650  Test Loss: 1.67154  ||  Train Accuray: 0.55928  Test Accuray: 0.43364
+ 38%|███▊      | 380/1000 [8:49:03<15:39:26, 90.91s/it]
+Epoch: 381
+Train Loss: 1.16664  Test Loss: 1.67965  ||  Train Accuray: 0.56819  Test Accuray: 0.42326
+ 38%|███▊      | 381/1000 [8:50:31<15:27:39, 89.92s/it]
+Epoch: 382
+Train Loss: 1.16035  Test Loss: 1.65677  ||  Train Accuray: 0.57714  Test Accuray: 0.44333
+ 38%|███▊      | 382/1000 [8:52:03<15:31:34, 90.44s/it]
+Epoch: 383
+Train Loss: 1.16328  Test Loss: 1.61184  ||  Train Accuray: 0.57285  Test Accuray: 0.42707
+ 38%|███▊      | 383/1000 [8:53:36<15:40:23, 91.45s/it]
+Epoch: 384
+Train Loss: 1.15572  Test Loss: 1.71588  ||  Train Accuray: 0.56747  Test Accuray: 0.41129
+ 38%|███▊      | 384/1000 [8:55:04<15:26:25, 90.24s/it]
+Epoch: 385
+Train Loss: 1.16529  Test Loss: 1.61357  ||  Train Accuray: 0.57389  Test Accuray: 0.43160
+ 38%|███▊      | 385/1000 [8:56:34<15:24:56, 90.24s/it]
+Epoch: 386
+Train Loss: 1.16448  Test Loss: 1.86779  ||  Train Accuray: 0.57670  Test Accuray: 0.38205
+ 39%|███▊      | 386/1000 [8:58:08<15:34:18, 91.30s/it]
+Epoch: 387
+Train Loss: 1.14956  Test Loss: 1.47645  ||  Train Accuray: 0.57966  Test Accuray: 0.47913
+ 39%|███▊      | 387/1000 [8:59:29<15:00:38, 88.15s/it]
+Epoch: 388
+Train Loss: 1.16504  Test Loss: 1.64422  ||  Train Accuray: 0.56367  Test Accuray: 0.42463
+ 39%|███▉      | 388/1000 [9:00:55<14:54:41, 87.71s/it]
+Epoch: 389
+Train Loss: 1.13502  Test Loss: 1.83365  ||  Train Accuray: 0.57907  Test Accuray: 0.40065
+ 39%|███▉      | 389/1000 [9:02:24<14:56:52, 88.07s/it]
+Epoch: 390
+Train Loss: 1.15591  Test Loss: 1.65963  ||  Train Accuray: 0.58414  Test Accuray: 0.43590
+ 39%|███▉      | 390/1000 [9:03:53<14:57:24, 88.27s/it]
+Epoch: 391
+Train Loss: 1.15167  Test Loss: 1.70634  ||  Train Accuray: 0.56948  Test Accuray: 0.41127
+ 39%|███▉      | 391/1000 [9:05:18<14:45:34, 87.25s/it]
+Epoch: 392
+Train Loss: 1.12826  Test Loss: 1.61907  ||  Train Accuray: 0.58170  Test Accuray: 0.43596
+ 39%|███▉      | 392/1000 [9:06:48<14:52:05, 88.03s/it]
+Epoch: 393
+Train Loss: 1.13772  Test Loss: 1.63912  ||  Train Accuray: 0.56817  Test Accuray: 0.43910
+ 39%|███▉      | 393/1000 [9:08:18<14:57:00, 88.67s/it]
+Epoch: 394
+Train Loss: 1.15909  Test Loss: 1.64473  ||  Train Accuray: 0.55929  Test Accuray: 0.45139
+ 39%|███▉      | 394/1000 [9:09:51<15:08:41, 89.97s/it]
+Epoch: 395
+Train Loss: 1.15410  Test Loss: 1.60532  ||  Train Accuray: 0.57095  Test Accuray: 0.44991
+ 40%|███▉      | 395/1000 [9:11:26<15:23:08, 91.55s/it]
+Epoch: 396
+Train Loss: 1.15945  Test Loss: 1.54365  ||  Train Accuray: 0.57642  Test Accuray: 0.45824
+ 40%|███▉      | 396/1000 [9:12:53<15:07:41, 90.17s/it]
+Epoch: 397
+Train Loss: 1.13011  Test Loss: 1.55967  ||  Train Accuray: 0.58228  Test Accuray: 0.46042
+ 40%|███▉      | 397/1000 [9:14:23<15:05:31, 90.10s/it]
+Epoch: 398
+Train Loss: 1.14642  Test Loss: 1.51736  ||  Train Accuray: 0.57715  Test Accuray: 0.47378
+ 40%|███▉      | 398/1000 [9:15:57<15:14:57, 91.19s/it]
+Epoch: 399
+Train Loss: 1.14407  Test Loss: 1.54213  ||  Train Accuray: 0.57583  Test Accuray: 0.46523
+ 40%|███▉      | 399/1000 [9:17:22<14:55:37, 89.41s/it]
+Epoch: 400
+Train Loss: 1.13902  Test Loss: 1.55810  ||  Train Accuray: 0.57886  Test Accuray: 0.45078
+ 40%|████      | 400/1000 [9:18:47<14:42:29, 88.25s/it]
+Epoch: 401
+Train Loss: 1.14170  Test Loss: 1.61697  ||  Train Accuray: 0.58235  Test Accuray: 0.45194
+ 40%|████      | 401/1000 [9:20:02<13:59:03, 84.05s/it]
+Epoch: 402
+Train Loss: 1.12575  Test Loss: 1.59432  ||  Train Accuray: 0.58751  Test Accuray: 0.44798
+ 40%|████      | 402/1000 [9:21:29<14:06:15, 84.91s/it]
+Epoch: 403
+Train Loss: 1.14598  Test Loss: 1.60445  ||  Train Accuray: 0.57407  Test Accuray: 0.43580
+ 40%|████      | 403/1000 [9:22:53<14:03:54, 84.82s/it]
+Epoch: 404
+Train Loss: 1.12764  Test Loss: 1.47552  ||  Train Accuray: 0.59230  Test Accuray: 0.48617
+ 40%|████      | 404/1000 [9:24:17<13:58:04, 84.37s/it]
+Epoch: 405
+Train Loss: 1.14538  Test Loss: 1.47818  ||  Train Accuray: 0.56632  Test Accuray: 0.48976
+ 40%|████      | 405/1000 [9:25:37<13:45:29, 83.24s/it]
+Epoch: 406
+Train Loss: 1.13304  Test Loss: 1.64222  ||  Train Accuray: 0.57584  Test Accuray: 0.42340
+ 41%|████      | 406/1000 [9:26:49<13:08:42, 79.67s/it]
+Epoch: 407
+Train Loss: 1.12487  Test Loss: 1.62192  ||  Train Accuray: 0.59040  Test Accuray: 0.44269
+ 41%|████      | 407/1000 [9:28:13<13:22:09, 81.16s/it]
+Epoch: 408
+Train Loss: 1.10794  Test Loss: 1.56865  ||  Train Accuray: 0.58338  Test Accuray: 0.46163
+ 41%|████      | 408/1000 [9:29:32<13:13:38, 80.44s/it]
+Epoch: 409
+Train Loss: 1.13818  Test Loss: 1.73145  ||  Train Accuray: 0.58948  Test Accuray: 0.40160
+ 41%|████      | 409/1000 [9:30:49<13:01:00, 79.29s/it]
+Epoch: 410
+Train Loss: 1.12501  Test Loss: 1.51313  ||  Train Accuray: 0.58424  Test Accuray: 0.47805
+ 41%|████      | 410/1000 [9:32:09<13:02:55, 79.62s/it]
+Epoch: 411
+Train Loss: 1.14721  Test Loss: 1.63726  ||  Train Accuray: 0.57953  Test Accuray: 0.42557
+ 41%|████      | 411/1000 [9:33:31<13:08:06, 80.28s/it]
+Epoch: 412
+Train Loss: 1.12014  Test Loss: 1.63662  ||  Train Accuray: 0.59316  Test Accuray: 0.44845
+ 41%|████      | 412/1000 [9:34:48<12:59:03, 79.50s/it]
+Epoch: 413
+Train Loss: 1.11297  Test Loss: 1.61937  ||  Train Accuray: 0.58983  Test Accuray: 0.43842
+ 41%|████▏     | 413/1000 [9:36:03<12:43:27, 78.04s/it]
+Epoch: 414
+Train Loss: 1.11453  Test Loss: 1.55179  ||  Train Accuray: 0.58626  Test Accuray: 0.45914
+ 41%|████▏     | 414/1000 [9:37:21<12:42:50, 78.11s/it]
+Epoch: 415
+Train Loss: 1.11409  Test Loss: 1.78261  ||  Train Accuray: 0.58418  Test Accuray: 0.41862
+ 42%|████▏     | 415/1000 [9:38:41<12:46:35, 78.62s/it]
+Epoch: 416
+Train Loss: 1.13161  Test Loss: 1.58962  ||  Train Accuray: 0.58245  Test Accuray: 0.45379
+ 42%|████▏     | 416/1000 [9:39:57<12:37:37, 77.84s/it]
+Epoch: 417
+Train Loss: 1.10312  Test Loss: 1.61238  ||  Train Accuray: 0.58980  Test Accuray: 0.44449
+ 42%|████▏     | 417/1000 [9:41:10<12:21:01, 76.26s/it]
+Epoch: 418
+Train Loss: 1.11074  Test Loss: 1.83020  ||  Train Accuray: 0.58186  Test Accuray: 0.38136
+ 42%|████▏     | 418/1000 [9:42:30<12:30:03, 77.33s/it]
+Epoch: 419
+Train Loss: 1.11411  Test Loss: 1.65213  ||  Train Accuray: 0.58696  Test Accuray: 0.44419
+ 42%|████▏     | 419/1000 [9:43:51<12:41:17, 78.62s/it]
+Epoch: 420
+Train Loss: 1.13029  Test Loss: 1.62172  ||  Train Accuray: 0.57985  Test Accuray: 0.44633
+ 42%|████▏     | 420/1000 [9:45:16<12:57:07, 80.39s/it]
+Epoch: 421
+Train Loss: 1.12535  Test Loss: 1.73753  ||  Train Accuray: 0.58092  Test Accuray: 0.40376
+ 42%|████▏     | 421/1000 [9:46:36<12:54:16, 80.24s/it]
+Epoch: 422
+Train Loss: 1.11029  Test Loss: 1.65843  ||  Train Accuray: 0.57798  Test Accuray: 0.42982
+ 42%|████▏     | 422/1000 [9:47:59<13:02:36, 81.24s/it]
+Epoch: 423
+Train Loss: 1.09809  Test Loss: 2.06224  ||  Train Accuray: 0.60274  Test Accuray: 0.36349
+ 42%|████▏     | 423/1000 [9:49:22<13:06:35, 81.79s/it]
+Epoch: 424
+Train Loss: 1.11329  Test Loss: 1.61807  ||  Train Accuray: 0.58193  Test Accuray: 0.44178
+ 42%|████▏     | 424/1000 [9:50:46<13:10:29, 82.34s/it]
+Epoch: 425
+Train Loss: 1.10527  Test Loss: 1.76613  ||  Train Accuray: 0.59519  Test Accuray: 0.43280
+ 42%|████▎     | 425/1000 [9:52:07<13:04:47, 81.89s/it]
+Epoch: 426
+Train Loss: 1.09081  Test Loss: 1.66025  ||  Train Accuray: 0.60292  Test Accuray: 0.43351
+ 43%|████▎     | 426/1000 [9:53:28<13:00:20, 81.57s/it]
+Epoch: 427
+Train Loss: 1.11216  Test Loss: 1.56798  ||  Train Accuray: 0.58957  Test Accuray: 0.46317
+ 43%|████▎     | 427/1000 [9:54:44<12:44:22, 80.04s/it]
+Epoch: 428
+Train Loss: 1.07842  Test Loss: 1.70314  ||  Train Accuray: 0.59562  Test Accuray: 0.42175
+ 43%|████▎     | 428/1000 [9:56:07<12:51:28, 80.92s/it]
+Epoch: 429
+Train Loss: 1.12123  Test Loss: 1.66843  ||  Train Accuray: 0.58392  Test Accuray: 0.44913
+ 43%|████▎     | 429/1000 [9:57:30<12:55:15, 81.46s/it]
+Epoch: 430
+Train Loss: 1.10676  Test Loss: 2.01001  ||  Train Accuray: 0.59895  Test Accuray: 0.38193
+ 43%|████▎     | 430/1000 [9:58:45<12:37:10, 79.70s/it]
+Epoch: 431
+Train Loss: 1.12805  Test Loss: 1.71557  ||  Train Accuray: 0.58950  Test Accuray: 0.43669
+ 43%|████▎     | 431/1000 [10:00:13<12:59:27, 82.19s/it]
+Epoch: 432
+Train Loss: 1.08581  Test Loss: 1.70627  ||  Train Accuray: 0.59943  Test Accuray: 0.42991
+ 43%|████▎     | 432/1000 [10:01:48<13:34:06, 86.00s/it]
+Epoch: 433
+Train Loss: 1.09783  Test Loss: 1.64373  ||  Train Accuray: 0.59655  Test Accuray: 0.44723
+ 43%|████▎     | 433/1000 [10:03:20<13:50:10, 87.85s/it]
+Epoch: 434
+Train Loss: 1.08793  Test Loss: 1.60467  ||  Train Accuray: 0.59035  Test Accuray: 0.45311
+ 43%|████▎     | 434/1000 [10:04:45<13:40:06, 86.94s/it]
+Epoch: 435
+Train Loss: 1.09243  Test Loss: 1.80507  ||  Train Accuray: 0.59220  Test Accuray: 0.41632
+ 44%|████▎     | 435/1000 [10:06:20<14:01:15, 89.34s/it]
+Epoch: 436
+Train Loss: 1.08533  Test Loss: 1.59820  ||  Train Accuray: 0.59723  Test Accuray: 0.45117
+ 44%|████▎     | 436/1000 [10:07:52<14:07:51, 90.20s/it]
+Epoch: 437
+Train Loss: 1.09903  Test Loss: 1.64800  ||  Train Accuray: 0.58879  Test Accuray: 0.44076
+ 44%|████▎     | 437/1000 [10:09:25<14:12:05, 90.81s/it]
+Epoch: 438
+Train Loss: 1.10109  Test Loss: 1.66812  ||  Train Accuray: 0.59807  Test Accuray: 0.44394
+ 44%|████▍     | 438/1000 [10:10:49<13:53:59, 89.04s/it]
+Epoch: 439
+Train Loss: 1.08485  Test Loss: 1.75063  ||  Train Accuray: 0.59850  Test Accuray: 0.42719
+ 44%|████▍     | 439/1000 [10:12:16<13:44:18, 88.16s/it]
+Epoch: 440
+Train Loss: 1.09592  Test Loss: 1.63227  ||  Train Accuray: 0.59565  Test Accuray: 0.45001
+ 44%|████▍     | 440/1000 [10:13:40<13:32:34, 87.06s/it]
+Epoch: 441
+Train Loss: 1.08500  Test Loss: 1.63214  ||  Train Accuray: 0.59465  Test Accuray: 0.44271
+ 44%|████▍     | 441/1000 [10:15:13<13:48:43, 88.95s/it]
+Epoch: 442
+Train Loss: 1.08286  Test Loss: 1.64850  ||  Train Accuray: 0.60144  Test Accuray: 0.44603
+ 44%|████▍     | 442/1000 [10:16:47<14:00:48, 90.41s/it]
+Epoch: 443
+Train Loss: 1.10950  Test Loss: 2.00648  ||  Train Accuray: 0.58929  Test Accuray: 0.37982
+ 44%|████▍     | 443/1000 [10:18:16<13:55:48, 90.03s/it]
+Epoch: 444
+Train Loss: 1.07840  Test Loss: 1.61980  ||  Train Accuray: 0.60434  Test Accuray: 0.44587
+ 44%|████▍     | 444/1000 [10:19:42<13:42:42, 88.78s/it]
+Epoch: 445
+Train Loss: 1.07051  Test Loss: 1.52276  ||  Train Accuray: 0.60422  Test Accuray: 0.47652
+ 44%|████▍     | 445/1000 [10:21:10<13:39:16, 88.57s/it]
+Epoch: 446
+Train Loss: 1.06018  Test Loss: 1.58796  ||  Train Accuray: 0.60558  Test Accuray: 0.45898
+ 45%|████▍     | 446/1000 [10:22:34<13:24:07, 87.09s/it]
+Epoch: 447
+Train Loss: 1.08091  Test Loss: 1.66995  ||  Train Accuray: 0.61034  Test Accuray: 0.44251
+ 45%|████▍     | 447/1000 [10:23:59<13:17:14, 86.50s/it]
+Epoch: 448
+Train Loss: 1.05002  Test Loss: 1.68941  ||  Train Accuray: 0.61358  Test Accuray: 0.43412
+ 45%|████▍     | 448/1000 [10:25:25<13:15:11, 86.43s/it]
+Epoch: 449
+Train Loss: 1.08528  Test Loss: 1.69653  ||  Train Accuray: 0.60610  Test Accuray: 0.42596
+ 45%|████▍     | 449/1000 [10:27:01<13:37:50, 89.06s/it]
+Epoch: 450
+Train Loss: 1.07979  Test Loss: 1.75032  ||  Train Accuray: 0.59517  Test Accuray: 0.42701
+ 45%|████▌     | 450/1000 [10:28:17<13:01:57, 85.30s/it]
+Epoch: 451
+Train Loss: 1.08412  Test Loss: 1.61158  ||  Train Accuray: 0.60050  Test Accuray: 0.44258
+ 45%|████▌     | 451/1000 [10:29:33<12:34:58, 82.51s/it]
+Epoch: 452
+Train Loss: 1.06605  Test Loss: 1.89239  ||  Train Accuray: 0.60324  Test Accuray: 0.40641
+ 45%|████▌     | 452/1000 [10:30:47<12:11:26, 80.08s/it]
+Epoch: 453
+Train Loss: 1.05460  Test Loss: 1.80144  ||  Train Accuray: 0.60503  Test Accuray: 0.40980
+ 45%|████▌     | 453/1000 [10:32:05<12:03:36, 79.37s/it]
+Epoch: 454
+Train Loss: 1.04402  Test Loss: 1.66290  ||  Train Accuray: 0.61634  Test Accuray: 0.43612
+ 45%|████▌     | 454/1000 [10:33:26<12:06:45, 79.86s/it]
+Epoch: 455
+Train Loss: 1.08131  Test Loss: 1.51716  ||  Train Accuray: 0.60084  Test Accuray: 0.47853
+ 46%|████▌     | 455/1000 [10:34:47<12:08:29, 80.20s/it]
+Epoch: 456
+Train Loss: 1.07014  Test Loss: 1.61907  ||  Train Accuray: 0.59993  Test Accuray: 0.45270
+ 46%|████▌     | 456/1000 [10:36:13<12:22:17, 81.87s/it]
+Epoch: 457
+Train Loss: 1.04289  Test Loss: 1.56877  ||  Train Accuray: 0.61609  Test Accuray: 0.45543
+ 46%|████▌     | 457/1000 [10:37:36<12:24:56, 82.31s/it]
+Epoch: 458
+Train Loss: 1.06582  Test Loss: 1.63076  ||  Train Accuray: 0.60661  Test Accuray: 0.44582
+ 46%|████▌     | 458/1000 [10:38:57<12:19:21, 81.85s/it]
+Epoch: 459
+Train Loss: 1.05484  Test Loss: 1.79013  ||  Train Accuray: 0.60771  Test Accuray: 0.40615
+ 46%|████▌     | 459/1000 [10:40:17<12:11:47, 81.16s/it]
+Epoch: 460
+Train Loss: 1.04167  Test Loss: 1.67317  ||  Train Accuray: 0.61448  Test Accuray: 0.44671
+ 46%|████▌     | 460/1000 [10:41:40<12:16:13, 81.80s/it]
+Epoch: 461
+Train Loss: 1.05461  Test Loss: 1.61330  ||  Train Accuray: 0.60752  Test Accuray: 0.45065
+ 46%|████▌     | 461/1000 [10:43:15<12:50:27, 85.76s/it]
+Epoch: 462
+Train Loss: 1.04982  Test Loss: 1.71392  ||  Train Accuray: 0.60533  Test Accuray: 0.43028
+ 46%|████▌     | 462/1000 [10:44:34<12:31:09, 83.77s/it]
+Epoch: 463
+Train Loss: 1.04929  Test Loss: 1.62434  ||  Train Accuray: 0.61406  Test Accuray: 0.45755
+ 46%|████▋     | 463/1000 [10:45:55<12:21:53, 82.89s/it]
+Epoch: 464
+Train Loss: 1.06633  Test Loss: 1.61052  ||  Train Accuray: 0.60053  Test Accuray: 0.46244
+ 46%|████▋     | 464/1000 [10:47:19<12:24:59, 83.39s/it]
+Epoch: 465
+Train Loss: 1.06724  Test Loss: 1.80785  ||  Train Accuray: 0.59716  Test Accuray: 0.42649
+ 46%|████▋     | 465/1000 [10:48:33<11:57:45, 80.50s/it]
+Epoch: 466
+Train Loss: 1.04513  Test Loss: 1.66185  ||  Train Accuray: 0.60520  Test Accuray: 0.44819
+ 47%|████▋     | 466/1000 [10:49:51<11:49:08, 79.68s/it]
+Epoch: 467
+Train Loss: 1.04670  Test Loss: 1.64502  ||  Train Accuray: 0.61551  Test Accuray: 0.44262
+ 47%|████▋     | 467/1000 [10:51:05<11:33:55, 78.11s/it]
+Epoch: 468
+Train Loss: 1.06676  Test Loss: 1.52460  ||  Train Accuray: 0.61144  Test Accuray: 0.47282
+ 47%|████▋     | 468/1000 [10:52:29<11:47:20, 79.78s/it]
+Epoch: 469
+Train Loss: 1.06889  Test Loss: 1.49774  ||  Train Accuray: 0.60715  Test Accuray: 0.47801
+ 47%|████▋     | 469/1000 [10:53:52<11:54:02, 80.68s/it]
+Epoch: 470
+Train Loss: 1.04048  Test Loss: 1.67663  ||  Train Accuray: 0.61508  Test Accuray: 0.44806
+ 47%|████▋     | 470/1000 [10:55:06<11:35:20, 78.72s/it]
+Epoch: 471
+Train Loss: 1.04378  Test Loss: 1.51109  ||  Train Accuray: 0.61856  Test Accuray: 0.47966
+ 47%|████▋     | 471/1000 [10:56:23<11:30:09, 78.28s/it]
+Epoch: 472
+Train Loss: 1.05028  Test Loss: 1.56955  ||  Train Accuray: 0.62043  Test Accuray: 0.46899
+ 47%|████▋     | 472/1000 [10:57:38<11:20:23, 77.32s/it]
+Epoch: 473
+Train Loss: 1.03904  Test Loss: 1.57923  ||  Train Accuray: 0.61653  Test Accuray: 0.46617
+ 47%|████▋     | 473/1000 [10:58:55<11:17:23, 77.12s/it]
+Epoch: 474
+Train Loss: 1.04316  Test Loss: 1.57428  ||  Train Accuray: 0.60851  Test Accuray: 0.46533
+ 47%|████▋     | 474/1000 [11:00:15<11:22:56, 77.90s/it]
+Epoch: 475
+Train Loss: 1.05183  Test Loss: 1.53112  ||  Train Accuray: 0.61397  Test Accuray: 0.47777
+ 48%|████▊     | 475/1000 [11:01:31<11:18:29, 77.54s/it]
+Epoch: 476
+Train Loss: 1.03803  Test Loss: 1.53966  ||  Train Accuray: 0.61359  Test Accuray: 0.46755
+ 48%|████▊     | 476/1000 [11:03:11<12:16:04, 84.28s/it]
+Epoch: 477
+Train Loss: 1.03707  Test Loss: 1.59953  ||  Train Accuray: 0.61895  Test Accuray: 0.46225
+ 48%|████▊     | 477/1000 [11:04:45<12:37:39, 86.92s/it]
+Epoch: 478
+Train Loss: 1.02476  Test Loss: 1.56763  ||  Train Accuray: 0.62000  Test Accuray: 0.46650
+ 48%|████▊     | 478/1000 [11:06:12<12:38:41, 87.21s/it]
+Epoch: 479
+Train Loss: 1.05217  Test Loss: 1.57143  ||  Train Accuray: 0.61342  Test Accuray: 0.46278
+ 48%|████▊     | 479/1000 [11:07:41<12:41:49, 87.73s/it]
+Epoch: 480
+Train Loss: 1.04089  Test Loss: 1.70938  ||  Train Accuray: 0.61540  Test Accuray: 0.42725
+ 48%|████▊     | 480/1000 [11:09:13<12:49:50, 88.83s/it]
+Epoch: 481
+Train Loss: 1.02818  Test Loss: 1.56563  ||  Train Accuray: 0.62226  Test Accuray: 0.46724
+ 48%|████▊     | 481/1000 [11:10:45<12:58:33, 90.01s/it]
+Epoch: 482
+Train Loss: 1.01629  Test Loss: 1.64111  ||  Train Accuray: 0.61672  Test Accuray: 0.44457
+ 48%|████▊     | 482/1000 [11:12:22<13:13:54, 91.96s/it]
+Epoch: 483
+Train Loss: 1.01486  Test Loss: 1.66966  ||  Train Accuray: 0.61809  Test Accuray: 0.45555
+ 48%|████▊     | 483/1000 [11:14:01<13:30:58, 94.12s/it]
+Epoch: 484
+Train Loss: 1.01861  Test Loss: 1.63493  ||  Train Accuray: 0.62825  Test Accuray: 0.45999
+ 48%|████▊     | 484/1000 [11:15:36<13:31:18, 94.34s/it]
+Epoch: 485
+Train Loss: 1.01990  Test Loss: 1.56410  ||  Train Accuray: 0.62819  Test Accuray: 0.46663
+ 48%|████▊     | 485/1000 [11:17:14<13:38:16, 95.33s/it]
+Epoch: 486
+Train Loss: 1.02396  Test Loss: 1.74776  ||  Train Accuray: 0.61679  Test Accuray: 0.43307
+ 49%|████▊     | 486/1000 [11:18:52<13:45:33, 96.37s/it]
+Epoch: 487
+Train Loss: 1.00015  Test Loss: 1.62080  ||  Train Accuray: 0.61823  Test Accuray: 0.44862
+ 49%|████▊     | 487/1000 [11:20:27<13:38:08, 95.69s/it]
+Epoch: 488
+Train Loss: 1.03082  Test Loss: 1.67321  ||  Train Accuray: 0.61780  Test Accuray: 0.44003
+ 49%|████▉     | 488/1000 [11:22:04<13:42:12, 96.35s/it]
+Epoch: 489
+Train Loss: 1.01479  Test Loss: 1.67672  ||  Train Accuray: 0.63511  Test Accuray: 0.44832
+ 49%|████▉     | 489/1000 [11:23:41<13:41:35, 96.47s/it]
+Epoch: 490
+Train Loss: 1.03222  Test Loss: 1.75079  ||  Train Accuray: 0.62397  Test Accuray: 0.42708
+ 49%|████▉     | 490/1000 [11:25:12<13:25:55, 94.81s/it]
+Epoch: 491
+Train Loss: 1.03245  Test Loss: 1.83466  ||  Train Accuray: 0.62134  Test Accuray: 0.43022
+ 49%|████▉     | 491/1000 [11:26:40<13:06:19, 92.69s/it]
+Epoch: 492
+Train Loss: 1.02958  Test Loss: 1.65670  ||  Train Accuray: 0.61491  Test Accuray: 0.44263
+ 49%|████▉     | 492/1000 [11:28:07<12:50:28, 91.00s/it]
+Epoch: 493
+Train Loss: 1.01146  Test Loss: 1.65052  ||  Train Accuray: 0.62845  Test Accuray: 0.45111
+ 49%|████▉     | 493/1000 [11:29:36<12:42:50, 90.28s/it]
+Epoch: 494
+Train Loss: 1.02345  Test Loss: 1.72125  ||  Train Accuray: 0.62672  Test Accuray: 0.43847
+ 49%|████▉     | 494/1000 [11:31:05<12:38:28, 89.94s/it]
+Epoch: 495
+Train Loss: 1.02019  Test Loss: 1.59871  ||  Train Accuray: 0.61924  Test Accuray: 0.45751
+ 50%|████▉     | 495/1000 [11:32:33<12:33:02, 89.47s/it]
+Epoch: 496
+Train Loss: 1.00818  Test Loss: 1.75545  ||  Train Accuray: 0.62045  Test Accuray: 0.43963
+ 50%|████▉     | 496/1000 [11:34:01<12:27:58, 89.04s/it]
+Epoch: 497
+Train Loss: 1.02341  Test Loss: 1.59184  ||  Train Accuray: 0.61977  Test Accuray: 0.45403
+ 50%|████▉     | 497/1000 [11:35:30<12:26:48, 89.08s/it]
+Epoch: 498
+Train Loss: 1.00902  Test Loss: 1.74264  ||  Train Accuray: 0.62440  Test Accuray: 0.44036
+ 50%|████▉     | 498/1000 [11:36:59<12:25:10, 89.06s/it]
+Epoch: 499
+Train Loss: 1.01219  Test Loss: 1.88900  ||  Train Accuray: 0.62087  Test Accuray: 0.41296
+ 50%|████▉     | 499/1000 [11:38:29<12:25:16, 89.25s/it]
+Epoch: 500
+Train Loss: 1.03785  Test Loss: 1.58113  ||  Train Accuray: 0.61819  Test Accuray: 0.46089
+ 50%|█████     | 500/1000 [11:39:55<12:14:46, 88.17s/it]
+Epoch: 501
+Train Loss: 0.99704  Test Loss: 1.71479  ||  Train Accuray: 0.62981  Test Accuray: 0.44635
+ 50%|█████     | 501/1000 [11:41:14<11:52:10, 85.63s/it]
+Epoch: 502
+Train Loss: 1.00747  Test Loss: 1.59171  ||  Train Accuray: 0.62588  Test Accuray: 0.47060
+ 50%|█████     | 502/1000 [11:42:32<11:30:11, 83.16s/it]
+Epoch: 503
+Train Loss: 1.00748  Test Loss: 1.69452  ||  Train Accuray: 0.61892  Test Accuray: 0.44081
+ 50%|█████     | 503/1000 [11:43:54<11:25:28, 82.75s/it]
+Epoch: 504
+Train Loss: 1.02856  Test Loss: 1.58581  ||  Train Accuray: 0.62255  Test Accuray: 0.46133
+ 50%|█████     | 504/1000 [11:45:13<11:16:27, 81.83s/it]
+Epoch: 505
+Train Loss: 0.97037  Test Loss: 1.98169  ||  Train Accuray: 0.64156  Test Accuray: 0.39386
+ 50%|█████     | 505/1000 [11:46:33<11:11:06, 81.35s/it]
+Epoch: 506
+Train Loss: 1.01383  Test Loss: 1.85714  ||  Train Accuray: 0.62683  Test Accuray: 0.40782
+ 51%|█████     | 506/1000 [11:47:48<10:54:07, 79.45s/it]
+Epoch: 507
+Train Loss: 0.99397  Test Loss: 1.62592  ||  Train Accuray: 0.63431  Test Accuray: 0.45954
+ 51%|█████     | 507/1000 [11:49:08<10:53:33, 79.54s/it]
+Epoch: 508
+Train Loss: 0.97334  Test Loss: 1.98056  ||  Train Accuray: 0.63989  Test Accuray: 0.40470
+ 51%|█████     | 508/1000 [11:50:28<10:52:01, 79.51s/it]
+Epoch: 509
+Train Loss: 1.00106  Test Loss: 1.90351  ||  Train Accuray: 0.63017  Test Accuray: 0.40722
+ 51%|█████     | 509/1000 [11:51:42<10:38:55, 78.08s/it]
+Epoch: 510
+Train Loss: 0.99945  Test Loss: 1.72985  ||  Train Accuray: 0.62762  Test Accuray: 0.45072
+ 51%|█████     | 510/1000 [11:52:56<10:27:49, 76.88s/it]
+Epoch: 511
+Train Loss: 0.98293  Test Loss: 1.58672  ||  Train Accuray: 0.63139  Test Accuray: 0.46256
+ 51%|█████     | 511/1000 [11:54:24<10:51:46, 79.97s/it]
+Epoch: 512
+Train Loss: 0.98438  Test Loss: 1.63074  ||  Train Accuray: 0.63698  Test Accuray: 0.43677
+ 51%|█████     | 512/1000 [11:55:52<11:09:42, 82.34s/it]
+Epoch: 513
+Train Loss: 0.98831  Test Loss: 1.63071  ||  Train Accuray: 0.63834  Test Accuray: 0.45306
+ 51%|█████▏    | 513/1000 [11:57:20<11:22:21, 84.07s/it]
+Epoch: 514
+Train Loss: 0.97505  Test Loss: 1.56239  ||  Train Accuray: 0.64303  Test Accuray: 0.46904
+ 51%|█████▏    | 514/1000 [11:58:48<11:32:12, 85.46s/it]
+Epoch: 515
+Train Loss: 0.99738  Test Loss: 1.81031  ||  Train Accuray: 0.63317  Test Accuray: 0.42304
+ 52%|█████▏    | 515/1000 [12:00:16<11:37:08, 86.24s/it]
+Epoch: 516
+Train Loss: 0.98449  Test Loss: 1.57372  ||  Train Accuray: 0.62878  Test Accuray: 0.46923
+ 52%|█████▏    | 516/1000 [12:01:44<11:39:01, 86.66s/it]
+Epoch: 517
+Train Loss: 1.00785  Test Loss: 1.72636  ||  Train Accuray: 0.63906  Test Accuray: 0.44501
+ 52%|█████▏    | 517/1000 [12:03:13<11:42:09, 87.22s/it]
+Epoch: 518
+Train Loss: 0.99258  Test Loss: 1.59475  ||  Train Accuray: 0.62200  Test Accuray: 0.46028
+ 52%|█████▏    | 518/1000 [12:04:40<11:41:30, 87.32s/it]
+Epoch: 519
+Train Loss: 0.98275  Test Loss: 1.65689  ||  Train Accuray: 0.63459  Test Accuray: 0.44827
+ 52%|█████▏    | 519/1000 [12:06:08<11:42:25, 87.62s/it]
+Epoch: 520
+Train Loss: 1.01845  Test Loss: 1.68560  ||  Train Accuray: 0.62347  Test Accuray: 0.45275
+ 52%|█████▏    | 520/1000 [12:07:36<11:41:47, 87.72s/it]
+Epoch: 521
+Train Loss: 0.98067  Test Loss: 1.68366  ||  Train Accuray: 0.63203  Test Accuray: 0.45285
+ 52%|█████▏    | 521/1000 [12:09:12<11:58:37, 90.02s/it]
+Epoch: 522
+Train Loss: 0.98393  Test Loss: 1.62670  ||  Train Accuray: 0.63222  Test Accuray: 0.44966
+ 52%|█████▏    | 522/1000 [12:10:41<11:55:35, 89.82s/it]
+Epoch: 523
+Train Loss: 0.97122  Test Loss: 1.79416  ||  Train Accuray: 0.63820  Test Accuray: 0.41882
+ 52%|█████▏    | 523/1000 [12:12:09<11:49:25, 89.24s/it]
+Epoch: 524
+Train Loss: 1.00059  Test Loss: 1.65532  ||  Train Accuray: 0.63713  Test Accuray: 0.44013
+ 52%|█████▏    | 524/1000 [12:13:40<11:51:43, 89.71s/it]
+Epoch: 525
+Train Loss: 0.96872  Test Loss: 1.70991  ||  Train Accuray: 0.64061  Test Accuray: 0.43995
+ 52%|█████▎    | 525/1000 [12:15:08<11:45:50, 89.16s/it]
+Epoch: 526
+Train Loss: 0.98060  Test Loss: 1.51391  ||  Train Accuray: 0.63985  Test Accuray: 0.48603
+ 53%|█████▎    | 526/1000 [12:16:35<11:40:26, 88.66s/it]
+Epoch: 527
+Train Loss: 0.96891  Test Loss: 1.65847  ||  Train Accuray: 0.64035  Test Accuray: 0.44887
+ 53%|█████▎    | 527/1000 [12:18:02<11:34:41, 88.12s/it]
+Epoch: 528
+Train Loss: 0.97549  Test Loss: 1.62489  ||  Train Accuray: 0.63931  Test Accuray: 0.46663
+ 53%|█████▎    | 528/1000 [12:19:25<11:20:41, 86.53s/it]
+Epoch: 529
+Train Loss: 0.99349  Test Loss: 1.67512  ||  Train Accuray: 0.62587  Test Accuray: 0.45988
+ 53%|█████▎    | 529/1000 [12:20:39<10:49:17, 82.71s/it]
+Epoch: 530
+Train Loss: 0.98183  Test Loss: 1.98611  ||  Train Accuray: 0.63387  Test Accuray: 0.39808
+ 53%|█████▎    | 530/1000 [12:21:55<10:33:15, 80.84s/it]
+Epoch: 531
+Train Loss: 0.96237  Test Loss: 1.59859  ||  Train Accuray: 0.64814  Test Accuray: 0.46603
+ 53%|█████▎    | 531/1000 [12:23:10<10:18:00, 79.06s/it]
+Epoch: 532
+Train Loss: 0.95129  Test Loss: 1.78466  ||  Train Accuray: 0.64587  Test Accuray: 0.42305
+ 53%|█████▎    | 532/1000 [12:24:31<10:21:56, 79.74s/it]
+Epoch: 533
+Train Loss: 0.97847  Test Loss: 1.66866  ||  Train Accuray: 0.63905  Test Accuray: 0.46487
+ 53%|█████▎    | 533/1000 [12:25:54<10:27:52, 80.67s/it]
+Epoch: 534
+Train Loss: 0.97508  Test Loss: 1.60380  ||  Train Accuray: 0.63987  Test Accuray: 0.46197
+ 53%|█████▎    | 534/1000 [12:27:16<10:29:49, 81.09s/it]
+Epoch: 535
+Train Loss: 0.96818  Test Loss: 1.55530  ||  Train Accuray: 0.63998  Test Accuray: 0.48063
+ 54%|█████▎    | 535/1000 [12:28:38<10:30:16, 81.33s/it]
+Epoch: 536
+Train Loss: 0.97324  Test Loss: 1.56446  ||  Train Accuray: 0.63859  Test Accuray: 0.48570
+ 54%|█████▎    | 536/1000 [12:29:58<10:25:38, 80.90s/it]
+Epoch: 537
+Train Loss: 0.94893  Test Loss: 1.61153  ||  Train Accuray: 0.65525  Test Accuray: 0.47659
+ 54%|█████▎    | 537/1000 [12:31:17<10:18:55, 80.21s/it]
+Epoch: 538
+Train Loss: 0.95676  Test Loss: 1.58809  ||  Train Accuray: 0.65060  Test Accuray: 0.46653
+ 54%|█████▍    | 538/1000 [12:32:44<10:34:24, 82.39s/it]
+Epoch: 539
+Train Loss: 0.94916  Test Loss: 1.51493  ||  Train Accuray: 0.65228  Test Accuray: 0.49040
+ 54%|█████▍    | 539/1000 [12:34:06<10:30:56, 82.12s/it]
+Epoch: 540
+Train Loss: 0.95047  Test Loss: 1.69187  ||  Train Accuray: 0.64248  Test Accuray: 0.44621
+ 54%|█████▍    | 540/1000 [12:35:33<10:41:28, 83.67s/it]
+Epoch: 541
+Train Loss: 0.94174  Test Loss: 1.71502  ||  Train Accuray: 0.65467  Test Accuray: 0.45285
+ 54%|█████▍    | 541/1000 [12:37:06<11:02:25, 86.59s/it]
+Epoch: 542
+Train Loss: 0.97074  Test Loss: 1.63792  ||  Train Accuray: 0.64403  Test Accuray: 0.45599
+ 54%|█████▍    | 542/1000 [12:38:29<10:51:32, 85.35s/it]
+Epoch: 543
+Train Loss: 0.94901  Test Loss: 1.55981  ||  Train Accuray: 0.64775  Test Accuray: 0.48072
+ 54%|█████▍    | 543/1000 [12:39:46<10:31:16, 82.88s/it]
+Epoch: 544
+Train Loss: 0.95020  Test Loss: 1.69769  ||  Train Accuray: 0.64900  Test Accuray: 0.45762
+ 54%|█████▍    | 544/1000 [12:41:18<10:50:27, 85.59s/it]
+Epoch: 545
+Train Loss: 0.94874  Test Loss: 1.70346  ||  Train Accuray: 0.65825  Test Accuray: 0.45324
+ 55%|█████▍    | 545/1000 [12:42:38<10:37:03, 84.01s/it]
+Epoch: 546
+Train Loss: 0.95463  Test Loss: 1.53691  ||  Train Accuray: 0.64935  Test Accuray: 0.47950
+ 55%|█████▍    | 546/1000 [12:43:55<10:19:00, 81.81s/it]
+Epoch: 547
+Train Loss: 0.92875  Test Loss: 1.53422  ||  Train Accuray: 0.65387  Test Accuray: 0.48000
+ 55%|█████▍    | 547/1000 [12:45:18<10:20:37, 82.20s/it]
+Epoch: 548
+Train Loss: 0.94834  Test Loss: 1.66238  ||  Train Accuray: 0.63965  Test Accuray: 0.46758
+ 55%|█████▍    | 548/1000 [12:46:42<10:23:19, 82.74s/it]
+Epoch: 549
+Train Loss: 0.96256  Test Loss: 1.65048  ||  Train Accuray: 0.64707  Test Accuray: 0.46762
+ 55%|█████▍    | 549/1000 [12:48:04<10:20:16, 82.52s/it]
+Epoch: 550
+Train Loss: 0.95197  Test Loss: 1.89360  ||  Train Accuray: 0.65338  Test Accuray: 0.41928
+ 55%|█████▌    | 550/1000 [12:49:24<10:13:48, 81.84s/it]
+Epoch: 551
+Train Loss: 0.97219  Test Loss: 1.77322  ||  Train Accuray: 0.63617  Test Accuray: 0.42653
+ 55%|█████▌    | 551/1000 [12:50:38<9:55:22, 79.56s/it] 
+Epoch: 552
+Train Loss: 0.95667  Test Loss: 1.79472  ||  Train Accuray: 0.65125  Test Accuray: 0.43680
+ 55%|█████▌    | 552/1000 [12:52:01<10:01:44, 80.59s/it]
+Epoch: 553
+Train Loss: 0.95168  Test Loss: 1.63542  ||  Train Accuray: 0.63987  Test Accuray: 0.47081
+ 55%|█████▌    | 553/1000 [12:53:21<9:59:02, 80.41s/it] 
+Epoch: 554
+Train Loss: 0.96441  Test Loss: 1.69850  ||  Train Accuray: 0.64046  Test Accuray: 0.45412
+ 55%|█████▌    | 554/1000 [12:54:50<10:15:26, 82.80s/it]
+Epoch: 555
+Train Loss: 0.95403  Test Loss: 1.56826  ||  Train Accuray: 0.64257  Test Accuray: 0.47412
+ 56%|█████▌    | 555/1000 [12:56:16<10:20:53, 83.72s/it]
+Epoch: 556
+Train Loss: 0.96590  Test Loss: 1.53824  ||  Train Accuray: 0.64011  Test Accuray: 0.48674
+ 56%|█████▌    | 556/1000 [12:57:36<10:12:52, 82.82s/it]
+Epoch: 557
+Train Loss: 0.93384  Test Loss: 1.64421  ||  Train Accuray: 0.64981  Test Accuray: 0.45345
+ 56%|█████▌    | 557/1000 [12:58:55<10:01:49, 81.51s/it]
+Epoch: 558
+Train Loss: 0.94860  Test Loss: 1.47870  ||  Train Accuray: 0.64639  Test Accuray: 0.49863
+ 56%|█████▌    | 558/1000 [13:00:16<9:59:47, 81.42s/it] 
+Epoch: 559
+Train Loss: 0.93797  Test Loss: 1.58055  ||  Train Accuray: 0.65528  Test Accuray: 0.45512
+ 56%|█████▌    | 559/1000 [13:01:34<9:51:07, 80.43s/it]
+Epoch: 560
+Train Loss: 0.95147  Test Loss: 1.92204  ||  Train Accuray: 0.65898  Test Accuray: 0.41488
+ 56%|█████▌    | 560/1000 [13:02:57<9:54:37, 81.08s/it]
+Epoch: 561
+Train Loss: 0.95361  Test Loss: 1.62510  ||  Train Accuray: 0.64927  Test Accuray: 0.45216
+ 56%|█████▌    | 561/1000 [13:04:20<9:57:00, 81.60s/it]
+Epoch: 562
+Train Loss: 0.91127  Test Loss: 1.87715  ||  Train Accuray: 0.66855  Test Accuray: 0.41939
+ 56%|█████▌    | 562/1000 [13:05:39<9:51:57, 81.09s/it]
+Epoch: 563
+Train Loss: 0.93648  Test Loss: 1.72753  ||  Train Accuray: 0.64512  Test Accuray: 0.44407
+ 56%|█████▋    | 563/1000 [13:07:02<9:53:18, 81.46s/it]
+Epoch: 564
+Train Loss: 0.92613  Test Loss: 2.02582  ||  Train Accuray: 0.65424  Test Accuray: 0.39865
+ 56%|█████▋    | 564/1000 [13:08:19<9:43:10, 80.25s/it]
+Epoch: 565
+Train Loss: 0.92210  Test Loss: 1.72311  ||  Train Accuray: 0.66770  Test Accuray: 0.45767
+ 56%|█████▋    | 565/1000 [13:09:41<9:45:57, 80.82s/it]
+Epoch: 566
+Train Loss: 0.92675  Test Loss: 1.61924  ||  Train Accuray: 0.65855  Test Accuray: 0.46982
+ 57%|█████▋    | 566/1000 [13:10:58<9:36:28, 79.70s/it]
+Epoch: 567
+Train Loss: 0.92922  Test Loss: 1.60570  ||  Train Accuray: 0.65917  Test Accuray: 0.46988
+ 57%|█████▋    | 567/1000 [13:12:18<9:35:53, 79.80s/it]
+Epoch: 568
+Train Loss: 0.91256  Test Loss: 1.82404  ||  Train Accuray: 0.67180  Test Accuray: 0.44025
+ 57%|█████▋    | 568/1000 [13:13:35<9:26:48, 78.72s/it]
+Epoch: 569
+Train Loss: 0.93717  Test Loss: 1.65017  ||  Train Accuray: 0.65391  Test Accuray: 0.46951
+ 57%|█████▋    | 569/1000 [13:14:50<9:17:13, 77.57s/it]
+Epoch: 570
+Train Loss: 0.90666  Test Loss: 1.70001  ||  Train Accuray: 0.67273  Test Accuray: 0.46374
+ 57%|█████▋    | 570/1000 [13:16:11<9:23:59, 78.70s/it]
+Epoch: 571
+Train Loss: 0.92126  Test Loss: 1.72171  ||  Train Accuray: 0.66431  Test Accuray: 0.44921
+ 57%|█████▋    | 571/1000 [13:17:46<9:57:52, 83.62s/it]
+Epoch: 572
+Train Loss: 0.94832  Test Loss: 1.79608  ||  Train Accuray: 0.65019  Test Accuray: 0.44082
+ 57%|█████▋    | 572/1000 [13:19:20<10:18:27, 86.70s/it]
+Epoch: 573
+Train Loss: 0.94099  Test Loss: 1.64071  ||  Train Accuray: 0.66470  Test Accuray: 0.46315
+ 57%|█████▋    | 573/1000 [13:20:48<10:20:30, 87.19s/it]
+Epoch: 574
+Train Loss: 0.93854  Test Loss: 1.54924  ||  Train Accuray: 0.65766  Test Accuray: 0.47959
+ 57%|█████▋    | 574/1000 [13:22:17<10:23:15, 87.78s/it]
+Epoch: 575
+Train Loss: 0.92762  Test Loss: 1.94266  ||  Train Accuray: 0.65779  Test Accuray: 0.40927
+ 57%|█████▊    | 575/1000 [13:23:46<10:22:43, 87.91s/it]
+Epoch: 576
+Train Loss: 0.90143  Test Loss: 1.72987  ||  Train Accuray: 0.67793  Test Accuray: 0.43759
+ 58%|█████▊    | 576/1000 [13:25:14<10:22:52, 88.14s/it]
+Epoch: 577
+Train Loss: 0.92676  Test Loss: 1.80891  ||  Train Accuray: 0.65680  Test Accuray: 0.43755
+ 58%|█████▊    | 577/1000 [13:26:47<10:31:04, 89.51s/it]
+Epoch: 578
+Train Loss: 0.90483  Test Loss: 1.67001  ||  Train Accuray: 0.67290  Test Accuray: 0.46019
+ 58%|█████▊    | 578/1000 [13:28:22<10:40:07, 91.01s/it]
+Epoch: 579
+Train Loss: 0.90946  Test Loss: 1.83702  ||  Train Accuray: 0.66534  Test Accuray: 0.40565
+ 58%|█████▊    | 579/1000 [13:29:50<10:34:17, 90.40s/it]
+Epoch: 580
+Train Loss: 0.90929  Test Loss: 1.74210  ||  Train Accuray: 0.66705  Test Accuray: 0.43675
+ 58%|█████▊    | 580/1000 [13:31:20<10:30:11, 90.03s/it]
+Epoch: 581
+Train Loss: 0.91897  Test Loss: 1.61182  ||  Train Accuray: 0.66345  Test Accuray: 0.47120
+ 58%|█████▊    | 581/1000 [13:32:53<10:35:26, 90.99s/it]
+Epoch: 582
+Train Loss: 0.90465  Test Loss: 1.64075  ||  Train Accuray: 0.66317  Test Accuray: 0.46704
+ 58%|█████▊    | 582/1000 [13:34:31<10:49:11, 93.18s/it]
+Epoch: 583
+Train Loss: 0.90279  Test Loss: 1.68430  ||  Train Accuray: 0.66548  Test Accuray: 0.45870
+ 58%|█████▊    | 583/1000 [13:36:02<10:41:46, 92.34s/it]
+Epoch: 584
+Train Loss: 0.91539  Test Loss: 1.77478  ||  Train Accuray: 0.67093  Test Accuray: 0.44778
+ 58%|█████▊    | 584/1000 [13:37:32<10:35:52, 91.71s/it]
+Epoch: 585
+Train Loss: 0.89657  Test Loss: 2.00963  ||  Train Accuray: 0.66501  Test Accuray: 0.41334
+ 58%|█████▊    | 585/1000 [13:39:10<10:47:48, 93.66s/it]
+Epoch: 586
+Train Loss: 0.90425  Test Loss: 1.96285  ||  Train Accuray: 0.65864  Test Accuray: 0.42223
+ 59%|█████▊    | 586/1000 [13:40:43<10:45:17, 93.52s/it]
+Epoch: 587
+Train Loss: 0.91080  Test Loss: 1.74936  ||  Train Accuray: 0.66341  Test Accuray: 0.45588
+ 59%|█████▊    | 587/1000 [13:42:12<10:33:00, 91.96s/it]
+Epoch: 588
+Train Loss: 0.90596  Test Loss: 1.62913  ||  Train Accuray: 0.65984  Test Accuray: 0.46960
+ 59%|█████▉    | 588/1000 [13:43:39<10:22:48, 90.70s/it]
+Epoch: 589
+Train Loss: 0.90501  Test Loss: 1.65603  ||  Train Accuray: 0.66888  Test Accuray: 0.46380
+ 59%|█████▉    | 589/1000 [13:45:07<10:15:29, 89.85s/it]
+Epoch: 590
+Train Loss: 0.94818  Test Loss: 1.68851  ||  Train Accuray: 0.65328  Test Accuray: 0.46312
+ 59%|█████▉    | 590/1000 [13:46:42<10:23:14, 91.21s/it]
+Epoch: 591
+Train Loss: 0.91938  Test Loss: 1.53698  ||  Train Accuray: 0.66109  Test Accuray: 0.48689
+ 59%|█████▉    | 591/1000 [13:48:19<10:33:47, 92.98s/it]
+Epoch: 592
+Train Loss: 0.90713  Test Loss: 1.79105  ||  Train Accuray: 0.66711  Test Accuray: 0.43694
+ 59%|█████▉    | 592/1000 [13:49:46<10:20:59, 91.32s/it]
+Epoch: 593
+Train Loss: 0.89814  Test Loss: 1.57884  ||  Train Accuray: 0.67533  Test Accuray: 0.48184
+ 59%|█████▉    | 593/1000 [13:51:22<10:29:22, 92.78s/it]
+Epoch: 594
+Train Loss: 0.91005  Test Loss: 1.65759  ||  Train Accuray: 0.66368  Test Accuray: 0.45836
+ 59%|█████▉    | 594/1000 [13:53:09<10:57:02, 97.10s/it]
+Epoch: 595
+Train Loss: 0.89355  Test Loss: 1.66165  ||  Train Accuray: 0.66366  Test Accuray: 0.45454
+ 60%|█████▉    | 595/1000 [13:54:39<10:40:53, 94.95s/it]
+Epoch: 596
+Train Loss: 0.92410  Test Loss: 1.62789  ||  Train Accuray: 0.65432  Test Accuray: 0.46795
+ 60%|█████▉    | 596/1000 [13:56:09<10:28:24, 93.33s/it]
+Epoch: 597
+Train Loss: 0.90371  Test Loss: 1.72777  ||  Train Accuray: 0.66394  Test Accuray: 0.44079
+ 60%|█████▉    | 597/1000 [13:57:40<10:22:53, 92.74s/it]
+Epoch: 598
+Train Loss: 0.88070  Test Loss: 1.70091  ||  Train Accuray: 0.67617  Test Accuray: 0.44075
+ 60%|█████▉    | 598/1000 [13:59:09<10:13:14, 91.53s/it]
+Epoch: 599
+Train Loss: 0.91132  Test Loss: 1.60555  ||  Train Accuray: 0.66226  Test Accuray: 0.46775
+ 60%|█████▉    | 599/1000 [14:00:38<10:05:55, 90.66s/it]
+Epoch: 600
+Train Loss: 0.89315  Test Loss: 1.62156  ||  Train Accuray: 0.66717  Test Accuray: 0.46857
+ 60%|██████    | 600/1000 [14:02:07<10:00:53, 90.13s/it]
+Epoch: 601
+Train Loss: 0.87954  Test Loss: 1.83128  ||  Train Accuray: 0.67904  Test Accuray: 0.42973
+ 60%|██████    | 601/1000 [14:03:35<9:55:37, 89.57s/it] 
+Epoch: 602
+Train Loss: 0.89417  Test Loss: 1.60953  ||  Train Accuray: 0.67213  Test Accuray: 0.47449
+ 60%|██████    | 602/1000 [14:04:53<9:32:10, 86.26s/it]
+Epoch: 603
+Train Loss: 0.89747  Test Loss: 1.63645  ||  Train Accuray: 0.66693  Test Accuray: 0.47371
+ 60%|██████    | 603/1000 [14:06:08<9:07:30, 82.75s/it]
+Epoch: 604
+Train Loss: 0.88626  Test Loss: 1.60617  ||  Train Accuray: 0.67337  Test Accuray: 0.47341
+ 60%|██████    | 604/1000 [14:07:38<9:21:05, 85.01s/it]
+Epoch: 605
+Train Loss: 0.92750  Test Loss: 1.56478  ||  Train Accuray: 0.66090  Test Accuray: 0.48869
+ 60%|██████    | 605/1000 [14:08:55<9:04:06, 82.65s/it]
+Epoch: 606
+Train Loss: 0.90784  Test Loss: 1.55812  ||  Train Accuray: 0.67018  Test Accuray: 0.47837
+ 61%|██████    | 606/1000 [14:10:12<8:50:27, 80.78s/it]
+Epoch: 607
+Train Loss: 0.88570  Test Loss: 1.76351  ||  Train Accuray: 0.67885  Test Accuray: 0.42729
+ 61%|██████    | 607/1000 [14:11:25<8:34:52, 78.61s/it]
+Epoch: 608
+Train Loss: 0.90352  Test Loss: 1.55166  ||  Train Accuray: 0.67179  Test Accuray: 0.49258
+ 61%|██████    | 608/1000 [14:12:47<8:40:35, 79.68s/it]
+Epoch: 609
+Train Loss: 0.87705  Test Loss: 1.64633  ||  Train Accuray: 0.68102  Test Accuray: 0.46825
+ 61%|██████    | 609/1000 [14:14:09<8:42:38, 80.20s/it]
+Epoch: 610
+Train Loss: 0.89372  Test Loss: 1.66970  ||  Train Accuray: 0.67819  Test Accuray: 0.46204
+ 61%|██████    | 610/1000 [14:15:24<8:31:43, 78.73s/it]
+Epoch: 611
+Train Loss: 0.87878  Test Loss: 1.55059  ||  Train Accuray: 0.68620  Test Accuray: 0.49334
+ 61%|██████    | 611/1000 [14:16:45<8:34:06, 79.30s/it]
+Epoch: 612
+Train Loss: 0.87646  Test Loss: 1.75887  ||  Train Accuray: 0.67058  Test Accuray: 0.44436
+ 61%|██████    | 612/1000 [14:18:05<8:33:59, 79.48s/it]
+Epoch: 613
+Train Loss: 0.88796  Test Loss: 1.79140  ||  Train Accuray: 0.67888  Test Accuray: 0.42581
+ 61%|██████▏   | 613/1000 [14:19:25<8:33:53, 79.67s/it]
+Epoch: 614
+Train Loss: 0.89211  Test Loss: 1.78062  ||  Train Accuray: 0.66222  Test Accuray: 0.43950
+ 61%|██████▏   | 614/1000 [14:20:46<8:34:57, 80.05s/it]
+Epoch: 615
+Train Loss: 0.89562  Test Loss: 1.55400  ||  Train Accuray: 0.68056  Test Accuray: 0.49181
+ 62%|██████▏   | 615/1000 [14:22:05<8:32:36, 79.89s/it]
+Epoch: 616
+Train Loss: 0.86443  Test Loss: 1.65687  ||  Train Accuray: 0.68450  Test Accuray: 0.45398
+ 62%|██████▏   | 616/1000 [14:23:28<8:36:18, 80.67s/it]
+Epoch: 617
+Train Loss: 0.87962  Test Loss: 1.73687  ||  Train Accuray: 0.67374  Test Accuray: 0.45932
+ 62%|██████▏   | 617/1000 [14:24:49<8:35:44, 80.80s/it]
+Epoch: 618
+Train Loss: 0.87060  Test Loss: 1.67131  ||  Train Accuray: 0.68155  Test Accuray: 0.43602
+ 62%|██████▏   | 618/1000 [14:26:19<8:52:17, 83.60s/it]
+Epoch: 619
+Train Loss: 0.87368  Test Loss: 1.70745  ||  Train Accuray: 0.68041  Test Accuray: 0.46355
+ 62%|██████▏   | 619/1000 [14:27:47<8:59:32, 84.97s/it]
+Epoch: 620
+Train Loss: 0.88789  Test Loss: 1.54371  ||  Train Accuray: 0.67380  Test Accuray: 0.47991
+ 62%|██████▏   | 620/1000 [14:29:05<8:43:58, 82.73s/it]
+Epoch: 621
+Train Loss: 0.88542  Test Loss: 1.65365  ||  Train Accuray: 0.67889  Test Accuray: 0.46865
+ 62%|██████▏   | 621/1000 [14:30:33<8:53:50, 84.51s/it]
+Epoch: 622
+Train Loss: 0.88661  Test Loss: 1.74826  ||  Train Accuray: 0.67616  Test Accuray: 0.45704
+ 62%|██████▏   | 622/1000 [14:32:01<8:57:59, 85.40s/it]
+Epoch: 623
+Train Loss: 0.89931  Test Loss: 1.77615  ||  Train Accuray: 0.67459  Test Accuray: 0.42873
+ 62%|██████▏   | 623/1000 [14:33:36<9:15:28, 88.40s/it]
+Epoch: 624
+Train Loss: 0.84467  Test Loss: 1.67788  ||  Train Accuray: 0.69331  Test Accuray: 0.47160
+ 62%|██████▏   | 624/1000 [14:35:09<9:22:46, 89.81s/it]
+Epoch: 625
+Train Loss: 0.87748  Test Loss: 1.48698  ||  Train Accuray: 0.68413  Test Accuray: 0.49894
+ 62%|██████▎   | 625/1000 [14:36:41<9:24:07, 90.26s/it]
+Epoch: 626
+Train Loss: 0.86535  Test Loss: 1.58673  ||  Train Accuray: 0.68995  Test Accuray: 0.47603
+ 63%|██████▎   | 626/1000 [14:38:11<9:22:58, 90.32s/it]
+Epoch: 627
+Train Loss: 0.86798  Test Loss: 1.75610  ||  Train Accuray: 0.67947  Test Accuray: 0.43885
+ 63%|██████▎   | 627/1000 [14:39:36<9:11:31, 88.72s/it]
+Epoch: 628
+Train Loss: 0.88670  Test Loss: 1.65385  ||  Train Accuray: 0.67134  Test Accuray: 0.47308
+ 63%|██████▎   | 628/1000 [14:40:59<8:59:30, 87.02s/it]
+Epoch: 629
+Train Loss: 0.84375  Test Loss: 1.66157  ||  Train Accuray: 0.68871  Test Accuray: 0.46979
+ 63%|██████▎   | 629/1000 [14:42:20<8:46:25, 85.14s/it]
+Epoch: 630
+Train Loss: 0.86122  Test Loss: 1.57544  ||  Train Accuray: 0.67796  Test Accuray: 0.48810
+ 63%|██████▎   | 630/1000 [14:43:35<8:26:37, 82.16s/it]
+Epoch: 631
+Train Loss: 0.87570  Test Loss: 1.93245  ||  Train Accuray: 0.68309  Test Accuray: 0.42147
+ 63%|██████▎   | 631/1000 [14:44:54<8:20:07, 81.32s/it]
+Epoch: 632
+Train Loss: 0.88524  Test Loss: 1.56778  ||  Train Accuray: 0.67526  Test Accuray: 0.47723
+ 63%|██████▎   | 632/1000 [14:46:09<8:05:36, 79.17s/it]
+Epoch: 633
+Train Loss: 0.87164  Test Loss: 1.64107  ||  Train Accuray: 0.67155  Test Accuray: 0.45569
+ 63%|██████▎   | 633/1000 [14:47:27<8:03:33, 79.06s/it]
+Epoch: 634
+Train Loss: 0.86287  Test Loss: 1.62928  ||  Train Accuray: 0.67743  Test Accuray: 0.47152
+ 63%|██████▎   | 634/1000 [14:49:00<8:27:55, 83.27s/it]
+Epoch: 635
+Train Loss: 0.86472  Test Loss: 1.70546  ||  Train Accuray: 0.68085  Test Accuray: 0.45176
+ 64%|██████▎   | 635/1000 [14:50:35<8:47:04, 86.64s/it]
+Epoch: 636
+Train Loss: 0.87417  Test Loss: 1.71387  ||  Train Accuray: 0.67553  Test Accuray: 0.46592
+ 64%|██████▎   | 636/1000 [14:51:53<8:29:54, 84.05s/it]
+Epoch: 637
+Train Loss: 0.86091  Test Loss: 1.56360  ||  Train Accuray: 0.67906  Test Accuray: 0.48149
+ 64%|██████▎   | 637/1000 [14:53:08<8:11:21, 81.22s/it]
+Epoch: 638
+Train Loss: 0.88330  Test Loss: 1.69445  ||  Train Accuray: 0.67962  Test Accuray: 0.45435
+ 64%|██████▍   | 638/1000 [14:54:24<8:02:03, 79.90s/it]
+Epoch: 639
+Train Loss: 0.87724  Test Loss: 1.74956  ||  Train Accuray: 0.67591  Test Accuray: 0.43055
+ 64%|██████▍   | 639/1000 [14:55:43<7:59:08, 79.64s/it]
+Epoch: 640
+Train Loss: 0.85967  Test Loss: 1.74526  ||  Train Accuray: 0.69040  Test Accuray: 0.43969
+ 64%|██████▍   | 640/1000 [14:57:02<7:56:14, 79.37s/it]
+Epoch: 641
+Train Loss: 0.84433  Test Loss: 1.79548  ||  Train Accuray: 0.68621  Test Accuray: 0.44796
+ 64%|██████▍   | 641/1000 [14:58:24<7:58:35, 79.99s/it]
+Epoch: 642
+Train Loss: 0.88823  Test Loss: 1.60754  ||  Train Accuray: 0.66756  Test Accuray: 0.48085
+ 64%|██████▍   | 642/1000 [14:59:42<7:55:02, 79.62s/it]
+Epoch: 643
+Train Loss: 0.87052  Test Loss: 1.63258  ||  Train Accuray: 0.68045  Test Accuray: 0.46396
+ 64%|██████▍   | 643/1000 [15:01:02<7:53:25, 79.57s/it]
+Epoch: 644
+Train Loss: 0.89868  Test Loss: 1.64277  ||  Train Accuray: 0.66604  Test Accuray: 0.46326
+ 64%|██████▍   | 644/1000 [15:02:19<7:48:27, 78.95s/it]
+Epoch: 645
+Train Loss: 0.85477  Test Loss: 2.14795  ||  Train Accuray: 0.68660  Test Accuray: 0.38872
+ 64%|██████▍   | 645/1000 [15:03:42<7:53:03, 79.95s/it]
+Epoch: 646
+Train Loss: 0.85662  Test Loss: 2.18959  ||  Train Accuray: 0.68449  Test Accuray: 0.38970
+ 65%|██████▍   | 646/1000 [15:05:04<7:56:41, 80.79s/it]
+Epoch: 647
+Train Loss: 0.87102  Test Loss: 1.72463  ||  Train Accuray: 0.68722  Test Accuray: 0.45804
+ 65%|██████▍   | 647/1000 [15:06:21<7:47:30, 79.46s/it]
+Epoch: 648
+Train Loss: 0.84202  Test Loss: 1.60834  ||  Train Accuray: 0.69829  Test Accuray: 0.47897
+ 65%|██████▍   | 648/1000 [15:07:42<7:48:51, 79.92s/it]
+Epoch: 649
+Train Loss: 0.85168  Test Loss: 1.66510  ||  Train Accuray: 0.69815  Test Accuray: 0.46754
+ 65%|██████▍   | 649/1000 [15:09:00<7:44:41, 79.43s/it]
+Epoch: 650
+Train Loss: 0.84626  Test Loss: 1.77022  ||  Train Accuray: 0.69407  Test Accuray: 0.44847
+ 65%|██████▌   | 650/1000 [15:10:20<7:44:17, 79.59s/it]
+Epoch: 651
+Train Loss: 0.85169  Test Loss: 1.72535  ||  Train Accuray: 0.68703  Test Accuray: 0.44839
+ 65%|██████▌   | 651/1000 [15:11:39<7:42:30, 79.51s/it]
+Epoch: 652
+Train Loss: 0.83440  Test Loss: 1.86708  ||  Train Accuray: 0.69592  Test Accuray: 0.41674
+ 65%|██████▌   | 652/1000 [15:13:02<7:47:32, 80.61s/it]
+Epoch: 653
+Train Loss: 0.84947  Test Loss: 1.74207  ||  Train Accuray: 0.68961  Test Accuray: 0.46116
+ 65%|██████▌   | 653/1000 [15:14:23<7:46:51, 80.72s/it]
+Epoch: 654
+Train Loss: 0.84305  Test Loss: 1.63487  ||  Train Accuray: 0.68789  Test Accuray: 0.48197
+ 65%|██████▌   | 654/1000 [15:15:45<7:46:47, 80.95s/it]
+Epoch: 655
+Train Loss: 0.84950  Test Loss: 1.97339  ||  Train Accuray: 0.68396  Test Accuray: 0.42277
+ 66%|██████▌   | 655/1000 [15:17:04<7:42:13, 80.39s/it]
+Epoch: 656
+Train Loss: 0.84777  Test Loss: 1.57227  ||  Train Accuray: 0.69446  Test Accuray: 0.48401
+ 66%|██████▌   | 656/1000 [15:18:22<7:37:04, 79.72s/it]
+Epoch: 657
+Train Loss: 0.86566  Test Loss: 1.62494  ||  Train Accuray: 0.67873  Test Accuray: 0.47190
+ 66%|██████▌   | 657/1000 [15:19:41<7:34:29, 79.50s/it]
+Epoch: 658
+Train Loss: 0.83581  Test Loss: 1.72997  ||  Train Accuray: 0.69495  Test Accuray: 0.47001
+ 66%|██████▌   | 658/1000 [15:20:59<7:30:01, 78.95s/it]
+Epoch: 659
+Train Loss: 0.85202  Test Loss: 1.95057  ||  Train Accuray: 0.68979  Test Accuray: 0.41952
+ 66%|██████▌   | 659/1000 [15:22:21<7:33:34, 79.81s/it]
+Epoch: 660
+Train Loss: 0.83424  Test Loss: 1.62844  ||  Train Accuray: 0.69933  Test Accuray: 0.47164
+ 66%|██████▌   | 660/1000 [15:23:40<7:30:37, 79.52s/it]
+Epoch: 661
+Train Loss: 0.86215  Test Loss: 1.53733  ||  Train Accuray: 0.68999  Test Accuray: 0.48779
+ 66%|██████▌   | 661/1000 [15:25:01<7:32:20, 80.06s/it]
+Epoch: 662
+Train Loss: 0.83533  Test Loss: 1.75930  ||  Train Accuray: 0.68891  Test Accuray: 0.45691
+ 66%|██████▌   | 662/1000 [15:26:21<7:30:59, 80.06s/it]
+Epoch: 663
+Train Loss: 0.83579  Test Loss: 1.48420  ||  Train Accuray: 0.70012  Test Accuray: 0.50754
+ 66%|██████▋   | 663/1000 [15:27:37<7:23:43, 79.00s/it]
+Epoch: 664
+Train Loss: 0.86694  Test Loss: 1.71535  ||  Train Accuray: 0.67793  Test Accuray: 0.42418
+ 66%|██████▋   | 664/1000 [15:28:56<7:21:26, 78.83s/it]
+Epoch: 665
+Train Loss: 0.81735  Test Loss: 1.63194  ||  Train Accuray: 0.70114  Test Accuray: 0.46576
+ 66%|██████▋   | 665/1000 [15:30:14<7:19:18, 78.68s/it]
+Epoch: 666
+Train Loss: 0.85410  Test Loss: 1.61218  ||  Train Accuray: 0.69684  Test Accuray: 0.48260
+ 67%|██████▋   | 666/1000 [15:31:46<7:40:35, 82.74s/it]
+Epoch: 667
+Train Loss: 0.83320  Test Loss: 1.55341  ||  Train Accuray: 0.70488  Test Accuray: 0.48584
+ 67%|██████▋   | 667/1000 [15:33:06<7:33:21, 81.69s/it]
+Epoch: 668
+Train Loss: 0.85430  Test Loss: 1.62883  ||  Train Accuray: 0.69323  Test Accuray: 0.47395
+ 67%|██████▋   | 668/1000 [15:34:25<7:28:59, 81.14s/it]
+Epoch: 669
+Train Loss: 0.82605  Test Loss: 1.63001  ||  Train Accuray: 0.69589  Test Accuray: 0.46416
+ 67%|██████▋   | 669/1000 [15:35:48<7:29:30, 81.48s/it]
+Epoch: 670
+Train Loss: 0.82466  Test Loss: 1.75003  ||  Train Accuray: 0.70563  Test Accuray: 0.45613
+ 67%|██████▋   | 670/1000 [15:37:05<7:21:46, 80.32s/it]
+Epoch: 671
+Train Loss: 0.84061  Test Loss: 1.74850  ||  Train Accuray: 0.69207  Test Accuray: 0.46060
+ 67%|██████▋   | 671/1000 [15:38:24<7:18:21, 79.94s/it]
+Epoch: 672
+Train Loss: 0.83326  Test Loss: 1.55572  ||  Train Accuray: 0.70247  Test Accuray: 0.49304
+ 67%|██████▋   | 672/1000 [15:39:35<7:02:17, 77.25s/it]
+Epoch: 673
+Train Loss: 0.83499  Test Loss: 1.61118  ||  Train Accuray: 0.69037  Test Accuray: 0.48981
+ 67%|██████▋   | 673/1000 [15:41:10<7:29:05, 82.40s/it]
+Epoch: 674
+Train Loss: 0.84902  Test Loss: 1.60617  ||  Train Accuray: 0.68913  Test Accuray: 0.47056
+ 67%|██████▋   | 674/1000 [15:42:44<7:46:32, 85.87s/it]
+Epoch: 675
+Train Loss: 0.83771  Test Loss: 1.55247  ||  Train Accuray: 0.69267  Test Accuray: 0.49566
+ 68%|██████▊   | 675/1000 [15:44:13<7:50:10, 86.80s/it]
+Epoch: 676
+Train Loss: 0.81460  Test Loss: 1.61281  ||  Train Accuray: 0.71011  Test Accuray: 0.47433
+ 68%|██████▊   | 676/1000 [15:45:42<7:52:45, 87.55s/it]
+Epoch: 677
+Train Loss: 0.82286  Test Loss: 1.74041  ||  Train Accuray: 0.70689  Test Accuray: 0.46274
+ 68%|██████▊   | 677/1000 [15:47:17<8:02:53, 89.70s/it]
+Epoch: 678
+Train Loss: 0.81034  Test Loss: 1.83115  ||  Train Accuray: 0.70575  Test Accuray: 0.42702
+ 68%|██████▊   | 678/1000 [15:48:54<8:14:11, 92.09s/it]
+Epoch: 679
+Train Loss: 0.81004  Test Loss: 1.67424  ||  Train Accuray: 0.70062  Test Accuray: 0.48040
+ 68%|██████▊   | 679/1000 [15:50:31<8:19:47, 93.42s/it]
+Epoch: 680
+Train Loss: 0.82929  Test Loss: 1.60988  ||  Train Accuray: 0.70102  Test Accuray: 0.48577
+ 68%|██████▊   | 680/1000 [15:52:07<8:21:56, 94.12s/it]
+Epoch: 681
+Train Loss: 0.84835  Test Loss: 1.82168  ||  Train Accuray: 0.69351  Test Accuray: 0.43688
+ 68%|██████▊   | 681/1000 [15:53:34<8:08:57, 91.97s/it]
+Epoch: 682
+Train Loss: 0.83595  Test Loss: 1.52609  ||  Train Accuray: 0.69798  Test Accuray: 0.49559
+ 68%|██████▊   | 682/1000 [15:55:02<8:01:52, 90.92s/it]
+Epoch: 683
+Train Loss: 0.81043  Test Loss: 1.80042  ||  Train Accuray: 0.70726  Test Accuray: 0.44938
+ 68%|██████▊   | 683/1000 [15:56:31<7:57:36, 90.40s/it]
+Epoch: 684
+Train Loss: 0.83154  Test Loss: 1.83025  ||  Train Accuray: 0.69312  Test Accuray: 0.43007
+ 68%|██████▊   | 684/1000 [15:58:01<7:54:59, 90.19s/it]
+Epoch: 685
+Train Loss: 0.81630  Test Loss: 1.62113  ||  Train Accuray: 0.70372  Test Accuray: 0.47856
+ 68%|██████▊   | 685/1000 [15:59:28<7:48:34, 89.25s/it]
+Epoch: 686
+Train Loss: 0.83936  Test Loss: 1.47621  ||  Train Accuray: 0.69118  Test Accuray: 0.50962
+ 69%|██████▊   | 686/1000 [16:00:55<7:43:03, 88.48s/it]
+Epoch: 687
+Train Loss: 0.82686  Test Loss: 1.71362  ||  Train Accuray: 0.70460  Test Accuray: 0.45455
+ 69%|██████▊   | 687/1000 [16:02:28<7:48:37, 89.83s/it]
+Epoch: 688
+Train Loss: 0.84488  Test Loss: 1.64351  ||  Train Accuray: 0.69245  Test Accuray: 0.46846
+ 69%|██████▉   | 688/1000 [16:03:58<7:47:53, 89.98s/it]
+Epoch: 689
+Train Loss: 0.83956  Test Loss: 1.76391  ||  Train Accuray: 0.70039  Test Accuray: 0.43968
+ 69%|██████▉   | 689/1000 [16:05:36<7:58:52, 92.39s/it]
+Epoch: 690
+Train Loss: 0.80816  Test Loss: 1.63227  ||  Train Accuray: 0.69914  Test Accuray: 0.47263
+ 69%|██████▉   | 690/1000 [16:07:09<7:58:36, 92.64s/it]
+Epoch: 691
+Train Loss: 0.82104  Test Loss: 1.59383  ||  Train Accuray: 0.70738  Test Accuray: 0.48669
+ 69%|██████▉   | 691/1000 [16:08:40<7:53:30, 91.94s/it]
+Epoch: 692
+Train Loss: 0.82885  Test Loss: 1.68639  ||  Train Accuray: 0.70082  Test Accuray: 0.44489
+ 69%|██████▉   | 692/1000 [16:10:09<7:47:57, 91.16s/it]
+Epoch: 693
+Train Loss: 0.80010  Test Loss: 1.54947  ||  Train Accuray: 0.70578  Test Accuray: 0.49470
+ 69%|██████▉   | 693/1000 [16:11:41<7:47:29, 91.37s/it]
+Epoch: 694
+Train Loss: 0.79849  Test Loss: 1.92443  ||  Train Accuray: 0.70300  Test Accuray: 0.42396
+ 69%|██████▉   | 694/1000 [16:13:10<7:42:10, 90.62s/it]
+Epoch: 695
+Train Loss: 0.81760  Test Loss: 1.54611  ||  Train Accuray: 0.69678  Test Accuray: 0.49583
+ 70%|██████▉   | 695/1000 [16:14:43<7:44:05, 91.30s/it]
+Epoch: 696
+Train Loss: 0.80015  Test Loss: 1.65186  ||  Train Accuray: 0.70542  Test Accuray: 0.45944
+ 70%|██████▉   | 696/1000 [16:16:16<7:45:38, 91.90s/it]
+Epoch: 697
+Train Loss: 0.82381  Test Loss: 1.77920  ||  Train Accuray: 0.68670  Test Accuray: 0.46568
+ 70%|██████▉   | 697/1000 [16:17:47<7:42:45, 91.63s/it]
+Epoch: 698
+Train Loss: 0.80784  Test Loss: 1.67078  ||  Train Accuray: 0.70475  Test Accuray: 0.47350
+ 70%|██████▉   | 698/1000 [16:19:17<7:38:33, 91.10s/it]
+Epoch: 699
+Train Loss: 0.84329  Test Loss: 1.78137  ||  Train Accuray: 0.69557  Test Accuray: 0.44150
+ 70%|██████▉   | 699/1000 [16:20:51<7:41:50, 92.06s/it]
+Epoch: 700
+Train Loss: 0.81542  Test Loss: 1.63504  ||  Train Accuray: 0.69610  Test Accuray: 0.47247
+ 70%|███████   | 700/1000 [16:22:22<7:38:41, 91.74s/it]
+Epoch: 701
+Train Loss: 0.76530  Test Loss: 1.65756  ||  Train Accuray: 0.72584  Test Accuray: 0.46446
+ 70%|███████   | 701/1000 [16:23:51<7:33:26, 90.99s/it]
+Epoch: 702
+Train Loss: 0.82478  Test Loss: 1.81210  ||  Train Accuray: 0.69151  Test Accuray: 0.44075
+ 70%|███████   | 702/1000 [16:25:19<7:27:05, 90.02s/it]
+Epoch: 703
+Train Loss: 0.79073  Test Loss: 1.69925  ||  Train Accuray: 0.70734  Test Accuray: 0.46932
+ 70%|███████   | 703/1000 [16:26:53<7:31:06, 91.13s/it]
+Epoch: 704
+Train Loss: 0.81791  Test Loss: 1.63487  ||  Train Accuray: 0.70897  Test Accuray: 0.47369
+ 70%|███████   | 704/1000 [16:28:23<7:28:05, 90.83s/it]
+Epoch: 705
+Train Loss: 0.83197  Test Loss: 1.84211  ||  Train Accuray: 0.70668  Test Accuray: 0.43680
+ 70%|███████   | 705/1000 [16:29:57<7:31:59, 91.93s/it]
+Epoch: 706
+Train Loss: 0.81328  Test Loss: 1.67517  ||  Train Accuray: 0.70685  Test Accuray: 0.48010
+ 71%|███████   | 706/1000 [16:31:25<7:24:09, 90.65s/it]
+Epoch: 707
+Train Loss: 0.83064  Test Loss: 1.75285  ||  Train Accuray: 0.69863  Test Accuray: 0.44572
+ 71%|███████   | 707/1000 [16:32:54<7:19:49, 90.07s/it]
+Epoch: 708
+Train Loss: 0.80246  Test Loss: 1.62687  ||  Train Accuray: 0.70441  Test Accuray: 0.47260
+ 71%|███████   | 708/1000 [16:34:29<7:26:11, 91.68s/it]
+Epoch: 709
+Train Loss: 0.79825  Test Loss: 1.61026  ||  Train Accuray: 0.70732  Test Accuray: 0.48855
+ 71%|███████   | 709/1000 [16:35:53<7:13:38, 89.41s/it]
+Epoch: 710
+Train Loss: 0.81849  Test Loss: 1.61398  ||  Train Accuray: 0.71003  Test Accuray: 0.48411
+ 71%|███████   | 710/1000 [16:37:25<7:15:04, 90.02s/it]
+Epoch: 711
+Train Loss: 0.78274  Test Loss: 1.67768  ||  Train Accuray: 0.71114  Test Accuray: 0.47056
+ 71%|███████   | 711/1000 [16:39:05<7:27:50, 92.98s/it]
+Epoch: 712
+Train Loss: 0.81647  Test Loss: 1.61750  ||  Train Accuray: 0.70113  Test Accuray: 0.48119
+ 71%|███████   | 712/1000 [16:40:34<7:20:31, 91.78s/it]
+Epoch: 713
+Train Loss: 0.80860  Test Loss: 1.74992  ||  Train Accuray: 0.70034  Test Accuray: 0.46073
+ 71%|███████▏  | 713/1000 [16:42:02<7:14:48, 90.90s/it]
+Epoch: 714
+Train Loss: 0.80373  Test Loss: 1.52027  ||  Train Accuray: 0.72308  Test Accuray: 0.49633
+ 71%|███████▏  | 714/1000 [16:43:27<7:04:03, 88.96s/it]
+Epoch: 715
+Train Loss: 0.80869  Test Loss: 1.71228  ||  Train Accuray: 0.71066  Test Accuray: 0.45345
+ 72%|███████▏  | 715/1000 [16:44:57<7:04:22, 89.34s/it]
+Epoch: 716
+Train Loss: 0.80554  Test Loss: 1.59469  ||  Train Accuray: 0.71321  Test Accuray: 0.48661
+ 72%|███████▏  | 716/1000 [16:46:31<7:09:20, 90.71s/it]
+Epoch: 717
+Train Loss: 0.79587  Test Loss: 1.76088  ||  Train Accuray: 0.71567  Test Accuray: 0.45226
+ 72%|███████▏  | 717/1000 [16:48:09<7:17:56, 92.85s/it]
+Epoch: 718
+Train Loss: 0.79465  Test Loss: 1.96660  ||  Train Accuray: 0.71500  Test Accuray: 0.43012
+ 72%|███████▏  | 718/1000 [16:49:45<7:21:16, 93.89s/it]
+Epoch: 719
+Train Loss: 0.79019  Test Loss: 1.52072  ||  Train Accuray: 0.71404  Test Accuray: 0.49960
+ 72%|███████▏  | 719/1000 [16:51:14<7:12:06, 92.26s/it]
+Epoch: 720
+Train Loss: 0.83636  Test Loss: 1.74945  ||  Train Accuray: 0.68973  Test Accuray: 0.45735
+ 72%|███████▏  | 720/1000 [16:52:42<7:04:25, 90.95s/it]
+Epoch: 721
+Train Loss: 0.80638  Test Loss: 1.55311  ||  Train Accuray: 0.70624  Test Accuray: 0.49524
+ 72%|███████▏  | 721/1000 [16:54:15<7:05:57, 91.60s/it]
+Epoch: 722
+Train Loss: 0.81356  Test Loss: 1.94146  ||  Train Accuray: 0.70893  Test Accuray: 0.41705
+ 72%|███████▏  | 722/1000 [16:55:51<7:10:59, 93.02s/it]
+Epoch: 723
+Train Loss: 0.81469  Test Loss: 1.91671  ||  Train Accuray: 0.71569  Test Accuray: 0.43932
+ 72%|███████▏  | 723/1000 [16:57:24<7:09:17, 92.99s/it]
+Epoch: 724
+Train Loss: 0.78339  Test Loss: 1.63744  ||  Train Accuray: 0.71066  Test Accuray: 0.46833
+ 72%|███████▏  | 724/1000 [16:58:54<7:03:25, 92.05s/it]
+Epoch: 725
+Train Loss: 0.77024  Test Loss: 1.65652  ||  Train Accuray: 0.72327  Test Accuray: 0.47030
+ 72%|███████▎  | 725/1000 [17:00:18<6:50:42, 89.61s/it]
+Epoch: 726
+Train Loss: 0.80499  Test Loss: 1.76491  ||  Train Accuray: 0.70000  Test Accuray: 0.45132
+ 73%|███████▎  | 726/1000 [17:01:44<6:45:21, 88.77s/it]
+Epoch: 727
+Train Loss: 0.81565  Test Loss: 1.65144  ||  Train Accuray: 0.70781  Test Accuray: 0.48103
+ 73%|███████▎  | 727/1000 [17:03:09<6:37:59, 87.47s/it]
+Epoch: 728
+Train Loss: 0.77228  Test Loss: 1.57129  ||  Train Accuray: 0.71539  Test Accuray: 0.47827
+ 73%|███████▎  | 728/1000 [17:04:38<6:39:06, 88.04s/it]
+Epoch: 729
+Train Loss: 0.81610  Test Loss: 1.90910  ||  Train Accuray: 0.69505  Test Accuray: 0.42708
+ 73%|███████▎  | 729/1000 [17:05:58<6:26:37, 85.60s/it]
+Epoch: 730
+Train Loss: 0.78405  Test Loss: 1.95988  ||  Train Accuray: 0.71077  Test Accuray: 0.42345
+ 73%|███████▎  | 730/1000 [17:07:20<6:20:25, 84.54s/it]
+Epoch: 731
+Train Loss: 0.78515  Test Loss: 1.81674  ||  Train Accuray: 0.72042  Test Accuray: 0.41953
+ 73%|███████▎  | 731/1000 [17:08:40<6:11:57, 82.97s/it]
+Epoch: 732
+Train Loss: 0.83110  Test Loss: 1.83009  ||  Train Accuray: 0.69805  Test Accuray: 0.44010
+ 73%|███████▎  | 732/1000 [17:10:06<6:14:36, 83.87s/it]
+Epoch: 733
+Train Loss: 0.78959  Test Loss: 1.66895  ||  Train Accuray: 0.71855  Test Accuray: 0.48182
+ 73%|███████▎  | 733/1000 [17:11:34<6:19:25, 85.26s/it]
+Epoch: 734
+Train Loss: 0.78576  Test Loss: 1.92716  ||  Train Accuray: 0.70716  Test Accuray: 0.43738
+ 73%|███████▎  | 734/1000 [17:12:50<6:05:31, 82.45s/it]
+Epoch: 735
+Train Loss: 0.78622  Test Loss: 1.55410  ||  Train Accuray: 0.71941  Test Accuray: 0.49400
+ 74%|███████▎  | 735/1000 [17:14:11<6:02:12, 82.01s/it]
+Epoch: 736
+Train Loss: 0.76940  Test Loss: 1.60360  ||  Train Accuray: 0.72518  Test Accuray: 0.47683
+ 74%|███████▎  | 736/1000 [17:15:34<6:01:42, 82.21s/it]
+Epoch: 737
+Train Loss: 0.78155  Test Loss: 1.77037  ||  Train Accuray: 0.72083  Test Accuray: 0.46151
+ 74%|███████▎  | 737/1000 [17:16:50<5:53:08, 80.56s/it]
+Epoch: 738
+Train Loss: 0.78948  Test Loss: 1.71402  ||  Train Accuray: 0.71815  Test Accuray: 0.45653
+ 74%|███████▍  | 738/1000 [17:18:13<5:54:45, 81.24s/it]
+Epoch: 739
+Train Loss: 0.80746  Test Loss: 1.70300  ||  Train Accuray: 0.70285  Test Accuray: 0.46751
+ 74%|███████▍  | 739/1000 [17:19:46<6:08:05, 84.62s/it]
+Epoch: 740
+Train Loss: 0.78794  Test Loss: 1.65649  ||  Train Accuray: 0.70753  Test Accuray: 0.47660
+ 74%|███████▍  | 740/1000 [17:21:19<6:18:33, 87.36s/it]
+Epoch: 741
+Train Loss: 0.75831  Test Loss: 1.65590  ||  Train Accuray: 0.73517  Test Accuray: 0.47844
+ 74%|███████▍  | 741/1000 [17:22:38<6:05:47, 84.74s/it]
+Epoch: 742
+Train Loss: 0.78794  Test Loss: 1.63608  ||  Train Accuray: 0.71453  Test Accuray: 0.48270
+ 74%|███████▍  | 742/1000 [17:23:54<5:53:40, 82.25s/it]
+Epoch: 743
+Train Loss: 0.75987  Test Loss: 1.92748  ||  Train Accuray: 0.73406  Test Accuray: 0.42713
+ 74%|███████▍  | 743/1000 [17:25:13<5:48:10, 81.29s/it]
+Epoch: 744
+Train Loss: 0.79055  Test Loss: 1.86409  ||  Train Accuray: 0.72214  Test Accuray: 0.45054
+ 74%|███████▍  | 744/1000 [17:26:45<5:59:56, 84.36s/it]
+Epoch: 745
+Train Loss: 0.80382  Test Loss: 1.58663  ||  Train Accuray: 0.71278  Test Accuray: 0.48960
+ 74%|███████▍  | 745/1000 [17:28:13<6:03:14, 85.47s/it]
+Epoch: 746
+Train Loss: 0.79447  Test Loss: 1.76703  ||  Train Accuray: 0.70562  Test Accuray: 0.46464
+ 75%|███████▍  | 746/1000 [17:29:41<6:05:33, 86.35s/it]
+Epoch: 747
+Train Loss: 0.79480  Test Loss: 1.67562  ||  Train Accuray: 0.71213  Test Accuray: 0.47324
+ 75%|███████▍  | 747/1000 [17:31:09<6:05:50, 86.76s/it]
+Epoch: 748
+Train Loss: 0.79366  Test Loss: 1.79826  ||  Train Accuray: 0.71156  Test Accuray: 0.44800
+ 75%|███████▍  | 748/1000 [17:32:38<6:06:45, 87.32s/it]
+Epoch: 749
+Train Loss: 0.79178  Test Loss: 1.76996  ||  Train Accuray: 0.71018  Test Accuray: 0.46011
+ 75%|███████▍  | 749/1000 [17:34:06<6:06:40, 87.65s/it]
+Epoch: 750
+Train Loss: 0.78145  Test Loss: 1.62946  ||  Train Accuray: 0.71491  Test Accuray: 0.47034
+ 75%|███████▌  | 750/1000 [17:35:41<6:14:26, 89.87s/it]
+Epoch: 751
+Train Loss: 0.78958  Test Loss: 1.57519  ||  Train Accuray: 0.71021  Test Accuray: 0.48855
+ 75%|███████▌  | 751/1000 [17:37:14<6:16:02, 90.61s/it]
+Epoch: 752
+Train Loss: 0.76797  Test Loss: 1.62569  ||  Train Accuray: 0.71657  Test Accuray: 0.47670
+ 75%|███████▌  | 752/1000 [17:38:47<6:18:04, 91.47s/it]
+Epoch: 753
+Train Loss: 0.77566  Test Loss: 1.62383  ||  Train Accuray: 0.72143  Test Accuray: 0.48201
+ 75%|███████▌  | 753/1000 [17:40:22<6:20:27, 92.42s/it]
+Epoch: 754
+Train Loss: 0.78503  Test Loss: 1.72618  ||  Train Accuray: 0.71840  Test Accuray: 0.45604
+ 75%|███████▌  | 754/1000 [17:41:57<6:22:35, 93.32s/it]
+Epoch: 755
+Train Loss: 0.78236  Test Loss: 1.67105  ||  Train Accuray: 0.70876  Test Accuray: 0.46703
+ 76%|███████▌  | 755/1000 [17:43:25<6:13:58, 91.59s/it]
+Epoch: 756
+Train Loss: 0.77063  Test Loss: 1.77181  ||  Train Accuray: 0.72319  Test Accuray: 0.45462
+ 76%|███████▌  | 756/1000 [17:44:56<6:12:25, 91.58s/it]
+Epoch: 757
+Train Loss: 0.76345  Test Loss: 1.82907  ||  Train Accuray: 0.72271  Test Accuray: 0.44885
+ 76%|███████▌  | 757/1000 [17:46:26<6:08:18, 90.94s/it]
+Epoch: 758
+Train Loss: 0.76539  Test Loss: 1.55999  ||  Train Accuray: 0.72832  Test Accuray: 0.48835
+ 76%|███████▌  | 758/1000 [17:47:54<6:03:23, 90.10s/it]
+Epoch: 759
+Train Loss: 0.82628  Test Loss: 1.55765  ||  Train Accuray: 0.70884  Test Accuray: 0.49651
+ 76%|███████▌  | 759/1000 [17:49:21<5:58:23, 89.22s/it]
+Epoch: 760
+Train Loss: 0.77022  Test Loss: 1.79614  ||  Train Accuray: 0.71923  Test Accuray: 0.44342
+ 76%|███████▌  | 760/1000 [17:50:49<5:55:18, 88.83s/it]
+Epoch: 761
+Train Loss: 0.79504  Test Loss: 1.72539  ||  Train Accuray: 0.70613  Test Accuray: 0.46398
+ 76%|███████▌  | 761/1000 [17:52:18<5:53:48, 88.82s/it]
+Epoch: 762
+Train Loss: 0.78676  Test Loss: 1.51748  ||  Train Accuray: 0.71708  Test Accuray: 0.49725
+ 76%|███████▌  | 762/1000 [17:53:46<5:51:34, 88.63s/it]
+Epoch: 763
+Train Loss: 0.75923  Test Loss: 1.67284  ||  Train Accuray: 0.72305  Test Accuray: 0.45747
+ 76%|███████▋  | 763/1000 [17:55:20<5:55:58, 90.12s/it]
+Epoch: 764
+Train Loss: 0.76665  Test Loss: 1.79279  ||  Train Accuray: 0.71786  Test Accuray: 0.45628
+ 76%|███████▋  | 764/1000 [17:56:58<6:03:48, 92.50s/it]
+Epoch: 765
+Train Loss: 0.76763  Test Loss: 1.68441  ||  Train Accuray: 0.72225  Test Accuray: 0.46735
+ 76%|███████▋  | 765/1000 [17:58:28<5:59:55, 91.90s/it]
+Epoch: 766
+Train Loss: 0.76860  Test Loss: 1.92849  ||  Train Accuray: 0.72389  Test Accuray: 0.42957
+ 77%|███████▋  | 766/1000 [17:59:57<5:55:10, 91.07s/it]
+Epoch: 767
+Train Loss: 0.77201  Test Loss: 1.65242  ||  Train Accuray: 0.72500  Test Accuray: 0.46918
+ 77%|███████▋  | 767/1000 [18:01:32<5:57:30, 92.06s/it]
+Epoch: 768
+Train Loss: 0.76648  Test Loss: 1.64333  ||  Train Accuray: 0.72238  Test Accuray: 0.47963
+ 77%|███████▋  | 768/1000 [18:03:09<6:01:59, 93.62s/it]
+Epoch: 769
+Train Loss: 0.76719  Test Loss: 1.78829  ||  Train Accuray: 0.72783  Test Accuray: 0.44296
+ 77%|███████▋  | 769/1000 [18:04:46<6:04:18, 94.63s/it]
+Epoch: 770
+Train Loss: 0.77524  Test Loss: 1.71860  ||  Train Accuray: 0.71325  Test Accuray: 0.46249
+ 77%|███████▋  | 770/1000 [18:06:24<6:06:32, 95.62s/it]
+Epoch: 771
+Train Loss: 0.75641  Test Loss: 1.72141  ||  Train Accuray: 0.72973  Test Accuray: 0.46384
+ 77%|███████▋  | 771/1000 [18:07:58<6:03:16, 95.18s/it]
+Epoch: 772
+Train Loss: 0.76857  Test Loss: 1.79467  ||  Train Accuray: 0.72077  Test Accuray: 0.45268
+ 77%|███████▋  | 772/1000 [18:09:26<5:53:35, 93.05s/it]
+Epoch: 773
+Train Loss: 0.74743  Test Loss: 1.85104  ||  Train Accuray: 0.73268  Test Accuray: 0.42085
+ 77%|███████▋  | 773/1000 [18:10:59<5:52:00, 93.04s/it]
+Epoch: 774
+Train Loss: 0.76466  Test Loss: 1.65146  ||  Train Accuray: 0.72699  Test Accuray: 0.48153
+ 77%|███████▋  | 774/1000 [18:12:31<5:48:54, 92.63s/it]
+Epoch: 775
+Train Loss: 0.74585  Test Loss: 2.39898  ||  Train Accuray: 0.72694  Test Accuray: 0.32867
+ 78%|███████▊  | 775/1000 [18:13:59<5:42:54, 91.44s/it]
+Epoch: 776
+Train Loss: 0.78912  Test Loss: 1.69414  ||  Train Accuray: 0.71376  Test Accuray: 0.45654
+ 78%|███████▊  | 776/1000 [18:15:28<5:38:24, 90.64s/it]
+Epoch: 777
+Train Loss: 0.76657  Test Loss: 1.71212  ||  Train Accuray: 0.72927  Test Accuray: 0.46738
+ 78%|███████▊  | 777/1000 [18:16:57<5:34:55, 90.11s/it]
+Epoch: 778
+Train Loss: 0.77484  Test Loss: 1.71370  ||  Train Accuray: 0.73290  Test Accuray: 0.46748
+ 78%|███████▊  | 778/1000 [18:18:26<5:32:30, 89.87s/it]
+Epoch: 779
+Train Loss: 0.76545  Test Loss: 1.99413  ||  Train Accuray: 0.71342  Test Accuray: 0.42556
+ 78%|███████▊  | 779/1000 [18:19:55<5:29:12, 89.38s/it]
+Epoch: 780
+Train Loss: 0.77507  Test Loss: 1.78245  ||  Train Accuray: 0.71256  Test Accuray: 0.44424
+ 78%|███████▊  | 780/1000 [18:21:22<5:25:41, 88.82s/it]
+Epoch: 781
+Train Loss: 0.78975  Test Loss: 1.61306  ||  Train Accuray: 0.70791  Test Accuray: 0.48538
+ 78%|███████▊  | 781/1000 [18:22:51<5:23:57, 88.76s/it]
+Epoch: 782
+Train Loss: 0.73297  Test Loss: 1.56054  ||  Train Accuray: 0.73931  Test Accuray: 0.47647
+ 78%|███████▊  | 782/1000 [18:24:20<5:22:46, 88.84s/it]
+Epoch: 783
+Train Loss: 0.73366  Test Loss: 1.69446  ||  Train Accuray: 0.73493  Test Accuray: 0.47704
+ 78%|███████▊  | 783/1000 [18:25:50<5:23:22, 89.41s/it]
+Epoch: 784
+Train Loss: 0.78127  Test Loss: 1.72397  ||  Train Accuray: 0.72296  Test Accuray: 0.44963
+ 78%|███████▊  | 784/1000 [18:27:24<5:26:02, 90.57s/it]
+Epoch: 785
+Train Loss: 0.77067  Test Loss: 1.59977  ||  Train Accuray: 0.73319  Test Accuray: 0.48799
+ 78%|███████▊  | 785/1000 [18:28:51<5:21:09, 89.62s/it]
+Epoch: 786
+Train Loss: 0.72621  Test Loss: 1.61902  ||  Train Accuray: 0.73442  Test Accuray: 0.47485
+ 79%|███████▊  | 786/1000 [18:30:20<5:18:24, 89.28s/it]
+Epoch: 787
+Train Loss: 0.79644  Test Loss: 1.62850  ||  Train Accuray: 0.71682  Test Accuray: 0.49021
+ 79%|███████▊  | 787/1000 [18:31:47<5:15:26, 88.86s/it]
+Epoch: 788
+Train Loss: 0.77203  Test Loss: 1.67844  ||  Train Accuray: 0.71669  Test Accuray: 0.46735
+ 79%|███████▉  | 788/1000 [18:33:18<5:15:13, 89.22s/it]
+Epoch: 789
+Train Loss: 0.74277  Test Loss: 1.75121  ||  Train Accuray: 0.72895  Test Accuray: 0.46395
+ 79%|███████▉  | 789/1000 [18:34:54<5:21:21, 91.38s/it]
+Epoch: 790
+Train Loss: 0.79576  Test Loss: 1.72419  ||  Train Accuray: 0.72002  Test Accuray: 0.46369
+ 79%|███████▉  | 790/1000 [18:36:24<5:18:34, 91.02s/it]
+Epoch: 791
+Train Loss: 0.74506  Test Loss: 1.70498  ||  Train Accuray: 0.73651  Test Accuray: 0.45666
+ 79%|███████▉  | 791/1000 [18:37:40<5:00:55, 86.39s/it]
+Epoch: 792
+Train Loss: 0.78251  Test Loss: 1.57728  ||  Train Accuray: 0.71667  Test Accuray: 0.49091
+ 79%|███████▉  | 792/1000 [18:39:07<5:00:08, 86.58s/it]
+Epoch: 793
+Train Loss: 0.72408  Test Loss: 1.87315  ||  Train Accuray: 0.74289  Test Accuray: 0.43090
+ 79%|███████▉  | 793/1000 [18:40:33<4:58:14, 86.45s/it]
+Epoch: 794
+Train Loss: 0.76918  Test Loss: 1.58960  ||  Train Accuray: 0.72900  Test Accuray: 0.47765
+ 79%|███████▉  | 794/1000 [18:41:53<4:50:17, 84.55s/it]
+Epoch: 795
+Train Loss: 0.75814  Test Loss: 1.74684  ||  Train Accuray: 0.73503  Test Accuray: 0.46779
+ 80%|███████▉  | 795/1000 [18:43:16<4:47:01, 84.01s/it]
+Epoch: 796
+Train Loss: 0.73477  Test Loss: 1.55320  ||  Train Accuray: 0.73071  Test Accuray: 0.48708
+ 80%|███████▉  | 796/1000 [18:44:37<4:42:25, 83.07s/it]
+Epoch: 797
+Train Loss: 0.76948  Test Loss: 1.75644  ||  Train Accuray: 0.72274  Test Accuray: 0.45877
+ 80%|███████▉  | 797/1000 [18:46:03<4:44:00, 83.94s/it]
+Epoch: 798
+Train Loss: 0.75319  Test Loss: 1.84016  ||  Train Accuray: 0.73829  Test Accuray: 0.45452
+ 80%|███████▉  | 798/1000 [18:47:16<4:31:44, 80.72s/it]
+Epoch: 799
+Train Loss: 0.73318  Test Loss: 1.66928  ||  Train Accuray: 0.73212  Test Accuray: 0.46987
+ 80%|███████▉  | 799/1000 [18:48:36<4:29:43, 80.51s/it]
+Epoch: 800
+Train Loss: 0.79133  Test Loss: 1.86595  ||  Train Accuray: 0.72600  Test Accuray: 0.43437
+ 80%|████████  | 800/1000 [18:49:58<4:29:53, 80.97s/it]
+Epoch: 801
+Train Loss: 0.75187  Test Loss: 1.92484  ||  Train Accuray: 0.73144  Test Accuray: 0.43336
+ 80%|████████  | 801/1000 [18:51:16<4:26:11, 80.26s/it]
+Epoch: 802
+Train Loss: 0.75222  Test Loss: 1.78044  ||  Train Accuray: 0.72406  Test Accuray: 0.44747
+ 80%|████████  | 802/1000 [18:52:28<4:16:04, 77.60s/it]
+Epoch: 803
+Train Loss: 0.75613  Test Loss: 1.63577  ||  Train Accuray: 0.73756  Test Accuray: 0.47020
+ 80%|████████  | 803/1000 [18:53:51<4:20:17, 79.28s/it]
+Epoch: 804
+Train Loss: 0.75519  Test Loss: 1.49172  ||  Train Accuray: 0.72909  Test Accuray: 0.50751
+ 80%|████████  | 804/1000 [18:55:19<4:27:21, 81.85s/it]
+Epoch: 805
+Train Loss: 0.72698  Test Loss: 1.63278  ||  Train Accuray: 0.73967  Test Accuray: 0.48571
+ 80%|████████  | 805/1000 [18:56:47<4:32:31, 83.85s/it]
+Epoch: 806
+Train Loss: 0.73439  Test Loss: 1.90106  ||  Train Accuray: 0.73725  Test Accuray: 0.43805
+ 81%|████████  | 806/1000 [18:58:21<4:40:07, 86.64s/it]
+Epoch: 807
+Train Loss: 0.74305  Test Loss: 1.77168  ||  Train Accuray: 0.73892  Test Accuray: 0.45694
+ 81%|████████  | 807/1000 [18:59:52<4:43:41, 88.19s/it]
+Epoch: 808
+Train Loss: 0.78022  Test Loss: 1.78508  ||  Train Accuray: 0.71986  Test Accuray: 0.44056
+ 81%|████████  | 808/1000 [19:01:20<4:41:29, 87.96s/it]
+Epoch: 809
+Train Loss: 0.75669  Test Loss: 1.55408  ||  Train Accuray: 0.72596  Test Accuray: 0.49437
+ 81%|████████  | 809/1000 [19:02:47<4:39:35, 87.83s/it]
+Epoch: 810
+Train Loss: 0.74021  Test Loss: 1.66363  ||  Train Accuray: 0.73133  Test Accuray: 0.47046
+ 81%|████████  | 810/1000 [19:04:16<4:39:03, 88.12s/it]
+Epoch: 811
+Train Loss: 0.71394  Test Loss: 1.82616  ||  Train Accuray: 0.74408  Test Accuray: 0.44326
+ 81%|████████  | 811/1000 [19:05:42<4:34:58, 87.30s/it]
+Epoch: 812
+Train Loss: 0.80017  Test Loss: 1.68654  ||  Train Accuray: 0.71699  Test Accuray: 0.47724
+ 81%|████████  | 812/1000 [19:07:16<4:40:12, 89.43s/it]
+Epoch: 813
+Train Loss: 0.73833  Test Loss: 1.77653  ||  Train Accuray: 0.74186  Test Accuray: 0.44049
+ 81%|████████▏ | 813/1000 [19:08:53<4:45:34, 91.63s/it]
+Epoch: 814
+Train Loss: 0.76130  Test Loss: 1.72988  ||  Train Accuray: 0.73639  Test Accuray: 0.46287
+ 81%|████████▏ | 814/1000 [19:10:21<4:40:54, 90.62s/it]
+Epoch: 815
+Train Loss: 0.74239  Test Loss: 1.75845  ||  Train Accuray: 0.73148  Test Accuray: 0.46254
+ 82%|████████▏ | 815/1000 [19:11:51<4:38:48, 90.42s/it]
+Epoch: 816
+Train Loss: 0.74951  Test Loss: 1.74291  ||  Train Accuray: 0.73769  Test Accuray: 0.46647
+ 82%|████████▏ | 816/1000 [19:13:10<4:26:30, 86.90s/it]
+Epoch: 817
+Train Loss: 0.75163  Test Loss: 1.70673  ||  Train Accuray: 0.72420  Test Accuray: 0.46661
+ 82%|████████▏ | 817/1000 [19:14:37<4:25:27, 87.04s/it]
+Epoch: 818
+Train Loss: 0.75670  Test Loss: 1.70437  ||  Train Accuray: 0.72887  Test Accuray: 0.45655
+ 82%|████████▏ | 818/1000 [19:15:59<4:19:16, 85.48s/it]
+Epoch: 819
+Train Loss: 0.72369  Test Loss: 1.73213  ||  Train Accuray: 0.74567  Test Accuray: 0.47206
+ 82%|████████▏ | 819/1000 [19:17:24<4:17:35, 85.39s/it]
+Epoch: 820
+Train Loss: 0.74648  Test Loss: 1.62419  ||  Train Accuray: 0.72847  Test Accuray: 0.48706
+ 82%|████████▏ | 820/1000 [19:18:53<4:19:04, 86.36s/it]
+Epoch: 821
+Train Loss: 0.73918  Test Loss: 1.62975  ||  Train Accuray: 0.73277  Test Accuray: 0.48105
+ 82%|████████▏ | 821/1000 [19:20:28<4:25:29, 88.99s/it]
+Epoch: 822
+Train Loss: 0.77907  Test Loss: 1.86587  ||  Train Accuray: 0.70885  Test Accuray: 0.42101
+ 82%|████████▏ | 822/1000 [19:21:58<4:24:58, 89.32s/it]
+Epoch: 823
+Train Loss: 0.75456  Test Loss: 1.72235  ||  Train Accuray: 0.72031  Test Accuray: 0.45458
+ 82%|████████▏ | 823/1000 [19:23:25<4:22:00, 88.82s/it]
+Epoch: 824
+Train Loss: 0.77439  Test Loss: 1.80216  ||  Train Accuray: 0.71568  Test Accuray: 0.45931
+ 82%|████████▏ | 824/1000 [19:24:53<4:19:30, 88.47s/it]
+Epoch: 825
+Train Loss: 0.71694  Test Loss: 1.62919  ||  Train Accuray: 0.74456  Test Accuray: 0.48508
+ 82%|████████▎ | 825/1000 [19:26:21<4:17:06, 88.15s/it]
+Epoch: 826
+Train Loss: 0.71667  Test Loss: 1.61776  ||  Train Accuray: 0.74253  Test Accuray: 0.48502
+ 83%|████████▎ | 826/1000 [19:27:49<4:15:53, 88.24s/it]
+Epoch: 827
+Train Loss: 0.72593  Test Loss: 1.73903  ||  Train Accuray: 0.74063  Test Accuray: 0.45295
+ 83%|████████▎ | 827/1000 [19:29:28<4:23:46, 91.48s/it]
+Epoch: 828
+Train Loss: 0.76551  Test Loss: 1.67612  ||  Train Accuray: 0.72103  Test Accuray: 0.48186
+ 83%|████████▎ | 828/1000 [19:31:05<4:26:54, 93.11s/it]
+Epoch: 829
+Train Loss: 0.72877  Test Loss: 1.80640  ||  Train Accuray: 0.73501  Test Accuray: 0.45384
+ 83%|████████▎ | 829/1000 [19:32:43<4:29:59, 94.74s/it]
+Epoch: 830
+Train Loss: 0.73167  Test Loss: 1.96950  ||  Train Accuray: 0.73290  Test Accuray: 0.41879
+ 83%|████████▎ | 830/1000 [19:34:16<4:26:51, 94.19s/it]
+Epoch: 831
+Train Loss: 0.74259  Test Loss: 1.68323  ||  Train Accuray: 0.73923  Test Accuray: 0.46697
+ 83%|████████▎ | 831/1000 [19:35:46<4:21:35, 92.87s/it]
+Epoch: 832
+Train Loss: 0.76281  Test Loss: 1.83892  ||  Train Accuray: 0.72309  Test Accuray: 0.44582
+ 83%|████████▎ | 832/1000 [19:37:10<4:12:32, 90.20s/it]
+Epoch: 833
+Train Loss: 0.73609  Test Loss: 1.83304  ||  Train Accuray: 0.73193  Test Accuray: 0.45695
+ 83%|████████▎ | 833/1000 [19:38:48<4:17:50, 92.64s/it]
+Epoch: 834
+Train Loss: 0.73838  Test Loss: 2.04337  ||  Train Accuray: 0.73645  Test Accuray: 0.41312
+ 83%|████████▎ | 834/1000 [19:40:27<4:21:05, 94.37s/it]
+Epoch: 835
+Train Loss: 0.71626  Test Loss: 2.18228  ||  Train Accuray: 0.74611  Test Accuray: 0.40476
+ 84%|████████▎ | 835/1000 [19:42:03<4:21:20, 95.04s/it]
+Epoch: 836
+Train Loss: 0.74370  Test Loss: 1.74848  ||  Train Accuray: 0.73761  Test Accuray: 0.46504
+ 84%|████████▎ | 836/1000 [19:43:31<4:13:53, 92.89s/it]
+Epoch: 837
+Train Loss: 0.73482  Test Loss: 2.34746  ||  Train Accuray: 0.73886  Test Accuray: 0.36148
+ 84%|████████▎ | 837/1000 [19:45:04<4:12:22, 92.90s/it]
+Epoch: 838
+Train Loss: 0.73265  Test Loss: 1.61526  ||  Train Accuray: 0.73602  Test Accuray: 0.47525
+ 84%|████████▍ | 838/1000 [19:46:40<4:13:08, 93.76s/it]
+Epoch: 839
+Train Loss: 0.74055  Test Loss: 1.69232  ||  Train Accuray: 0.74359  Test Accuray: 0.48146
+ 84%|████████▍ | 839/1000 [19:47:57<3:57:59, 88.69s/it]
+Epoch: 840
+Train Loss: 0.73102  Test Loss: 1.63508  ||  Train Accuray: 0.74527  Test Accuray: 0.47484
+ 84%|████████▍ | 840/1000 [19:49:19<3:51:21, 86.76s/it]
+Epoch: 841
+Train Loss: 0.73150  Test Loss: 1.77150  ||  Train Accuray: 0.74042  Test Accuray: 0.43697
+ 84%|████████▍ | 841/1000 [19:50:33<3:39:43, 82.91s/it]
+Epoch: 842
+Train Loss: 0.72935  Test Loss: 2.02690  ||  Train Accuray: 0.73763  Test Accuray: 0.40162
+ 84%|████████▍ | 842/1000 [19:51:58<3:40:01, 83.55s/it]
+Epoch: 843
+Train Loss: 0.71616  Test Loss: 1.52578  ||  Train Accuray: 0.74580  Test Accuray: 0.50540
+ 84%|████████▍ | 843/1000 [19:53:33<3:47:17, 86.86s/it]
+Epoch: 844
+Train Loss: 0.76892  Test Loss: 1.73232  ||  Train Accuray: 0.72466  Test Accuray: 0.47148
+ 84%|████████▍ | 844/1000 [19:55:08<3:52:04, 89.26s/it]
+Epoch: 845
+Train Loss: 0.74985  Test Loss: 1.62784  ||  Train Accuray: 0.73548  Test Accuray: 0.48365
+ 84%|████████▍ | 845/1000 [19:56:34<3:48:40, 88.52s/it]
+Epoch: 846
+Train Loss: 0.75748  Test Loss: 1.74467  ||  Train Accuray: 0.72841  Test Accuray: 0.45153
+ 85%|████████▍ | 846/1000 [19:57:49<3:36:15, 84.25s/it]
+Epoch: 847
+Train Loss: 0.71181  Test Loss: 1.63888  ||  Train Accuray: 0.75290  Test Accuray: 0.48279
+ 85%|████████▍ | 847/1000 [19:59:10<3:32:16, 83.25s/it]
+Epoch: 848
+Train Loss: 0.75535  Test Loss: 1.51444  ||  Train Accuray: 0.73108  Test Accuray: 0.50369
+ 85%|████████▍ | 848/1000 [20:00:36<3:33:22, 84.23s/it]
+Epoch: 849
+Train Loss: 0.71816  Test Loss: 1.87275  ||  Train Accuray: 0.74705  Test Accuray: 0.44345
+ 85%|████████▍ | 849/1000 [20:02:11<3:40:27, 87.60s/it]
+Epoch: 850
+Train Loss: 0.72802  Test Loss: 1.67446  ||  Train Accuray: 0.74781  Test Accuray: 0.48412
+ 85%|████████▌ | 850/1000 [20:03:47<3:45:12, 90.09s/it]
+Epoch: 851
+Train Loss: 0.72341  Test Loss: 1.85880  ||  Train Accuray: 0.74098  Test Accuray: 0.45041
+ 85%|████████▌ | 851/1000 [20:05:23<3:47:57, 91.79s/it]
+Epoch: 852
+Train Loss: 0.73417  Test Loss: 1.74563  ||  Train Accuray: 0.73213  Test Accuray: 0.44825
+ 85%|████████▌ | 852/1000 [20:06:55<3:46:24, 91.79s/it]
+Epoch: 853
+Train Loss: 0.70893  Test Loss: 1.72187  ||  Train Accuray: 0.74579  Test Accuray: 0.46789
+ 85%|████████▌ | 853/1000 [20:08:16<3:37:00, 88.57s/it]
+Epoch: 854
+Train Loss: 0.72711  Test Loss: 1.81787  ||  Train Accuray: 0.74367  Test Accuray: 0.44938
+ 85%|████████▌ | 854/1000 [20:09:41<3:32:47, 87.45s/it]
+Epoch: 855
+Train Loss: 0.76712  Test Loss: 1.68467  ||  Train Accuray: 0.73448  Test Accuray: 0.47269
+ 86%|████████▌ | 855/1000 [20:11:02<3:26:58, 85.65s/it]
+Epoch: 856
+Train Loss: 0.75944  Test Loss: 1.74013  ||  Train Accuray: 0.72272  Test Accuray: 0.46463
+ 86%|████████▌ | 856/1000 [20:12:25<3:23:09, 84.65s/it]
+Epoch: 857
+Train Loss: 0.72070  Test Loss: 1.82457  ||  Train Accuray: 0.74167  Test Accuray: 0.43646
+ 86%|████████▌ | 857/1000 [20:13:47<3:19:56, 83.89s/it]
+Epoch: 858
+Train Loss: 0.70121  Test Loss: 1.63439  ||  Train Accuray: 0.74962  Test Accuray: 0.48278
+ 86%|████████▌ | 858/1000 [20:15:12<3:19:14, 84.19s/it]
+Epoch: 859
+Train Loss: 0.73494  Test Loss: 1.79697  ||  Train Accuray: 0.73745  Test Accuray: 0.45069
+ 86%|████████▌ | 859/1000 [20:16:31<3:14:43, 82.86s/it]
+Epoch: 860
+Train Loss: 0.71180  Test Loss: 1.64309  ||  Train Accuray: 0.74328  Test Accuray: 0.48498
+ 86%|████████▌ | 860/1000 [20:17:52<3:11:26, 82.04s/it]
+Epoch: 861
+Train Loss: 0.70406  Test Loss: 1.62574  ||  Train Accuray: 0.74812  Test Accuray: 0.47969
+ 86%|████████▌ | 861/1000 [20:19:23<3:16:33, 84.85s/it]
+Epoch: 862
+Train Loss: 0.70250  Test Loss: 1.72849  ||  Train Accuray: 0.74432  Test Accuray: 0.46795
+ 86%|████████▌ | 862/1000 [20:20:48<3:15:28, 84.99s/it]
+Epoch: 863
+Train Loss: 0.73600  Test Loss: 2.00575  ||  Train Accuray: 0.73031  Test Accuray: 0.42033
+ 86%|████████▋ | 863/1000 [20:22:07<3:09:36, 83.04s/it]
+Epoch: 864
+Train Loss: 0.70646  Test Loss: 1.67184  ||  Train Accuray: 0.74656  Test Accuray: 0.46577
+ 86%|████████▋ | 864/1000 [20:23:24<3:04:11, 81.26s/it]
+Epoch: 865
+Train Loss: 0.72651  Test Loss: 1.60030  ||  Train Accuray: 0.72970  Test Accuray: 0.47838
+ 86%|████████▋ | 865/1000 [20:24:38<2:57:46, 79.01s/it]
+Epoch: 866
+Train Loss: 0.77741  Test Loss: 1.73135  ||  Train Accuray: 0.73287  Test Accuray: 0.45414
+ 87%|████████▋ | 866/1000 [20:26:12<3:06:40, 83.59s/it]
+Epoch: 867
+Train Loss: 0.72719  Test Loss: 1.84068  ||  Train Accuray: 0.74122  Test Accuray: 0.44273
+ 87%|████████▋ | 867/1000 [20:27:31<3:02:25, 82.29s/it]
+Epoch: 868
+Train Loss: 0.72383  Test Loss: 1.69066  ||  Train Accuray: 0.73595  Test Accuray: 0.47711
+ 87%|████████▋ | 868/1000 [20:28:45<2:55:42, 79.87s/it]
+Epoch: 869
+Train Loss: 0.71341  Test Loss: 1.80287  ||  Train Accuray: 0.73500  Test Accuray: 0.44806
+ 87%|████████▋ | 869/1000 [20:30:12<2:59:03, 82.01s/it]
+Epoch: 870
+Train Loss: 0.71619  Test Loss: 1.69865  ||  Train Accuray: 0.75097  Test Accuray: 0.47148
+ 87%|████████▋ | 870/1000 [20:31:37<2:59:25, 82.81s/it]
+Epoch: 871
+Train Loss: 0.73197  Test Loss: 1.71645  ||  Train Accuray: 0.73344  Test Accuray: 0.46045
+ 87%|████████▋ | 871/1000 [20:32:46<2:49:14, 78.72s/it]
+Epoch: 872
+Train Loss: 0.71047  Test Loss: 1.77819  ||  Train Accuray: 0.73705  Test Accuray: 0.46827
+ 87%|████████▋ | 872/1000 [20:34:11<2:52:06, 80.68s/it]
+Epoch: 873
+Train Loss: 0.69649  Test Loss: 1.63137  ||  Train Accuray: 0.75752  Test Accuray: 0.47715
+ 87%|████████▋ | 873/1000 [20:35:34<2:51:50, 81.18s/it]
+Epoch: 874
+Train Loss: 0.72715  Test Loss: 1.62225  ||  Train Accuray: 0.74379  Test Accuray: 0.48218
+ 87%|████████▋ | 874/1000 [20:36:52<2:48:32, 80.26s/it]
+Epoch: 875
+Train Loss: 0.68107  Test Loss: 1.83527  ||  Train Accuray: 0.75405  Test Accuray: 0.44636
+ 88%|████████▊ | 875/1000 [20:38:15<2:49:11, 81.21s/it]
+Epoch: 876
+Train Loss: 0.71690  Test Loss: 1.94801  ||  Train Accuray: 0.74620  Test Accuray: 0.43246
+ 88%|████████▊ | 876/1000 [20:39:35<2:47:04, 80.84s/it]
+Epoch: 877
+Train Loss: 0.73434  Test Loss: 1.87487  ||  Train Accuray: 0.73696  Test Accuray: 0.45271
+ 88%|████████▊ | 877/1000 [20:40:52<2:43:01, 79.53s/it]
+Epoch: 878
+Train Loss: 0.74188  Test Loss: 1.65753  ||  Train Accuray: 0.74207  Test Accuray: 0.46569
+ 88%|████████▊ | 878/1000 [20:42:11<2:41:40, 79.51s/it]
+Epoch: 879
+Train Loss: 0.69705  Test Loss: 1.60222  ||  Train Accuray: 0.75702  Test Accuray: 0.48690
+ 88%|████████▊ | 879/1000 [20:43:26<2:37:30, 78.10s/it]
+Epoch: 880
+Train Loss: 0.71674  Test Loss: 1.69957  ||  Train Accuray: 0.74102  Test Accuray: 0.47188
+ 88%|████████▊ | 880/1000 [20:44:43<2:35:43, 77.86s/it]
+Epoch: 881
+Train Loss: 0.69827  Test Loss: 1.71193  ||  Train Accuray: 0.75932  Test Accuray: 0.47524
+ 88%|████████▊ | 881/1000 [20:46:00<2:33:50, 77.57s/it]
+Epoch: 882
+Train Loss: 0.72107  Test Loss: 1.79186  ||  Train Accuray: 0.74708  Test Accuray: 0.45680
+ 88%|████████▊ | 882/1000 [20:47:15<2:31:07, 76.85s/it]
+Epoch: 883
+Train Loss: 0.72123  Test Loss: 1.62016  ||  Train Accuray: 0.74199  Test Accuray: 0.48465
+ 88%|████████▊ | 883/1000 [20:48:32<2:29:39, 76.75s/it]
+Epoch: 884
+Train Loss: 0.72184  Test Loss: 1.56559  ||  Train Accuray: 0.74388  Test Accuray: 0.50043
+ 88%|████████▊ | 884/1000 [20:49:51<2:29:32, 77.35s/it]
+Epoch: 885
+Train Loss: 0.71557  Test Loss: 1.69530  ||  Train Accuray: 0.73690  Test Accuray: 0.47553
+ 88%|████████▊ | 885/1000 [20:51:11<2:29:44, 78.12s/it]
+Epoch: 886
+Train Loss: 0.71329  Test Loss: 1.61833  ||  Train Accuray: 0.74928  Test Accuray: 0.48709
+ 89%|████████▊ | 886/1000 [20:52:29<2:28:33, 78.19s/it]
+Epoch: 887
+Train Loss: 0.69407  Test Loss: 1.54689  ||  Train Accuray: 0.75684  Test Accuray: 0.49545
+ 89%|████████▊ | 887/1000 [20:53:52<2:30:13, 79.77s/it]
+Epoch: 888
+Train Loss: 0.67431  Test Loss: 1.61336  ||  Train Accuray: 0.75796  Test Accuray: 0.49259
+ 89%|████████▉ | 888/1000 [20:55:10<2:27:55, 79.25s/it]
+Epoch: 889
+Train Loss: 0.69495  Test Loss: 1.89838  ||  Train Accuray: 0.75084  Test Accuray: 0.44127
+ 89%|████████▉ | 889/1000 [20:56:33<2:28:26, 80.23s/it]
+Epoch: 890
+Train Loss: 0.73525  Test Loss: 2.00265  ||  Train Accuray: 0.73719  Test Accuray: 0.43726
+ 89%|████████▉ | 890/1000 [20:58:01<2:31:08, 82.45s/it]
+Epoch: 891
+Train Loss: 0.72666  Test Loss: 1.64460  ||  Train Accuray: 0.74529  Test Accuray: 0.47771
+ 89%|████████▉ | 891/1000 [20:59:33<2:35:11, 85.43s/it]
+Epoch: 892
+Train Loss: 0.70075  Test Loss: 1.86177  ||  Train Accuray: 0.75554  Test Accuray: 0.44233
+ 89%|████████▉ | 892/1000 [21:00:49<2:28:49, 82.68s/it]
+Epoch: 893
+Train Loss: 0.73221  Test Loss: 1.78080  ||  Train Accuray: 0.73614  Test Accuray: 0.44258
+ 89%|████████▉ | 893/1000 [21:02:08<2:25:17, 81.47s/it]
+Epoch: 894
+Train Loss: 0.77342  Test Loss: 1.61097  ||  Train Accuray: 0.72013  Test Accuray: 0.46764
+ 89%|████████▉ | 894/1000 [21:03:27<2:22:55, 80.90s/it]
+Epoch: 895
+Train Loss: 0.71680  Test Loss: 1.68344  ||  Train Accuray: 0.74733  Test Accuray: 0.48566
+ 90%|████████▉ | 895/1000 [21:04:39<2:16:54, 78.23s/it]
+Epoch: 896
+Train Loss: 0.70488  Test Loss: 1.79448  ||  Train Accuray: 0.74595  Test Accuray: 0.45339
+ 90%|████████▉ | 896/1000 [21:06:13<2:23:33, 82.82s/it]
+Epoch: 897
+Train Loss: 0.73881  Test Loss: 1.98511  ||  Train Accuray: 0.74695  Test Accuray: 0.43649
+ 90%|████████▉ | 897/1000 [21:07:45<2:26:48, 85.52s/it]
+Epoch: 898
+Train Loss: 0.70998  Test Loss: 1.69635  ||  Train Accuray: 0.74556  Test Accuray: 0.46919
+ 90%|████████▉ | 898/1000 [21:09:22<2:31:19, 89.01s/it]
+Epoch: 899
+Train Loss: 0.67481  Test Loss: 1.79006  ||  Train Accuray: 0.76362  Test Accuray: 0.44652
+ 90%|████████▉ | 899/1000 [21:10:47<2:27:35, 87.68s/it]
+Epoch: 900
+Train Loss: 0.71794  Test Loss: 1.75105  ||  Train Accuray: 0.74148  Test Accuray: 0.45327
+ 90%|█████████ | 900/1000 [21:12:13<2:25:26, 87.27s/it]
+Epoch: 901
+Train Loss: 0.75372  Test Loss: 1.82656  ||  Train Accuray: 0.73473  Test Accuray: 0.45094
+ 90%|█████████ | 901/1000 [21:13:39<2:23:24, 86.91s/it]
+Epoch: 902
+Train Loss: 0.70014  Test Loss: 1.74796  ||  Train Accuray: 0.74595  Test Accuray: 0.46817
+ 90%|█████████ | 902/1000 [21:14:55<2:16:42, 83.69s/it]
+Epoch: 903
+Train Loss: 0.69110  Test Loss: 1.66332  ||  Train Accuray: 0.75262  Test Accuray: 0.47244
+ 90%|█████████ | 903/1000 [21:16:16<2:14:06, 82.95s/it]
+Epoch: 904
+Train Loss: 0.71634  Test Loss: 1.74965  ||  Train Accuray: 0.75115  Test Accuray: 0.46779
+ 90%|█████████ | 904/1000 [21:17:47<2:16:19, 85.21s/it]
+Epoch: 905
+Train Loss: 0.71871  Test Loss: 1.70066  ||  Train Accuray: 0.74553  Test Accuray: 0.46760
+ 90%|█████████ | 905/1000 [21:19:24<2:20:26, 88.70s/it]
+Epoch: 906
+Train Loss: 0.70623  Test Loss: 1.62361  ||  Train Accuray: 0.74897  Test Accuray: 0.47853
+ 91%|█████████ | 906/1000 [21:20:47<2:16:14, 86.96s/it]
+Epoch: 907
+Train Loss: 0.72833  Test Loss: 2.00270  ||  Train Accuray: 0.74043  Test Accuray: 0.42444
+ 91%|█████████ | 907/1000 [21:22:03<2:09:57, 83.84s/it]
+Epoch: 908
+Train Loss: 0.69642  Test Loss: 1.74441  ||  Train Accuray: 0.75833  Test Accuray: 0.46185
+ 91%|█████████ | 908/1000 [21:23:37<2:12:57, 86.71s/it]
+Epoch: 909
+Train Loss: 0.71332  Test Loss: 1.71306  ||  Train Accuray: 0.73906  Test Accuray: 0.46755
+ 91%|█████████ | 909/1000 [21:25:04<2:11:53, 86.96s/it]
+Epoch: 910
+Train Loss: 0.69840  Test Loss: 1.67835  ||  Train Accuray: 0.75816  Test Accuray: 0.47273
+ 91%|█████████ | 910/1000 [21:26:29<2:09:37, 86.42s/it]
+Epoch: 911
+Train Loss: 0.71802  Test Loss: 1.94426  ||  Train Accuray: 0.74752  Test Accuray: 0.41689
+ 91%|█████████ | 911/1000 [21:27:49<2:05:19, 84.49s/it]
+Epoch: 912
+Train Loss: 0.73070  Test Loss: 1.78292  ||  Train Accuray: 0.74351  Test Accuray: 0.46736
+ 91%|█████████ | 912/1000 [21:29:05<2:00:01, 81.84s/it]
+Epoch: 913
+Train Loss: 0.74811  Test Loss: 1.72235  ||  Train Accuray: 0.71947  Test Accuray: 0.45456
+ 91%|█████████▏| 913/1000 [21:30:23<1:57:08, 80.78s/it]
+Epoch: 914
+Train Loss: 0.70692  Test Loss: 1.86720  ||  Train Accuray: 0.74976  Test Accuray: 0.39315
+ 91%|█████████▏| 914/1000 [21:31:46<1:56:30, 81.29s/it]
+Epoch: 915
+Train Loss: 0.68846  Test Loss: 1.81395  ||  Train Accuray: 0.76437  Test Accuray: 0.45434
+ 92%|█████████▏| 915/1000 [21:33:06<1:54:51, 81.07s/it]
+Epoch: 916
+Train Loss: 0.69516  Test Loss: 1.67592  ||  Train Accuray: 0.75018  Test Accuray: 0.47124
+ 92%|█████████▏| 916/1000 [21:34:29<1:54:06, 81.50s/it]
+Epoch: 917
+Train Loss: 0.69656  Test Loss: 1.74980  ||  Train Accuray: 0.74971  Test Accuray: 0.46577
+ 92%|█████████▏| 917/1000 [21:35:49<1:52:25, 81.27s/it]
+Epoch: 918
+Train Loss: 0.68378  Test Loss: 1.60100  ||  Train Accuray: 0.75825  Test Accuray: 0.49151
+ 92%|█████████▏| 918/1000 [21:37:09<1:50:25, 80.80s/it]
+Epoch: 919
+Train Loss: 0.73281  Test Loss: 1.85101  ||  Train Accuray: 0.74147  Test Accuray: 0.47083
+ 92%|█████████▏| 919/1000 [21:38:22<1:45:46, 78.35s/it]
+Epoch: 920
+Train Loss: 0.71110  Test Loss: 1.81104  ||  Train Accuray: 0.74657  Test Accuray: 0.46320
+ 92%|█████████▏| 920/1000 [21:39:40<1:44:31, 78.40s/it]
+Epoch: 921
+Train Loss: 0.68540  Test Loss: 1.71242  ||  Train Accuray: 0.76243  Test Accuray: 0.46680
+ 92%|█████████▏| 921/1000 [21:40:58<1:42:49, 78.09s/it]
+Epoch: 922
+Train Loss: 0.69924  Test Loss: 1.71723  ||  Train Accuray: 0.75006  Test Accuray: 0.47534
+ 92%|█████████▏| 922/1000 [21:42:17<1:42:10, 78.59s/it]
+Epoch: 923
+Train Loss: 0.71469  Test Loss: 1.90640  ||  Train Accuray: 0.75172  Test Accuray: 0.40989
+ 92%|█████████▏| 923/1000 [21:43:35<1:40:38, 78.42s/it]
+Epoch: 924
+Train Loss: 0.71103  Test Loss: 1.74726  ||  Train Accuray: 0.74392  Test Accuray: 0.47534
+ 92%|█████████▏| 924/1000 [21:44:58<1:40:43, 79.52s/it]
+Epoch: 925
+Train Loss: 0.67966  Test Loss: 1.90789  ||  Train Accuray: 0.76172  Test Accuray: 0.46264
+ 92%|█████████▎| 925/1000 [21:46:19<1:40:17, 80.23s/it]
+Epoch: 926
+Train Loss: 0.70605  Test Loss: 1.72010  ||  Train Accuray: 0.75781  Test Accuray: 0.46201
+ 93%|█████████▎| 926/1000 [21:47:31<1:35:40, 77.58s/it]
+Epoch: 927
+Train Loss: 0.68039  Test Loss: 1.70796  ||  Train Accuray: 0.75636  Test Accuray: 0.46153
+ 93%|█████████▎| 927/1000 [21:48:54<1:36:28, 79.30s/it]
+Epoch: 928
+Train Loss: 0.71617  Test Loss: 1.71122  ||  Train Accuray: 0.74540  Test Accuray: 0.45452
+ 93%|█████████▎| 928/1000 [21:50:20<1:37:30, 81.26s/it]
+Epoch: 929
+Train Loss: 0.69252  Test Loss: 1.58356  ||  Train Accuray: 0.75004  Test Accuray: 0.49774
+ 93%|█████████▎| 929/1000 [21:51:47<1:38:10, 82.97s/it]
+Epoch: 930
+Train Loss: 0.68976  Test Loss: 1.85792  ||  Train Accuray: 0.75159  Test Accuray: 0.45010
+ 93%|█████████▎| 930/1000 [21:53:18<1:39:35, 85.37s/it]
+Epoch: 931
+Train Loss: 0.72108  Test Loss: 1.84906  ||  Train Accuray: 0.74252  Test Accuray: 0.45529
+ 93%|█████████▎| 931/1000 [21:54:46<1:39:07, 86.19s/it]
+Epoch: 932
+Train Loss: 0.67428  Test Loss: 1.83099  ||  Train Accuray: 0.76052  Test Accuray: 0.44056
+ 93%|█████████▎| 932/1000 [21:56:13<1:38:01, 86.49s/it]
+Epoch: 933
+Train Loss: 0.71308  Test Loss: 1.71987  ||  Train Accuray: 0.74601  Test Accuray: 0.46479
+ 93%|█████████▎| 933/1000 [21:57:41<1:36:56, 86.81s/it]
+Epoch: 934
+Train Loss: 0.72786  Test Loss: 1.66452  ||  Train Accuray: 0.74332  Test Accuray: 0.48504
+ 93%|█████████▎| 934/1000 [21:59:03<1:34:03, 85.51s/it]
+Epoch: 935
+Train Loss: 0.68392  Test Loss: 1.80296  ||  Train Accuray: 0.74743  Test Accuray: 0.46008
+ 94%|█████████▎| 935/1000 [22:00:34<1:34:18, 87.05s/it]
+Epoch: 936
+Train Loss: 0.76696  Test Loss: 1.70580  ||  Train Accuray: 0.73011  Test Accuray: 0.46982
+ 94%|█████████▎| 936/1000 [22:02:09<1:35:21, 89.39s/it]
+Epoch: 937
+Train Loss: 0.67947  Test Loss: 1.71442  ||  Train Accuray: 0.75255  Test Accuray: 0.47152
+ 94%|█████████▎| 937/1000 [22:03:24<1:29:18, 85.06s/it]
+Epoch: 938
+Train Loss: 0.70066  Test Loss: 1.74335  ||  Train Accuray: 0.74596  Test Accuray: 0.45340
+ 94%|█████████▍| 938/1000 [22:04:37<1:24:10, 81.47s/it]
+Epoch: 939
+Train Loss: 0.70450  Test Loss: 1.86030  ||  Train Accuray: 0.74962  Test Accuray: 0.45416
+ 94%|█████████▍| 939/1000 [22:05:56<1:22:05, 80.75s/it]
+Epoch: 940
+Train Loss: 0.71639  Test Loss: 1.74089  ||  Train Accuray: 0.74313  Test Accuray: 0.45437
+ 94%|█████████▍| 940/1000 [22:07:14<1:19:55, 79.93s/it]
+Epoch: 941
+Train Loss: 0.70174  Test Loss: 1.53322  ||  Train Accuray: 0.74498  Test Accuray: 0.49873
+ 94%|█████████▍| 941/1000 [22:08:35<1:18:48, 80.15s/it]
+Epoch: 942
+Train Loss: 0.67304  Test Loss: 1.87765  ||  Train Accuray: 0.76771  Test Accuray: 0.45711
+ 94%|█████████▍| 942/1000 [22:09:52<1:16:41, 79.34s/it]
+Epoch: 943
+Train Loss: 0.70286  Test Loss: 1.91273  ||  Train Accuray: 0.75367  Test Accuray: 0.44175
+ 94%|█████████▍| 943/1000 [22:11:05<1:13:30, 77.38s/it]
+Epoch: 944
+Train Loss: 0.74612  Test Loss: 1.69113  ||  Train Accuray: 0.73771  Test Accuray: 0.46427
+ 94%|█████████▍| 944/1000 [22:12:18<1:11:11, 76.27s/it]
+Epoch: 945
+Train Loss: 0.67358  Test Loss: 1.68308  ||  Train Accuray: 0.76616  Test Accuray: 0.47147
+ 94%|█████████▍| 945/1000 [22:13:38<1:10:47, 77.23s/it]
+Epoch: 946
+Train Loss: 0.74165  Test Loss: 1.56082  ||  Train Accuray: 0.73344  Test Accuray: 0.50301
+ 95%|█████████▍| 946/1000 [22:14:55<1:09:31, 77.25s/it]
+Epoch: 947
+Train Loss: 0.69308  Test Loss: 1.88108  ||  Train Accuray: 0.75344  Test Accuray: 0.42389
+ 95%|█████████▍| 947/1000 [22:16:18<1:09:45, 78.97s/it]
+Epoch: 948
+Train Loss: 0.72226  Test Loss: 1.76054  ||  Train Accuray: 0.74589  Test Accuray: 0.44711
+ 95%|█████████▍| 948/1000 [22:17:37<1:08:17, 78.80s/it]
+Epoch: 949
+Train Loss: 0.71483  Test Loss: 1.64694  ||  Train Accuray: 0.75587  Test Accuray: 0.47648
+ 95%|█████████▍| 949/1000 [22:18:56<1:07:00, 78.83s/it]
+Epoch: 950
+Train Loss: 0.69385  Test Loss: 1.72524  ||  Train Accuray: 0.75809  Test Accuray: 0.46843
+ 95%|█████████▌| 950/1000 [22:20:19<1:06:46, 80.14s/it]
+Epoch: 951
+Train Loss: 0.68484  Test Loss: 1.77462  ||  Train Accuray: 0.75050  Test Accuray: 0.46065
+ 95%|█████████▌| 951/1000 [22:21:45<1:07:02, 82.08s/it]
+Epoch: 952
+Train Loss: 0.73391  Test Loss: 1.70983  ||  Train Accuray: 0.74881  Test Accuray: 0.46332
+ 95%|█████████▌| 952/1000 [22:23:21<1:09:01, 86.28s/it]
+Epoch: 953
+Train Loss: 0.66049  Test Loss: 1.83418  ||  Train Accuray: 0.76702  Test Accuray: 0.44415
+ 95%|█████████▌| 953/1000 [22:24:56<1:09:27, 88.66s/it]
+Epoch: 954
+Train Loss: 0.72186  Test Loss: 1.55512  ||  Train Accuray: 0.74470  Test Accuray: 0.50569
+ 95%|█████████▌| 954/1000 [22:26:21<1:07:08, 87.57s/it]
+Epoch: 955
+Train Loss: 0.72116  Test Loss: 1.66245  ||  Train Accuray: 0.74516  Test Accuray: 0.48145
+ 96%|█████████▌| 955/1000 [22:27:48<1:05:44, 87.65s/it]
+Epoch: 956
+Train Loss: 0.68486  Test Loss: 1.82723  ||  Train Accuray: 0.75051  Test Accuray: 0.44425
+ 96%|█████████▌| 956/1000 [22:29:08<1:02:31, 85.26s/it]
+Epoch: 957
+Train Loss: 0.65933  Test Loss: 1.66406  ||  Train Accuray: 0.76709  Test Accuray: 0.47980
+ 96%|█████████▌| 957/1000 [22:30:24<59:07, 82.49s/it]  
+Epoch: 958
+Train Loss: 0.73788  Test Loss: 1.86244  ||  Train Accuray: 0.74153  Test Accuray: 0.43713
+ 96%|█████████▌| 958/1000 [22:31:41<56:30, 80.73s/it]
+Epoch: 959
+Train Loss: 0.70286  Test Loss: 1.50868  ||  Train Accuray: 0.75755  Test Accuray: 0.50672
+ 96%|█████████▌| 959/1000 [22:33:07<56:16, 82.35s/it]
+Epoch: 960
+Train Loss: 0.70182  Test Loss: 1.72728  ||  Train Accuray: 0.75880  Test Accuray: 0.47664
+ 96%|█████████▌| 960/1000 [22:34:36<56:10, 84.27s/it]
+Epoch: 961
+Train Loss: 0.68356  Test Loss: 1.68599  ||  Train Accuray: 0.75662  Test Accuray: 0.47614
+ 96%|█████████▌| 961/1000 [22:36:08<56:25, 86.80s/it]
+Epoch: 962
+Train Loss: 0.71669  Test Loss: 1.67149  ||  Train Accuray: 0.74491  Test Accuray: 0.47483
+ 96%|█████████▌| 962/1000 [22:37:39<55:46, 88.08s/it]
+Epoch: 963
+Train Loss: 0.70144  Test Loss: 1.79475  ||  Train Accuray: 0.75973  Test Accuray: 0.44429
+ 96%|█████████▋| 963/1000 [22:39:13<55:22, 89.81s/it]
+Epoch: 964
+Train Loss: 0.69499  Test Loss: 1.78601  ||  Train Accuray: 0.75155  Test Accuray: 0.45329
+ 96%|█████████▋| 964/1000 [22:40:46<54:25, 90.71s/it]
+Epoch: 965
+Train Loss: 0.68207  Test Loss: 1.60798  ||  Train Accuray: 0.76632  Test Accuray: 0.48646
+ 96%|█████████▋| 965/1000 [22:42:00<49:54, 85.55s/it]
+Epoch: 966
+Train Loss: 0.68033  Test Loss: 1.78669  ||  Train Accuray: 0.75879  Test Accuray: 0.45422
+ 97%|█████████▋| 966/1000 [22:43:16<46:52, 82.73s/it]
+Epoch: 967
+Train Loss: 0.72780  Test Loss: 1.68927  ||  Train Accuray: 0.74561  Test Accuray: 0.46907
+ 97%|█████████▋| 967/1000 [22:44:39<45:31, 82.78s/it]
+Epoch: 968
+Train Loss: 0.69983  Test Loss: 1.80641  ||  Train Accuray: 0.74399  Test Accuray: 0.45069
+ 97%|█████████▋| 968/1000 [22:45:57<43:27, 81.47s/it]
+Epoch: 969
+Train Loss: 0.70438  Test Loss: 1.58663  ||  Train Accuray: 0.76114  Test Accuray: 0.48856
+ 97%|█████████▋| 969/1000 [22:47:20<42:18, 81.89s/it]
+Epoch: 970
+Train Loss: 0.72363  Test Loss: 1.60021  ||  Train Accuray: 0.74681  Test Accuray: 0.49768
+ 97%|█████████▋| 970/1000 [22:48:40<40:36, 81.23s/it]
+Epoch: 971
+Train Loss: 0.69712  Test Loss: 1.71267  ||  Train Accuray: 0.75503  Test Accuray: 0.46789
+ 97%|█████████▋| 971/1000 [22:49:52<37:54, 78.43s/it]
+Epoch: 972
+Train Loss: 0.70699  Test Loss: 1.90094  ||  Train Accuray: 0.75560  Test Accuray: 0.43632
+ 97%|█████████▋| 972/1000 [22:51:09<36:27, 78.13s/it]
+Epoch: 973
+Train Loss: 0.76084  Test Loss: 1.59971  ||  Train Accuray: 0.72749  Test Accuray: 0.48282
+ 97%|█████████▋| 973/1000 [22:52:26<34:59, 77.77s/it]
+Epoch: 974
+Train Loss: 0.65679  Test Loss: 1.60827  ||  Train Accuray: 0.77160  Test Accuray: 0.49628
+ 97%|█████████▋| 974/1000 [22:53:43<33:33, 77.43s/it]
+Epoch: 975
+Train Loss: 0.68850  Test Loss: 1.61184  ||  Train Accuray: 0.75868  Test Accuray: 0.48538
+ 98%|█████████▊| 975/1000 [22:54:56<31:48, 76.36s/it]
+Epoch: 976
+Train Loss: 0.67552  Test Loss: 1.91508  ||  Train Accuray: 0.75577  Test Accuray: 0.44735
+ 98%|█████████▊| 976/1000 [22:56:13<30:37, 76.55s/it]
+Epoch: 977
+Train Loss: 0.68017  Test Loss: 1.70294  ||  Train Accuray: 0.75993  Test Accuray: 0.47587
+ 98%|█████████▊| 977/1000 [22:57:26<28:52, 75.31s/it]
+Epoch: 978
+Train Loss: 0.67755  Test Loss: 1.60733  ||  Train Accuray: 0.76286  Test Accuray: 0.48810
+ 98%|█████████▊| 978/1000 [22:58:46<28:08, 76.77s/it]
+Epoch: 979
+Train Loss: 0.66637  Test Loss: 1.81136  ||  Train Accuray: 0.77313  Test Accuray: 0.45354
+ 98%|█████████▊| 979/1000 [23:00:16<28:15, 80.76s/it]
+Epoch: 980
+Train Loss: 0.63855  Test Loss: 1.84274  ||  Train Accuray: 0.78422  Test Accuray: 0.41942
+ 98%|█████████▊| 980/1000 [23:01:51<28:22, 85.12s/it]
+Epoch: 981
+Train Loss: 0.67776  Test Loss: 1.83414  ||  Train Accuray: 0.75325  Test Accuray: 0.44280
+ 98%|█████████▊| 981/1000 [23:03:24<27:39, 87.33s/it]
+Epoch: 982
+Train Loss: 0.68772  Test Loss: 1.66539  ||  Train Accuray: 0.74869  Test Accuray: 0.46790
+ 98%|█████████▊| 982/1000 [23:04:57<26:45, 89.20s/it]
+Epoch: 983
+Train Loss: 0.67039  Test Loss: 1.65093  ||  Train Accuray: 0.76699  Test Accuray: 0.47826
+ 98%|█████████▊| 983/1000 [23:06:25<25:08, 88.74s/it]
+Epoch: 984
+Train Loss: 0.71212  Test Loss: 1.99382  ||  Train Accuray: 0.74830  Test Accuray: 0.41613
+ 98%|█████████▊| 984/1000 [23:07:47<23:05, 86.60s/it]
+Epoch: 985
+Train Loss: 0.68732  Test Loss: 1.81413  ||  Train Accuray: 0.76675  Test Accuray: 0.44658
+ 98%|█████████▊| 985/1000 [23:09:22<22:16, 89.12s/it]
+Epoch: 986
+Train Loss: 0.68871  Test Loss: 2.20332  ||  Train Accuray: 0.76031  Test Accuray: 0.41025
+ 99%|█████████▊| 986/1000 [23:10:51<20:47, 89.08s/it]
+Epoch: 987
+Train Loss: 0.70217  Test Loss: 1.65543  ||  Train Accuray: 0.75394  Test Accuray: 0.48407
+ 99%|█████████▊| 987/1000 [23:12:24<19:35, 90.45s/it]
+Epoch: 988
+Train Loss: 0.71002  Test Loss: 1.66154  ||  Train Accuray: 0.74808  Test Accuray: 0.48726
+ 99%|█████████▉| 988/1000 [23:14:01<18:27, 92.30s/it]
+Epoch: 989
+Train Loss: 0.67935  Test Loss: 1.78307  ||  Train Accuray: 0.76272  Test Accuray: 0.46555
+ 99%|█████████▉| 989/1000 [23:15:37<17:08, 93.54s/it]
+Epoch: 990
+Train Loss: 0.67332  Test Loss: 1.72766  ||  Train Accuray: 0.76118  Test Accuray: 0.46702
+ 99%|█████████▉| 990/1000 [23:17:06<15:22, 92.20s/it]
+Epoch: 991
+Train Loss: 0.66992  Test Loss: 1.71644  ||  Train Accuray: 0.76337  Test Accuray: 0.46044
+ 99%|█████████▉| 991/1000 [23:18:39<13:51, 92.44s/it]
+Epoch: 992
+Train Loss: 0.69876  Test Loss: 1.59071  ||  Train Accuray: 0.74901  Test Accuray: 0.49608
+ 99%|█████████▉| 992/1000 [23:20:15<12:26, 93.33s/it]
+Epoch: 993
+Train Loss: 0.67103  Test Loss: 1.67903  ||  Train Accuray: 0.76597  Test Accuray: 0.47718
+ 99%|█████████▉| 993/1000 [23:21:47<10:51, 93.06s/it]
+Epoch: 994
+Train Loss: 0.65303  Test Loss: 1.80312  ||  Train Accuray: 0.77366  Test Accuray: 0.46411
+ 99%|█████████▉| 994/1000 [23:23:15<09:07, 91.33s/it]
+Epoch: 995
+Train Loss: 0.69906  Test Loss: 1.66613  ||  Train Accuray: 0.75638  Test Accuray: 0.48497
+100%|█████████▉| 995/1000 [23:24:45<07:34, 90.93s/it]
+Epoch: 996
+Train Loss: 0.70379  Test Loss: 1.65127  ||  Train Accuray: 0.75784  Test Accuray: 0.47743
+100%|█████████▉| 996/1000 [23:26:19<06:07, 91.97s/it]
+Epoch: 997
+Train Loss: 0.68734  Test Loss: 1.73362  ||  Train Accuray: 0.75555  Test Accuray: 0.47459
+100%|█████████▉| 997/1000 [23:27:47<04:32, 90.88s/it]
+Epoch: 998
+Train Loss: 0.70736  Test Loss: 1.91560  ||  Train Accuray: 0.74361  Test Accuray: 0.42854
+100%|█████████▉| 998/1000 [23:29:15<02:59, 89.96s/it]
+Epoch: 999
+Train Loss: 0.67384  Test Loss: 1.83309  ||  Train Accuray: 0.75915  Test Accuray: 0.45391
+100%|█████████▉| 999/1000 [23:30:42<01:29, 89.10s/it]
+Epoch: 1000
+Train Loss: 0.68509  Test Loss: 2.08949  ||  Train Accuray: 0.75669  Test Accuray: 0.41305
+100%|██████████| 1000/1000 [23:32:10<00:00, 88.67s/it]100%|██████████| 1000/1000 [23:32:10<00:00, 84.73s/it]
+wandb: - 0.027 MB of 0.027 MB uploadedwandb: \ 0.027 MB of 0.027 MB uploadedwandb: | 0.027 MB of 0.114 MB uploadedwandb: / 0.027 MB of 0.114 MB uploadedwandb: - 0.114 MB of 0.114 MB uploadedwandb: \ 0.114 MB of 0.114 MB uploadedwandb: | 0.114 MB of 0.114 MB uploadedwandb: / 0.114 MB of 0.114 MB uploadedwandb: - 0.114 MB of 0.114 MB uploadedwandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:     Test Accuracy ▁▃▃▄▄▄▆▆▅▆▆▇▇▆▇▆▇▇▇▇▇█▆▇▇▇▇▇▇▇██▇█▇▇▇▇▇█
+wandb:         Test Loss █▄█▄▆▅▂▂▄▃▃▁▁▃▂▂▁▂▁▂▂▁▄▃▂▃▂▂▃▄▂▁▃▂▃▃▃▂▃▁
+wandb: Training Accuracy ▁▂▃▃▄▄▄▅▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇███████████
+wandb:     Training Loss █▆▆▆▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:     Test Accuracy 0.41305
+wandb:         Test Loss 2.08949
+wandb: Training Accuracy 0.75669
+wandb:     Training Loss 0.68509
+wandb: 
+wandb: 🚀 View run org_architecture_stl10_Lr_3e-4_EMB_768_patch_16_depth_12 at: https://wandb.ai/maa_64/vit-small-data/runs/03awdz4b
+wandb: ⭐️ View project at: https://wandb.ai/maa_64/vit-small-data
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240812_151107-03awdz4b/logs
+wandb: WARNING The new W&B backend becomes opt-out in version 0.18.0; try it out with `wandb.require("core")`! See https://wandb.me/wandb-core for more information.
+
+Saving Model At: save_model/vit_model_org_architecture_stl10_0.0003_64.pth

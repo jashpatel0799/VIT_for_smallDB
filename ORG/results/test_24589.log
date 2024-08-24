@@ -350,3 +350,18 @@ Train Loss: 1.78468  Test Loss: 2.29214  ||  Train Accuray: 0.32253  Test Accura
 Epoch: 57
 Train Loss: 1.77989  Test Loss: 2.01156  ||  Train Accuray: 0.32463  Test Accuray: 0.23574
  57%|█████▋    | 57/100 [1:06:17<50:03, 69.85s/it]
+Epoch: 58
+Train Loss: 1.78142  Test Loss: 2.04048  ||  Train Accuray: 0.31544  Test Accuray: 0.25909
+ 58%|█████▊    | 58/100 [1:07:26<48:50, 69.78s/it]
+Epoch: 59
+Train Loss: 1.77095  Test Loss: 1.95001  ||  Train Accuray: 0.31723  Test Accuray: 0.26132
+ 59%|█████▉    | 59/100 [1:08:36<47:36, 69.66s/it]
+Epoch: 60
+Train Loss: 1.77583  Test Loss: 2.12997  ||  Train Accuray: 0.32230  Test Accuray: 0.22107
+ 60%|██████    | 60/100 [1:09:45<46:23, 69.60s/it]
+Epoch: 61
+Train Loss: 1.76994  Test Loss: 2.27789  ||  Train Accuray: 0.33299  Test Accuray: 0.20682
+ 61%|██████    | 61/100 [1:10:54<45:11, 69.53s/it]
+Epoch: 62
+Train Loss: 1.76759  Test Loss: 2.17944  ||  Train Accuray: 0.32459  Test Accuray: 0.21829
+ 62%|██████▏   | 62/100 [1:12:04<44:00, 69.50s/it]slurmstepd: error: *** JOB 24589 ON gpu2 CANCELLED AT 2024-08-11T15:11:56 ***

@@ -1,0 +1,59 @@
+Sat Aug 24 10:49:14 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 555.42.02              Driver Version: 555.42.02      CUDA Version: 12.5     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:0F:00.0 Off |                    0 |
+| N/A   27C    P0             52W /  400W |       1MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+
+Experiment Name: org_architecture
+Experiment Details: base vit architecture
+
+
+Dataset Name: imagenet100
+Seed: 64
+Batch Size: 64
+Number of Epochs: 100
+Learning Rate: 3e-4
+Input Channel: 3
+Patch Size: 16
+Embedding Size: 768
+Input Image Size: 224
+ViT Depth: 12
+Number of Classes: 100
+WandB Project: vit-small-data
+WandB Run Name: org_architecture_imagenet100_Lr_3e-4_EMB_768_patch_16_depth_12
+Output Directory: results
+
+
+with ImageNet 100
+
+
+EXP org_architecture: Original VIT on imagenet100 with depth 12 and LEARNIGN_RATE 0.0003
+
+
+
+wandb: Currently logged in as: jashpatel8561 (maa_64). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.7 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.5
+wandb: Run data is saved locally in /scratch/data/m22cs061/VIT_for_smallDB/ORG/wandb/run-20240824_104928-yga8jt8v
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run org_architecture_imagenet100_Lr_3e-4_EMB_768_patch_16_depth_12
+wandb: ⭐️ View project at https://wandb.ai/maa_64/vit-small-data
+wandb: 🚀 View run at https://wandb.ai/maa_64/vit-small-data/runs/yga8jt8v
+  0%|          | 0/100 [00:00<?, ?it/s]

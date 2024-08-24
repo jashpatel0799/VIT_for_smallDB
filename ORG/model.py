@@ -11,7 +11,7 @@ from einops.layers.torch import Rearrange, Reduce
 image = torch.rand(3, 224, 224)
 image = image.unsqueeze(dim = 0)
 
-device = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
+device = 'cpu' # torch.device("cuda" if torch.cuda.is_available() else 'cpu')
 
 # print(image.shape)
 
@@ -139,22 +139,22 @@ class TransformerEncoderBlock(nn.Sequential):
             Residual(nn.Sequential(
                 nn.LayerNorm(emb_size),
                 MultiHeadAttention(emb_size, **kwargs),
-                nn.Dropout(drop_out)
+                nn.Dropout(drop_out),
             )),
-            # Residual(nn.Sequential(
+            Residual(nn.Sequential(
+                nn.LayerNorm(emb_size),
+                FeedForwardBlock(
+                    emb_size, expansion = forward_expansion, drop_p = forward_drop_p
+                ),
+                nn.Dropout(drop_out),
+            ))
+            # nn.Sequential(
             #     nn.LayerNorm(emb_size),
             #     FeedForwardBlock(
             #         emb_size, expansion = forward_expansion, drop_p = forward_drop_p
             #     ),
             #     nn.Dropout(drop_out)
-            # ))
-            nn.Sequential(
-                nn.LayerNorm(emb_size),
-                FeedForwardBlock(
-                    emb_size, expansion = forward_expansion, drop_p = forward_drop_p
-                ),
-                nn.Dropout(drop_out)
-            )
+            # )
             # nn.Sequential(
             #     nn.LayerNorm(emb_size),
             #     MultiHeadAttention(emb_size, **kwargs),
