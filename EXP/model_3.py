@@ -1,3 +1,4 @@
+# model with only one resudial at mutli head with rms norm
 import torch
 import torch.nn.functional as F
 
@@ -21,6 +22,30 @@ device = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
 # patch_embed = rearrange(image, 'b c (h s1) (w s2) -> b (h w) (s1 s2 c)', s1 = patch_size, s2 = patch_size)
 
 # print(patch_embed.shape)
+class RMSNorm(torch.nn.Module):
+    def __init__(self, dim: int):
+        super().__init__()
+        self.scale = nn.Parameter(torch.ones(dim))
+        # print(f"scale: {self.scale.shape}")
+
+    def forward(self, x: Tensor):
+        x_dtype = x.dtype
+        x = x.float()
+        rrms = torch.rsqrt(torch.mean(x**2, dim=-1, keepdim=True) + 1e-6)
+        # print(f"RRMS: {rrms.shape}")
+        return (x * rrms).to(dtype=x_dtype) * self.scale
+
+class QKNorm(torch.nn.Module):
+    def __init__(self, dim: int):
+        super().__init__()
+        self.query_norm = RMSNorm(dim)
+        self.key_norm = RMSNorm(dim)
+
+    def forward(self, q: Tensor, k: Tensor, v: Tensor) -> tuple[Tensor, Tensor]:
+        q = self.query_norm(q)
+        k = self.key_norm(k)
+        # print(f"q: {q.shape}, k: {k.shape}")
+        return q.to(v), k.to(v)
 
 # PATCH EMBEDDING
 class PatchEmbedding(nn.Module):
@@ -63,6 +88,7 @@ class MultiHeadAttention(nn.Module):
         super().__init__()
         self.emb_size = emb_size
         self.num_heads = num_heads
+        head_dim = emb_size // num_heads # hidden_size // num_heads
         # self.keys = nn.Linear(self.emb_size, self.emb_size)
         # self.queries = nn.Linear(self.emb_size, self.emb_size)
         # self.values = nn.Linear(self.emb_size, self.emb_size)
@@ -70,6 +96,7 @@ class MultiHeadAttention(nn.Module):
         # key, query and value also write in matrix form
 
         self.qkv = nn.Linear(emb_size, emb_size * 3)
+        self.norm = QKNorm(head_dim)
 
         self.att_dropout = nn.Dropout(dropout)
         self.projection = nn.Linear(self.emb_size, self.emb_size)
@@ -84,6 +111,8 @@ class MultiHeadAttention(nn.Module):
         qkv = rearrange(self.qkv(x), "b n (h d qkv) -> (qkv) b h n d", h = self.num_heads, qkv = 3)
 
         queries, keys, values = qkv[0], qkv[1], qkv[2]
+        queries, keys = self.norm(queries, keys, values)
+        
         # print(keys.shape) 
 
         energy = torch.einsum('bhqd, bhkd -> bhqk', queries, keys)
@@ -141,20 +170,20 @@ class TransformerEncoderBlock(nn.Sequential):
                 MultiHeadAttention(emb_size, **kwargs),
                 nn.Dropout(drop_out),
             )),
-            Residual(nn.Sequential(
-                nn.LayerNorm(emb_size),
-                FeedForwardBlock(
-                    emb_size, expansion = forward_expansion, drop_p = forward_drop_p
-                ),
-                nn.Dropout(drop_out),
-            ))
-            # nn.Sequential(
+            # Residual(nn.Sequential(
             #     nn.LayerNorm(emb_size),
             #     FeedForwardBlock(
             #         emb_size, expansion = forward_expansion, drop_p = forward_drop_p
             #     ),
-            #     nn.Dropout(drop_out)
-            # )
+            #     nn.Dropout(drop_out),
+            # ))
+            nn.Sequential(
+                nn.LayerNorm(emb_size),
+                FeedForwardBlock(
+                    emb_size, expansion = forward_expansion, drop_p = forward_drop_p
+                ),
+                nn.Dropout(drop_out)
+            )
             # nn.Sequential(
             #     nn.LayerNorm(emb_size),
             #     MultiHeadAttention(emb_size, **kwargs),

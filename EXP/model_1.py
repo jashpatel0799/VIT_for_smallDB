@@ -1,3 +1,4 @@
+# model with only one resudial block (multi head and FF in one resudial)
 import torch
 import torch.nn.functional as F
 
@@ -136,37 +137,30 @@ class TransformerEncoderBlock(nn.Sequential):
     def __init__(self, emb_size: int = 768, drop_out: float = 0.1, 
                  forward_expansion: int = 4, forward_drop_p: float = 0.0, **kwargs):
         super().__init__(
+            # Residual(nn.Sequential(
+            #     nn.LayerNorm(emb_size),
+            #     MultiHeadAttention(emb_size, **kwargs),
+            #     nn.Dropout(drop_out)
+            # )),
+            # Residual(nn.Sequential(
+            #     nn.LayerNorm(emb_size),
+            #     FeedForwardBlock(
+            #         emb_size, expansion = forward_expansion, drop_p = forward_drop_p
+            #     ),
+            #     nn.Dropout(drop_out)
+            # ))
             Residual(nn.Sequential(
                 nn.LayerNorm(emb_size),
                 MultiHeadAttention(emb_size, **kwargs),
                 nn.Dropout(drop_out),
-            )),
-            Residual(nn.Sequential(
+
+                # FFNN
                 nn.LayerNorm(emb_size),
                 FeedForwardBlock(
                     emb_size, expansion = forward_expansion, drop_p = forward_drop_p
                 ),
-                nn.Dropout(drop_out),
+                nn.Dropout(drop_out)
             ))
-            # nn.Sequential(
-            #     nn.LayerNorm(emb_size),
-            #     FeedForwardBlock(
-            #         emb_size, expansion = forward_expansion, drop_p = forward_drop_p
-            #     ),
-            #     nn.Dropout(drop_out)
-            # )
-            # nn.Sequential(
-            #     nn.LayerNorm(emb_size),
-            #     MultiHeadAttention(emb_size, **kwargs),
-            #     nn.Dropout(drop_out)
-            # ),
-            # nn.Sequential(
-            #     nn.LayerNorm(emb_size),
-            #     FeedForwardBlock(
-            #         emb_size, expansion = forward_expansion, drop_p = forward_drop_p
-            #     ),
-            #     nn.Dropout(drop_out)
-            # )
         )
 
 
@@ -178,7 +172,6 @@ class TransformerEncoderBlock(nn.Sequential):
 class TransformerEncoder(nn.Sequential):
     def __init__( self, depth: int = 12, **kwargs):
         super().__init__(*[TransformerEncoderBlock(**kwargs) for _ in range(depth)])
-        # super().__init__(*[Residual(TransformerEncoderBlock(**kwargs)) for _ in range(depth)]) ## wrong single residual
 
 
 #CLASSIFICATION HEAD

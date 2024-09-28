@@ -1,6 +1,7 @@
 exp_name: "org_architecture"
-details: "base vit architecture but Residual at only Multi head attention" # "base vit architecture" # "base vit architecture but Residual at only Multi head attention"
-dataset_name: "imagenet100"
+model_num: 2 # 1 for base vit architecture and 2 for base vit architecture with RMS norm
+details: "base vit architecture with RSM norm" # "base vit architecture" # "base vit architecture with RMS norm"
+dataset_name: "cifar10"
 seed: 64
 batch_size: 64
 num_epoch: 100

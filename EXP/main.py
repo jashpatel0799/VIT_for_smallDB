@@ -9,12 +9,14 @@ import wandb
 from torchmetrics.classification import MulticlassAccuracy
 from torchsummary import summary
 
-import data, engine, model_2, utils
+import data, engine, model_1, model_2, model_3, utils
 
 
 def main(args):
    print("\n")
    print(f"Experiment Name: {args['exp_name']}")
+   print(f"Experiment Model Number: {args['model_num']}")
+   print(f"1. model with only one resudial block (multi head and FF in one resudial) \n2. model with only one resudial at mutli head and \n3. model with only one resudial at mutli head with rms norm")
    print(f"Experiment Details: {args['details']}")
    print("\n")
    print(f"Dataset Name: {args['dataset_name']}")
@@ -35,6 +37,7 @@ def main(args):
    
    # HYPERPARAMETERS
    EXP_NAME = args['exp_name']
+   MODEL_NUM = args['model_num']
    DATASET = args['dataset_name']
    EXP = EXP_NAME + "_" + DATASET
    SEED = args['seed']
@@ -52,10 +55,10 @@ def main(args):
    DEVICE = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
    # print(device)
    # summary
-   print("\n",summary(model_2.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
+   print("\n",summary(model_1.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
    
    print("\n")
-   print(f"EXP {EXP}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE} and Batch size {BATCH_SIZE}")
+   print(f"EXP {EXP}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE} and Batch size {BATCH_SIZE} with model architecture number {MODEL_NUM}.")
    print("resudial on outer encoder block but not at inner block")
    print("\n\n")
    random.seed(SEED)
@@ -65,10 +68,19 @@ def main(args):
    # get dataloader
    train_dataloader, test_dataloader = data.prepare_dataloader(args)
    
-   # prepare model 
-   vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
-                        embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
-                        depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   # prepare model
+   if MODEL_NUM == 1:
+      vit_model = model_1.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   elif MODEL_NUM == 2:
+      vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   else:
+      vit_model = model_3.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
 
    # torch_vit = vit_b_16().to(device)
 

@@ -1,0 +1,193 @@
+Sat Sep 28 18:42:11 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 555.42.02              Driver Version: 555.42.02      CUDA Version: 12.5     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:90:00.0 Off |                    0 |
+| N/A   30C    P0             53W /  400W |       1MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+
+Experiment Name: org_architecture
+Experiment Model Number: 2
+1. base vit architecture 
+2. base vit architecture with RMS norm
+Experiment Details: base vit architecture with RSM norm
+
+
+Dataset Name: cifar10
+Seed: 64
+Batch Size: 64
+Number of Epochs: 100
+Learning Rate: 3e-4
+Input Channel: 3
+Patch Size: 16
+Embedding Size: 768
+Input Image Size: 224
+ViT Depth: 12
+Number of Classes: 100
+WandB Project: vit-small-data
+WandB Run Name: org_architecture_cifar10_Lr_3e-4_EMB_768_patch_16_depth_12
+Output Directory: results
+
+
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+├─PatchEmbedding: 1-1                    [-1, 197, 768]            --
+|    └─Sequential: 2-1                   [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                  [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2               [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2      [-1, 197, 768]            --
+|    |    └─Residual: 3-3                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-4                [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-3      [-1, 197, 768]            --
+|    |    └─Residual: 3-5                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-6                [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-4      [-1, 197, 768]            --
+|    |    └─Residual: 3-7                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-8                [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-5      [-1, 197, 768]            --
+|    |    └─Residual: 3-9                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-10               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-6      [-1, 197, 768]            --
+|    |    └─Residual: 3-11               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-12               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-7      [-1, 197, 768]            --
+|    |    └─Residual: 3-13               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-14               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-8      [-1, 197, 768]            --
+|    |    └─Residual: 3-15               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-16               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-9      [-1, 197, 768]            --
+|    |    └─Residual: 3-17               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-18               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-10     [-1, 197, 768]            --
+|    |    └─Residual: 3-19               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-20               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-11     [-1, 197, 768]            --
+|    |    └─Residual: 3-21               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-22               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-12     [-1, 197, 768]            --
+|    |    └─Residual: 3-23               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-24               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-13     [-1, 197, 768]            --
+|    |    └─Residual: 3-25               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-26               [-1, 197, 768]            4,723,968
+├─ClassificationHead: 1-3                [-1, 100]                 --
+|    └─Reduce: 2-14                      [-1, 768]                 --
+|    └─LayerNorm: 2-15                   [-1, 768]                 1,536
+|    └─Linear: 2-16                      [-1, 100]                 76,900
+==========================================================================================
+Total params: 85,723,492
+Trainable params: 85,723,492
+Non-trainable params: 0
+Total mult-adds (M): 456.75
+==========================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 1.16
+Params size (MB): 327.01
+Estimated Total Size (MB): 328.74
+==========================================================================================
+
+ ==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+├─PatchEmbedding: 1-1                    [-1, 197, 768]            --
+|    └─Sequential: 2-1                   [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                  [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2               [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2      [-1, 197, 768]            --
+|    |    └─Residual: 3-3                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-4                [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-3      [-1, 197, 768]            --
+|    |    └─Residual: 3-5                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-6                [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-4      [-1, 197, 768]            --
+|    |    └─Residual: 3-7                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-8                [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-5      [-1, 197, 768]            --
+|    |    └─Residual: 3-9                [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-10               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-6      [-1, 197, 768]            --
+|    |    └─Residual: 3-11               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-12               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-7      [-1, 197, 768]            --
+|    |    └─Residual: 3-13               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-14               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-8      [-1, 197, 768]            --
+|    |    └─Residual: 3-15               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-16               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-9      [-1, 197, 768]            --
+|    |    └─Residual: 3-17               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-18               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-10     [-1, 197, 768]            --
+|    |    └─Residual: 3-19               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-20               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-11     [-1, 197, 768]            --
+|    |    └─Residual: 3-21               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-22               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-12     [-1, 197, 768]            --
+|    |    └─Residual: 3-23               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-24               [-1, 197, 768]            4,723,968
+|    └─TransformerEncoderBlock: 2-13     [-1, 197, 768]            --
+|    |    └─Residual: 3-25               [-1, 197, 768]            2,363,904
+|    |    └─Residual: 3-26               [-1, 197, 768]            4,723,968
+├─ClassificationHead: 1-3                [-1, 100]                 --
+|    └─Reduce: 2-14                      [-1, 768]                 --
+|    └─LayerNorm: 2-15                   [-1, 768]                 1,536
+|    └─Linear: 2-16                      [-1, 100]                 76,900
+==========================================================================================
+Total params: 85,723,492
+Trainable params: 85,723,492
+Non-trainable params: 0
+Total mult-adds (M): 456.75
+==========================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 1.16
+Params size (MB): 327.01
+Estimated Total Size (MB): 328.74
+========================================================================================== 
+
+
+
+EXP org_architecture: Original VIT on cifar10 with depth 12 and LEARNIGN_RATE 0.0003
+
+
+
+With CIFAR10
+Files already downloaded and verified
+Files already downloaded and verified
+wandb: Currently logged in as: jashpatel8561 (maa_64). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.18.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.5
+wandb: Run data is saved locally in /scratch/data/m22cs061/VIT_for_smallDB/ORG/wandb/run-20240928_184218-eugplg40
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run org_architecture_cifar10_Lr_3e-4_EMB_768_patch_16_depth_12
+wandb: ⭐️ View project at https://wandb.ai/maa_64/vit-small-data
+wandb: 🚀 View run at https://wandb.ai/maa_64/vit-small-data/runs/eugplg40
+  0%|          | 0/100 [00:00<?, ?it/s]
+Epoch: 1
+Train Loss: 2.39195  Test Loss: 2.21419  ||  Train Accuray: 0.16048  Test Accuray: 0.19389
+  1%|          | 1/100 [07:27<12:18:33, 447.61s/it]
+Epoch: 2
+Train Loss: 2.18263  Test Loss: 2.13672  ||  Train Accuray: 0.19829  Test Accuray: 0.22464
+  2%|▏         | 2/100 [14:54<12:10:46, 447.42s/it]
+Epoch: 3
+Train Loss: 2.12891  Test Loss: 2.10844  ||  Train Accuray: 0.21266  Test Accuray: 0.20911
+  3%|▎         | 3/100 [22:18<12:00:41, 445.79s/it]
