@@ -5,7 +5,7 @@ from collections import defaultdict
 import random
 import torch
 import torchvision
-from torchvision.datasets import FashionMNIST, MNIST, CIFAR10, Food101, STL10
+from torchvision.datasets import FashionMNIST, MNIST, CIFAR10, Food101, STL10, CIFAR100
 from torch.utils.data import Subset, DataLoader, Dataset
 import torchvision.transforms as transforms 
 
@@ -194,6 +194,14 @@ def prepare_dataloader(args):
         train_dataloader = DataLoader(cifar10_train_dataset, batch_size = args['batch_size'], shuffle = True, drop_last = True)
         test_dataloader = DataLoader(cifar10_test_dataset, batch_size = args['batch_size'], shuffle = False, drop_last = True)
         
+    elif args['dataset_name'] == "cifar100":
+        print("With CIFAR100")
+        cifar100_train_dataset = CIFAR100(root = "./data/cifar100", train = True, transform = transform, download = True)
+        cifar100_test_dataset = CIFAR100(root = "./data/cifar100", train = False, transform = transform, download = True)
+        
+        train_dataloader = DataLoader(cifar100_train_dataset, batch_size = args['batch_size'], shuffle = True, drop_last = True)
+        test_dataloader = DataLoader(cifar100_test_dataset, batch_size = args['batch_size'], shuffle = False, drop_last = True)
+    
     elif args['dataset_name'] == "mnist":
         print("With MNIST")
         mnist_train_dataset = MNIST(root = './data', train = True, transform = mnist_transform, download = True)

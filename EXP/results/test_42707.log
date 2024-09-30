@@ -1,0 +1,142 @@
+
+
+Experiment Name: custom_architecture
+Experiment Model Number: 3
+1. model with only one resudial block (multi head and FF in one resudial) 
+2. model with only one resudial at mutli head and 
+3. model with only one resudial at mutli head with rms norm
+Experiment Details: resudial on outer encoder block but not at inner block
+
+
+Dataset Name: cifar100
+Seed: 64
+Batch Size: 64
+Number of Epochs: 100
+Learning Rate: 3e-4
+Input Channel: 3
+Patch Size: 16
+Embedding Size: 768
+Input Image Size: 224
+ViT Depth: 12
+Number of Classes: 100
+WandB Project: vit-small-data
+WandB Run Name: custom_architecture_cifar100_Lr_3e-4_EMB_768_patch_16_depth_12
+Output Directory: results
+
+
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+├─PatchEmbedding: 1-1                    [-1, 197, 768]            --
+|    └─Sequential: 2-1                   [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                  [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2               [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2      [-1, 197, 768]            --
+|    |    └─Residual: 3-3                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-3      [-1, 197, 768]            --
+|    |    └─Residual: 3-4                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-4      [-1, 197, 768]            --
+|    |    └─Residual: 3-5                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-5      [-1, 197, 768]            --
+|    |    └─Residual: 3-6                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-6      [-1, 197, 768]            --
+|    |    └─Residual: 3-7                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-7      [-1, 197, 768]            --
+|    |    └─Residual: 3-8                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-8      [-1, 197, 768]            --
+|    |    └─Residual: 3-9                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-9      [-1, 197, 768]            --
+|    |    └─Residual: 3-10               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-10     [-1, 197, 768]            --
+|    |    └─Residual: 3-11               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-11     [-1, 197, 768]            --
+|    |    └─Residual: 3-12               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-12     [-1, 197, 768]            --
+|    |    └─Residual: 3-13               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-13     [-1, 197, 768]            --
+|    |    └─Residual: 3-14               [-1, 197, 768]            7,087,872
+├─ClassificationHead: 1-3                [-1, 100]                 --
+|    └─Reduce: 2-14                      [-1, 768]                 --
+|    └─LayerNorm: 2-15                   [-1, 768]                 1,536
+|    └─Linear: 2-16                      [-1, 100]                 76,900
+==========================================================================================
+Total params: 85,723,492
+Trainable params: 85,723,492
+Non-trainable params: 0
+Total mult-adds (M): 456.75
+==========================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 1.16
+Params size (MB): 327.01
+Estimated Total Size (MB): 328.74
+==========================================================================================
+
+ ==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+├─PatchEmbedding: 1-1                    [-1, 197, 768]            --
+|    └─Sequential: 2-1                   [-1, 196, 768]            --
+|    |    └─Conv2d: 3-1                  [-1, 768, 14, 14]         590,592
+|    |    └─Rearrange: 3-2               [-1, 196, 768]            --
+├─TransformerEncoder: 1-2                [-1, 197, 768]            --
+|    └─TransformerEncoderBlock: 2-2      [-1, 197, 768]            --
+|    |    └─Residual: 3-3                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-3      [-1, 197, 768]            --
+|    |    └─Residual: 3-4                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-4      [-1, 197, 768]            --
+|    |    └─Residual: 3-5                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-5      [-1, 197, 768]            --
+|    |    └─Residual: 3-6                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-6      [-1, 197, 768]            --
+|    |    └─Residual: 3-7                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-7      [-1, 197, 768]            --
+|    |    └─Residual: 3-8                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-8      [-1, 197, 768]            --
+|    |    └─Residual: 3-9                [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-9      [-1, 197, 768]            --
+|    |    └─Residual: 3-10               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-10     [-1, 197, 768]            --
+|    |    └─Residual: 3-11               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-11     [-1, 197, 768]            --
+|    |    └─Residual: 3-12               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-12     [-1, 197, 768]            --
+|    |    └─Residual: 3-13               [-1, 197, 768]            7,087,872
+|    └─TransformerEncoderBlock: 2-13     [-1, 197, 768]            --
+|    |    └─Residual: 3-14               [-1, 197, 768]            7,087,872
+├─ClassificationHead: 1-3                [-1, 100]                 --
+|    └─Reduce: 2-14                      [-1, 768]                 --
+|    └─LayerNorm: 2-15                   [-1, 768]                 1,536
+|    └─Linear: 2-16                      [-1, 100]                 76,900
+==========================================================================================
+Total params: 85,723,492
+Trainable params: 85,723,492
+Non-trainable params: 0
+Total mult-adds (M): 456.75
+==========================================================================================
+Input size (MB): 0.57
+Forward/backward pass size (MB): 1.16
+Params size (MB): 327.01
+Estimated Total Size (MB): 328.74
+========================================================================================== 
+
+
+
+EXP custom_architecture_cifar100: Original VIT on cifar100 with depth 12 and LEARNIGN_RATE 0.0003 and Batch size 64 with model architecture number 3.
+resudial on outer encoder block but not at inner block
+
+
+
+With CIFAR100
+Files already downloaded and verified
+Files already downloaded and verified
+wandb: Currently logged in as: jashpatel8561 (maa_64). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.18.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.5
+wandb: Run data is saved locally in /scratch/data/m22cs061/VIT_for_smallDB/EXP/wandb/run-20240930_214939-jjrnoyqd
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run custom_architecture_cifar100_Lr_3e-4_EMB_768_patch_16_depth_12
+wandb: ⭐️ View project at https://wandb.ai/maa_64/vit-small-data
+wandb: 🚀 View run at https://wandb.ai/maa_64/vit-small-data/runs/jjrnoyqd
+  0%|          | 0/100 [00:00<?, ?it/s]
