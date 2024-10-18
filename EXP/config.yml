@@ -4,7 +4,7 @@ details: "resudial on outer encoder block but not at inner block"
 dataset_name: "cifar100"
 seed: 64
 batch_size: 64
-num_epoch: 100
+num_epoch: 1100
 learning_rate: 3e-4
 input_channel: 3
 patch_size: 16
