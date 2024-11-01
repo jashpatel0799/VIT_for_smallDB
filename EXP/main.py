@@ -9,7 +9,7 @@ import wandb
 from torchmetrics.classification import MulticlassAccuracy
 from torchsummary import summary
 
-import data, engine, model_1, model_2, model_3, utils
+import data, engine, model_1, model_2, model_3, model_4, model_5, model_6, utils
 
 
 def main(args):
@@ -77,10 +77,28 @@ def main(args):
       vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
                               embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
                               depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   elif MODEL_NUM == 3:
+      vit_model = model_3.QKNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                     embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                     depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 4:
+      vit_model = model_4.KVNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                     embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                     depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 5:
+      vit_model = model_5.QVNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                     embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                     depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 6:
+      vit_model = model_6.QKVNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                      embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                      depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
    else:
-      vit_model = model_3.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
-                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
-                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      print("wrong choise.")
 
    # torch_vit = vit_b_16().to(device)
 

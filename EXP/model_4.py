@@ -1,4 +1,4 @@
-# model with only one resudial at mutli head with rms norm at qk
+# model with only one resudial at mutli head with rms norm but first mul key-value and then with query
 import torch
 import torch.nn.functional as F
 
@@ -35,17 +35,18 @@ class RMSNorm(torch.nn.Module):
         # print(f"RRMS: {rrms.shape}")
         return (x * rrms).to(dtype=x_dtype) * self.scale
 
-class QKNorm(torch.nn.Module):
+class KVNorm(torch.nn.Module):
     def __init__(self, dim: int):
         super().__init__()
-        self.query_norm = RMSNorm(dim)
         self.key_norm = RMSNorm(dim)
+        self.value_norm = RMSNorm(dim)
+        
 
     def forward(self, q: Tensor, k: Tensor, v: Tensor) -> tuple[Tensor, Tensor]:
-        q = self.query_norm(q)
         k = self.key_norm(k)
+        v = self.value_norm(v)
         # print(f"q: {q.shape}, k: {k.shape}")
-        return q.to(v), k.to(v)
+        return k.to(q), v.to(q)
 
 # PATCH EMBEDDING
 class PatchEmbedding(nn.Module):
@@ -96,7 +97,7 @@ class MultiHeadAttention(nn.Module):
         # key, query and value also write in matrix form
 
         self.qkv = nn.Linear(emb_size, emb_size * 3)
-        self.norm = QKNorm(head_dim)
+        self.norm = KVNorm(head_dim)
 
         self.att_dropout = nn.Dropout(dropout)
         self.projection = nn.Linear(self.emb_size, self.emb_size)
@@ -111,11 +112,12 @@ class MultiHeadAttention(nn.Module):
         qkv = rearrange(self.qkv(x), "b n (h d qkv) -> (qkv) b h n d", h = self.num_heads, qkv = 3)
 
         queries, keys, values = qkv[0], qkv[1], qkv[2]
-        queries, keys = self.norm(queries, keys, values)
+        keys, values = self.norm(queries, keys, values)
         
         # print(keys.shape) 
 
-        energy = torch.einsum('bhqd, bhkd -> bhqk', queries, keys)
+        energy = torch.einsum('bhqd, bhkd -> bhqk', keys, values)
+        print(energy.shape)
 
         if mask is not None:
             fill_value = torch.finfo(torch.float32).min
@@ -125,7 +127,8 @@ class MultiHeadAttention(nn.Module):
         att = F.softmax(energy, dim = -1) / scaling
         att = self.att_dropout(att)
 
-        out = torch.einsum('bhal, bhlv -> bhav', att, values)
+        print(queries.shape, att.shape)
+        out = torch.einsum('bhal, bhlv -> bhav', att, queries)
         out = rearrange(out, 'b h n d -> b n (h d)')
         out = self.projection(out)
         return out
@@ -222,7 +225,7 @@ class ClassificationHead(nn.Sequential):
 
 #VIT Model
 
-class QKNorm_ViT(nn.Sequential):
+class KVNorm_ViT(nn.Sequential):
     def __init__(self, in_channels: int = 3, patch_size: int = 16, embedding_size: int = 768,
                  img_size: int = 224, depth: int = 12, n_classes: int = 1000, **kwargs):
         super().__init__(
@@ -231,4 +234,5 @@ class QKNorm_ViT(nn.Sequential):
             ClassificationHead(embedding_size, n_classes)
         )
 
-# summary(ViT(), (3, 224, 224), device = 'cpu')
+# from torchsummary import summary
+# summary(ViT_KVNorm(), (3, 224, 224), device = 'cpu')
