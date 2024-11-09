@@ -38,6 +38,7 @@ def main(args):
    # HYPERPARAMETERS
    EXP_NAME = args['exp_name']
    MODEL_NUM = args['model_num']
+   OPTIMIZER = args['optimizer_name']
    DATASET = args['dataset_name']
    EXP = EXP_NAME + "_" + DATASET
    SEED = args['seed']
@@ -106,7 +107,10 @@ def main(args):
 
    loss_fn = torch.nn.CrossEntropyLoss()
    accuracy_fn = MulticlassAccuracy(num_classes = NUM_CLASS).to(DEVICE)
-   optimizer = torch.optim.SGD(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0.03)
+   if OPTIMIZER == "sgd":
+      optimizer = torch.optim.SGD(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0.03)
+   else:
+      optimizer =  torch.optim.Adam(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0)
    # scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor = 0.1, end_factor = 0.07,
    #                                               total_iters = NUM_EPOCH - 10)
 
