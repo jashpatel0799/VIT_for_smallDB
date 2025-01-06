@@ -1,7 +1,7 @@
 exp_name: "org_architecture"
-model_num: 1 # 1 for base vit architecture and 2 for base vit architecture with RMS norm
+model_num: 4 # 1 for base vit architecture, 2 for base vit architecture with RMS norm at query and key, 3 for base vit architecture with RMS norm at query and value and 4 for base vit architecture with RMS norm at query, key and value
 optimizer_name: "adam" # sgd ot adam
-details: "base vit architecture with RSM norm" # "base vit architecture" # "base vit architecture with RMS norm"
+details: "base vit architecture with RSM norm at query, key and value" # "base vit architecture" # "base vit architecture with RMS norm"
 dataset_name: "cifar10"
 seed: 64
 batch_size: 64

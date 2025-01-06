@@ -1,4 +1,4 @@
-# original architecture with rms norm at query and key
+# original architecture with rms norm at query and value
 import torch
 import torch.nn.functional as F
 
@@ -39,13 +39,13 @@ class QKNorm(torch.nn.Module):
     def __init__(self, dim: int):
         super().__init__()
         self.query_norm = RMSNorm(dim)
-        self.key_norm = RMSNorm(dim)
+        self.value_norm = RMSNorm(dim)
 
     def forward(self, q: Tensor, k: Tensor, v: Tensor) -> tuple[Tensor, Tensor]:
         q = self.query_norm(q)
-        k = self.key_norm(k)
+        v = self.value_norm(v)
         # print(f"q: {q.shape}, k: {k.shape}")
-        return q.to(v), k.to(v)
+        return q.to(k), v.to(k)
 
 # PATCH EMBEDDING
 class PatchEmbedding(nn.Module):
@@ -111,7 +111,7 @@ class MultiHeadAttention(nn.Module):
         qkv = rearrange(self.qkv(x), "b n (h d qkv) -> (qkv) b h n d", h = self.num_heads, qkv = 3)
 
         queries, keys, values = qkv[0], qkv[1], qkv[2]
-        queries, keys = self.norm(queries, keys, values)
+        queries, values = self.norm(queries, keys, values)
         # print(keys.shape) 
 
         energy = torch.einsum('bhqd, bhkd -> bhqk', queries, keys)

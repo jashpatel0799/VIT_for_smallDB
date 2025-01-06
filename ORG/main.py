@@ -9,7 +9,7 @@ import wandb
 from torchmetrics.classification import MulticlassAccuracy
 from torchsummary import summary
 
-import data, engine, model, utils, model_2
+import data, engine, model, utils, model_2, model_3, model_4
 
 
 # def parse_args():
@@ -40,7 +40,7 @@ def main(args):
    print(f"Experiment Name: {args['exp_name']}")
    print(f"Experiment Model Number: {args['model_num']}")
    print(f"Optimizer used: {args['optimizer_name']}")
-   print(f"1. base vit architecture \n2. base vit architecture with RMS norm")
+   print(f"1. base vit architecture \n2. base vit architecture with RMS norm at query and key \n3. for base vit architecture with RMS norm at query and value \n4. for base vit architecture with RMS norm at query, key and value")
    print(f"Experiment Details: {args['details']}")
    print("\n")
    print(f"Dataset Name: {args['dataset_name']}")
@@ -100,8 +100,19 @@ def main(args):
       vit_model = model.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
                            embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
                            depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
-   else:
+      
+   elif MODEL_NUM == 2:
       vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                           embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                           depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 3:
+      vit_model = model_3.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                           embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                           depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   else:
+      vit_model = model_4.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
                               embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
                               depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
 
