@@ -16,6 +16,7 @@ def main(args):
    print("\n")
    print(f"Experiment Name: {args['exp_name']}")
    print(f"Experiment Model Number: {args['model_num']}")
+   print(f"Optimizer used: {args['optimizer_name']}")
    print(f"1. model with only one resudial block (multi head and FF in one resudial) \n2. model with only one resudial at mutli head and \n3. model with only one resudial at mutli head with rms norm")
    print(f"Experiment Details: {args['details']}")
    print("\n")
