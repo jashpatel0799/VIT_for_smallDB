@@ -9,7 +9,7 @@ import wandb
 from torchmetrics.classification import MulticlassAccuracy
 from torchsummary import summary
 
-import data, engine, model_1, model_2, model_3, model_4, model_5, model_6, utils
+import data, engine, model_1, model_2, model_3, model_4, model_5, model_6, model_7, model_8, model_9, utils
 
 
 def main(args):
@@ -17,7 +17,7 @@ def main(args):
    print(f"Experiment Name: {args['exp_name']}")
    print(f"Experiment Model Number: {args['model_num']}")
    print(f"Optimizer used: {args['optimizer_name']}")
-   print(f"1. model with only one resudial block (multi head and FF in one resudial) \n2. model with only one resudial at mutli head and \n3. model with only one resudial at mutli head with rms norm")
+   print(f"1. model with only one resudial block (multi head and FF in one resudial) \n2. model with only one resudial at mutli head \n3. model with only one resudial at mutli head with rms norm \n4. for model with only one resudial at mutli head with rms norm on kv and then mul with q \n5. for model with only one resudial at mutli head with rms norm on qv and then mul with key \n6. for model with only one resudial at mutli head with rms norm on qkv \n7. for model with only one resudial block (multi head and FF in one resudial) and rms norm at query and key \n8. for model with only one resudial block (multi head and FF in one resudial) and rms norm at query and value \n9. for model with only one resudial block (multi head and FF in one resudial) and rms norm at query,key and value")
    print(f"Experiment Details: {args['details']}")
    print("\n")
    print(f"Dataset Name: {args['dataset_name']}")
@@ -98,6 +98,21 @@ def main(args):
       vit_model = model_6.QKVNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
                                       embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
                                       depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 7: #single residual at mta and ff with qk norm
+      vit_model = model_7.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 8: #single residual at mta and ff with qv norm
+      vit_model = model_8.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 9: #single residual at mta and ff with qkv norm
+      vit_model = model_9.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
       
    else:
       print("wrong choise.")

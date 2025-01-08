@@ -473,3 +473,32 @@ Train Loss: 0.04688  Test Loss: 1.83081  ||  Train Accuray: 0.98425  Test Accura
 Epoch: 97
 Train Loss: 0.05171  Test Loss: 1.80498  ||  Train Accuray: 0.98215  Test Accuray: 0.70469
  97%|█████████▋| 97/100 [12:10:07<22:29, 449.86s/it]
+Epoch: 98
+Train Loss: 0.05049  Test Loss: 1.89455  ||  Train Accuray: 0.98235  Test Accuray: 0.69189
+ 98%|█████████▊| 98/100 [12:17:38<15:00, 450.12s/it]
+Epoch: 99
+Train Loss: 0.04444  Test Loss: 1.87858  ||  Train Accuray: 0.98420  Test Accuray: 0.71043
+ 99%|█████████▉| 99/100 [12:25:08<07:30, 450.01s/it]
+Epoch: 100
+Train Loss: 0.05229  Test Loss: 1.85283  ||  Train Accuray: 0.98125  Test Accuray: 0.69902
+100%|██████████| 100/100 [12:32:37<00:00, 449.85s/it]100%|██████████| 100/100 [12:32:37<00:00, 451.58s/it]
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:     Test Accuracy ▁▄▅▆▆▇▇▇▇▇██▇▇██████████████████████████
+wandb:         Test Loss █▇▅▄▄▂▂▂▁▁▁▁▁▁▂▃▃▃▃▃▄▄▅▅▅▆█▆▇▆▇▇█▇█▇█▇▇█
+wandb: Training Accuracy ▁▂▃▃▄▅▆▆▆▆▇▇▇▇▇█████████████████████████
+wandb:     Training Loss ██▇▇▆▆▅▅▅▄▄▄▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:     Test Accuracy 0.69902
+wandb:         Test Loss 1.85283
+wandb: Training Accuracy 0.98125
+wandb:     Training Loss 0.05229
+wandb: 
+wandb: 🚀 View run org_architecture_cifar10_Lr_3e-4_EMB_768_patch_16_depth_12 at: https://wandb.ai/maa_64/vit-small-data/runs/0csjbcoa
+wandb: ⭐️ View project at: https://wandb.ai/maa_64/vit-small-data
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20250106_101718-0csjbcoa/logs
+
+Saving Model At: save_model/vit_model_org_architecture_cifar10_0.0003_64.pth

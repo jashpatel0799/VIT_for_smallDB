@@ -1,11 +1,11 @@
 exp_name: "custom_architecture"
-model_num: 2 # 1 for model with only one resudial block (multi head and FF in one resudial), 2 for model with only one resudial at mutli head, 3 for model with only one resudial at mutli head with rms norm on qk, 4 for model with only one resudial at mutli head with rms norm on kv and then mul with q, 5 for model with only one resudial at mutli head with rms norm on qv and then mul with key and 6 for model with only one resudial at mutli head with rms norm on qkv 
+model_num: 9 # 1 for model with only one resudial block (multi head and FF in one resudial), 2 for model with only one resudial at mutli head, 3 for model with only one resudial at mutli head with rms norm on qk, 4 for model with only one resudial at mutli head with rms norm on kv and then mul with q, 5 for model with only one resudial at mutli head with rms norm on qv and then mul with key, 6 for model with only one resudial at mutli head with rms norm on qkv, 7 for model with only one resudial block (multi head and FF in one resudial) and rms norm at query and key, 8 for model with only one resudial block (multi head and FF in one resudial) and rms norm at query and value and 9 for model with only one resudial block (multi head and FF in one resudial) and rms norm at query,key and value
 optimizer_name: "adam" # sgd ot adam
-details: "model with only one resudial at mutli head with rms norm on qkv"
+details: "model with only one resudial block (multi head and FF in one resudial) and rms norm at query, key and value"
 dataset_name: "cifar10"
 seed: 64
 batch_size: 64
-num_epoch: 100
+num_epoch: 50
 learning_rate: 3e-4
 input_channel: 3
 patch_size: 16
