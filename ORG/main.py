@@ -9,7 +9,7 @@ import wandb
 from torchmetrics.classification import MulticlassAccuracy
 from torchsummary import summary
 
-import data, engine, model, utils
+import data, engine, model, utils, model_2, model_3, model_4
 
 
 # def parse_args():
@@ -38,6 +38,9 @@ import data, engine, model, utils
 def main(args):
    print("\n")
    print(f"Experiment Name: {args['exp_name']}")
+   print(f"Experiment Model Number: {args['model_num']}")
+   print(f"Optimizer used: {args['optimizer_name']}")
+   print(f"1. base vit architecture \n2. base vit architecture with RMS norm at query and key \n3. for base vit architecture with RMS norm at query and value \n4. for base vit architecture with RMS norm at query, key and value")
    print(f"Experiment Details: {args['details']}")
    print("\n")
    print(f"Dataset Name: {args['dataset_name']}")
@@ -58,6 +61,8 @@ def main(args):
    
    # HYPERPARAMETERS
    EXP_NAME = args['exp_name']
+   MODEL_NUM = args["model_num"]
+   OPTIMIZER = args['optimizer_name']
    DATASET = args['dataset_name']
    EXP = EXP_NAME + "_" + DATASET
    SEED = args['seed']
@@ -72,24 +77,44 @@ def main(args):
    NUM_CLASS = args['num_class']
    # CUDA_LAUNCH_BLOCKING=1
 
-   DEVICE = 'cpu' # torch.device("cuda" if torch.cuda.is_available() else 'cpu')
+   DEVICE = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
    # print(device)
    # summary
    if DEVICE != 'cpu':
       print("\n",summary(model.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
    
    
-   train_dataloader, test_dataloader = data.prepare_dataloader(args)
+   
    print("\n")
-   print(f"EXP {EXP_NAME}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE}")
+   print(f"EXP {EXP_NAME}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE} with model architecture number {MODEL_NUM}.")
    print("\n\n")
    random.seed(SEED)
    np.random.seed(SEED)
    torch.manual_seed(SEED)
    torch.cuda.manual_seed(SEED)
-   vit_model = model.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
-                        embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
-                        depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   # get dataloader
+   train_dataloader, test_dataloader = data.prepare_dataloader(args)
+   
+   # prepare model
+   if MODEL_NUM == 1:
+      vit_model = model.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                           embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                           depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 2:
+      vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                           embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                           depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 3:
+      vit_model = model_3.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                           embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                           depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   else:
+      vit_model = model_4.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
 
    # torch_vit = vit_b_16().to(device)
 
@@ -97,7 +122,10 @@ def main(args):
 
    loss_fn = torch.nn.CrossEntropyLoss()
    accuracy_fn = MulticlassAccuracy(num_classes = NUM_CLASS).to(DEVICE)
-   optimizer = torch.optim.SGD(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0.03)
+   if OPTIMIZER == "sgd":
+      optimizer = torch.optim.SGD(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0.03)
+   else:
+      optimizer =  torch.optim.Adam(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0)
    # scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor = 0.1, end_factor = 0.07,
    #                                               total_iters = NUM_EPOCH - 10)
 

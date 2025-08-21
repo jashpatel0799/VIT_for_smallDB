@@ -11,7 +11,7 @@ from einops.layers.torch import Rearrange, Reduce
 image = torch.rand(3, 224, 224)
 image = image.unsqueeze(dim = 0)
 
-device = 'cpu' # torch.device("cuda" if torch.cuda.is_available() else 'cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
 
 # print(image.shape)
 

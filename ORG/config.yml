@@ -1,15 +1,17 @@
 exp_name: "org_architecture"
-details:  "base vit architecture" # "base vit architecture but Residual at only Multi head attention"
-dataset_name: "imagenet100"
+model_num: 4 # 1 for base vit architecture, 2 for base vit architecture with RMS norm at query and key, 3 for base vit architecture with RMS norm at query and value and 4 for base vit architecture with RMS norm at query, key and value
+optimizer_name: "adam" # sgd ot adam
+details: "base vit architecture with RSM norm at query, key and value" # "base vit architecture" # "base vit architecture with RMS norm"
+dataset_name: "cifar10"
 seed: 64
 batch_size: 64
-num_epoch: 100
+num_epoch: 50
 learning_rate: 3e-4
 input_channel: 3
 patch_size: 16
 # embedding_size: 768
 input_image_size: 224
 vit_depth: 12
-num_class: 100
+num_class: 10
 wandb_project: "vit-small-data"
 output_dir: "results"

@@ -5,3 +5,7 @@ matplotlib
 torch-summary
 torchmetrics
 tqdm
+wandb
+torchmetrics
+torch-summary
+einops

@@ -9,12 +9,15 @@ import wandb
 from torchmetrics.classification import MulticlassAccuracy
 from torchsummary import summary
 
-import data, engine, model_2, utils
+import data, engine, model_1, model_2, model_3, model_4, model_5, model_6, model_7, model_8, model_9, utils
 
 
 def main(args):
    print("\n")
    print(f"Experiment Name: {args['exp_name']}")
+   print(f"Experiment Model Number: {args['model_num']}")
+   print(f"Optimizer used: {args['optimizer_name']}")
+   print(f"1. model with only one resudial block (multi head and FF in one resudial) \n2. model with only one resudial at mutli head \n3. model with only one resudial at mutli head with rms norm \n4. for model with only one resudial at mutli head with rms norm on kv and then mul with q \n5. for model with only one resudial at mutli head with rms norm on qv and then mul with key \n6. for model with only one resudial at mutli head with rms norm on qkv \n7. for model with only one resudial block (multi head and FF in one resudial) and rms norm at query and key \n8. for model with only one resudial block (multi head and FF in one resudial) and rms norm at query and value \n9. for model with only one resudial block (multi head and FF in one resudial) and rms norm at query,key and value")
    print(f"Experiment Details: {args['details']}")
    print("\n")
    print(f"Dataset Name: {args['dataset_name']}")
@@ -35,6 +38,8 @@ def main(args):
    
    # HYPERPARAMETERS
    EXP_NAME = args['exp_name']
+   MODEL_NUM = args['model_num']
+   OPTIMIZER = args['optimizer_name']
    DATASET = args['dataset_name']
    EXP = EXP_NAME + "_" + DATASET
    SEED = args['seed']
@@ -52,20 +57,65 @@ def main(args):
    DEVICE = torch.device("cuda" if torch.cuda.is_available() else 'cpu')
    # print(device)
    # summary
-   print("\n",summary(model_2.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
+   print("\n",summary(model_1.ViT(INCHANNELS, PATCH_SIZE, EMBEDDING_SIZE, IMG_SIZE, DEPTH, NUM_CLASS), (INCHANNELS, IMG_SIZE, IMG_SIZE), device = DEVICE),"\n")
    
-   train_dataloader, test_dataloader = data.prepare_dataloader(args)
    print("\n")
-   print(f"EXP {EXP}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE} and Batch size {BATCH_SIZE}")
+   print(f"EXP {EXP}: Original VIT on {DATASET} with depth {DEPTH} and LEARNIGN_RATE {LEARNIGN_RATE} and Batch size {BATCH_SIZE} with model architecture number {MODEL_NUM}.")
    print("resudial on outer encoder block but not at inner block")
    print("\n\n")
    random.seed(SEED)
    np.random.seed(SEED)
    torch.manual_seed(SEED)
    torch.cuda.manual_seed(SEED)
-   vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
-                        embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
-                        depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   # get dataloader
+   train_dataloader, test_dataloader = data.prepare_dataloader(args)
+   
+   # prepare model
+   if MODEL_NUM == 1:
+      vit_model = model_1.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   elif MODEL_NUM == 2:
+      vit_model = model_2.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+   elif MODEL_NUM == 3:
+      vit_model = model_3.QKNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                     embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                     depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 4:
+      vit_model = model_4.KVNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                     embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                     depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 5:
+      vit_model = model_5.QVNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                     embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                     depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 6:
+      vit_model = model_6.QKVNorm_ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                                      embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                                      depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 7: #single residual at mta and ff with qk norm
+      vit_model = model_7.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 8: #single residual at mta and ff with qv norm
+      vit_model = model_8.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   elif MODEL_NUM == 9: #single residual at mta and ff with qkv norm
+      vit_model = model_9.ViT(in_channels = INCHANNELS, patch_size = PATCH_SIZE,
+                              embedding_size = EMBEDDING_SIZE, img_size = IMG_SIZE,
+                              depth = DEPTH, n_classes = NUM_CLASS).to(DEVICE)
+      
+   else:
+      print("wrong choise.")
 
    # torch_vit = vit_b_16().to(device)
 
@@ -73,7 +123,10 @@ def main(args):
 
    loss_fn = torch.nn.CrossEntropyLoss()
    accuracy_fn = MulticlassAccuracy(num_classes = NUM_CLASS).to(DEVICE)
-   optimizer = torch.optim.SGD(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0.03)
+   if OPTIMIZER == "sgd":
+      optimizer = torch.optim.SGD(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0.03)
+   else:
+      optimizer =  torch.optim.Adam(vit_model.parameters(), lr = LEARNIGN_RATE, weight_decay=0)
    # scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor = 0.1, end_factor = 0.07,
    #                                               total_iters = NUM_EPOCH - 10)
 
